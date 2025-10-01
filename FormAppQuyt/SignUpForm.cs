@@ -55,7 +55,6 @@ namespace FormAppQuyt
             string phone = PhoneBox.Text;
             string password = PasswordBox.Text;
             string confirmPassword = ConfirmPassword.Text;
-            string hashedPassword = CryptoHelper.ComputeSha256Hash(password);
             if (string.IsNullOrWhiteSpace(email))
             {
                 MessageBox.Show("Vui lòng nhập email");
@@ -97,6 +96,7 @@ namespace FormAppQuyt
                 MessageBox.Show("Mật khẩu xác nhận không khớp.");
                 return;
             }
+            string hashedPassword = CryptoHelper.ComputeSha256Hash(password);
             if (!CheckAgreeTerms.Checked)
             {
                 MessageBox.Show("Vui lòng đồng ý điều khoản sử dụng.");
@@ -108,11 +108,6 @@ namespace FormAppQuyt
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(phone))
-                    {
-                        MessageBox.Show("Vui lòng nhập đầy đủ Email và Số điện thoại.");
-                        return;
-                    }
                     string checkUserQuery = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
                     using (SqlCommand cmd = new SqlCommand(checkUserQuery, connection))
                     {
@@ -162,7 +157,7 @@ namespace FormAppQuyt
                 MessageBox.Show("Đăng ký thành công,vui lòng đăng nhập");
                 LogInForm loginForm = new LogInForm();
                 loginForm.Show();
-                this.Hide();
+                this.Close();
             }
             catch (Exception ex)
             {
