@@ -68,15 +68,18 @@ namespace FormAppQuyt
         private void LogInButton_Click(object sender, EventArgs e)
         {
             
-            string EmailOrPhone = EmailBox.Text;
+            string EmailOrPhoneOrUsrname = EmailBox.Text;
             string Password = PasswordBox.Text;
             string hashedPassword = CryptoHelper.ComputeSha256Hash(Password);
-            if (EmailOrPhone == "" || Password == "")
+            if (EmailOrPhoneOrUsrname == "" || Password == "")
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
                 return;
             }
-            string Query = "SELECT COUNT(*) FROM Users WHERE (Email='" + EmailOrPhone + "' OR Username='" + EmailOrPhone + "' OR Phone='" + EmailOrPhone + "') AND Password='" + hashedPassword + "'";
+
+
+
+            string Query = "SELECT COUNT(*) FROM Users WHERE (Email='" + EmailOrPhoneOrUsrname + "' OR Username='" + EmailOrPhoneOrUsrname + "' OR Phone='" + EmailOrPhoneOrUsrname + "') AND Password='" + hashedPassword + "'";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -88,6 +91,9 @@ namespace FormAppQuyt
                         if (count > 0)
                         {
                             MessageBox.Show("Đăng nhập thành công");
+                            Main mainForm = new Main(EmailOrPhoneOrUsrname);
+                            mainForm.Show();
+                            this.Hide();
                         }
                         else
                         {
@@ -102,6 +108,6 @@ namespace FormAppQuyt
             }
         }
 
-       
+
     }
 }

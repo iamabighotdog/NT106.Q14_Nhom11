@@ -1,4 +1,5 @@
-﻿namespace FormAppQuyt
+﻿
+namespace FormAppQuyt
 {
     partial class Main
     {
@@ -54,7 +55,6 @@
             this.GradientPanel.Name = "GradientPanel";
             this.GradientPanel.Size = new System.Drawing.Size(1024, 720);
             this.GradientPanel.TabIndex = 0;
-            this.GradientPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.GradientPanel_Paint);
             // 
             // Close
             // 
@@ -177,6 +177,7 @@
             this.Panel.ResumeLayout(false);
             this.Panel.PerformLayout();
             this.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.Main_Load);
 
         }
 
