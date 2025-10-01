@@ -16,5 +16,10 @@ namespace FormAppQuyt
         {
             InitializeComponent();
         }
+
+        private void GradientPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
