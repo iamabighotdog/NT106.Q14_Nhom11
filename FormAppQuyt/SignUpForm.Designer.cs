@@ -31,17 +31,17 @@
             this.GradientBackGround2 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.SignUpPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.PhoneBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.EmailBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.CheckAgreeTerms = new Guna.UI2.WinForms.Guna2CheckBox();
             this.ToLogIn = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.SignUpButton = new Guna.UI2.WinForms.Guna2Button();
             this.ConfirmPassword = new Guna.UI2.WinForms.Guna2TextBox();
             this.PasswordBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.UsernameBox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.EmailBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.SignUpLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.Logo = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.CheckAgreeTerms = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.PhoneBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.GradientBackGround2.SuspendLayout();
             this.SignUpPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -93,6 +93,80 @@
             this.SignUpPanel.ShadowDecoration.Enabled = true;
             this.SignUpPanel.Size = new System.Drawing.Size(400, 600);
             this.SignUpPanel.TabIndex = 0;
+            // 
+            // PhoneBox
+            // 
+            this.PhoneBox.BorderThickness = 3;
+            this.PhoneBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.PhoneBox.DefaultText = "";
+            this.PhoneBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.PhoneBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.PhoneBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.PhoneBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.PhoneBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.PhoneBox.FocusedState.BorderColor = System.Drawing.Color.Green;
+            this.PhoneBox.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.PhoneBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.PhoneBox.ForeColor = System.Drawing.Color.Gray;
+            this.PhoneBox.HoverState.BorderColor = System.Drawing.Color.Green;
+            this.PhoneBox.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.PhoneBox.Location = new System.Drawing.Point(25, 207);
+            this.PhoneBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PhoneBox.Name = "PhoneBox";
+            this.PhoneBox.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.PhoneBox.PlaceholderText = "Số điện thoại";
+            this.PhoneBox.SelectedText = "";
+            this.PhoneBox.Size = new System.Drawing.Size(350, 35);
+            this.PhoneBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
+            this.PhoneBox.TabIndex = 10;
+            // 
+            // EmailBox
+            // 
+            this.EmailBox.BorderThickness = 3;
+            this.EmailBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.EmailBox.DefaultText = "";
+            this.EmailBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.EmailBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.EmailBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.EmailBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.EmailBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.EmailBox.FocusedState.BorderColor = System.Drawing.Color.Green;
+            this.EmailBox.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.EmailBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.EmailBox.ForeColor = System.Drawing.Color.Gray;
+            this.EmailBox.HoverState.BorderColor = System.Drawing.Color.Green;
+            this.EmailBox.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.EmailBox.Location = new System.Drawing.Point(25, 255);
+            this.EmailBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EmailBox.Name = "EmailBox";
+            this.EmailBox.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.EmailBox.PlaceholderText = "Email";
+            this.EmailBox.SelectedText = "";
+            this.EmailBox.Size = new System.Drawing.Size(350, 35);
+            this.EmailBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
+            this.EmailBox.TabIndex = 2;
+            // 
+            // CheckAgreeTerms
+            // 
+            this.CheckAgreeTerms.AutoSize = true;
+            this.CheckAgreeTerms.BackColor = System.Drawing.SystemColors.Info;
+            this.CheckAgreeTerms.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CheckAgreeTerms.CheckedState.BorderRadius = 0;
+            this.CheckAgreeTerms.CheckedState.BorderThickness = 0;
+            this.CheckAgreeTerms.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CheckAgreeTerms.CheckMarkColor = System.Drawing.Color.Transparent;
+            this.CheckAgreeTerms.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckAgreeTerms.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.CheckAgreeTerms.Location = new System.Drawing.Point(25, 479);
+            this.CheckAgreeTerms.Name = "CheckAgreeTerms";
+            this.CheckAgreeTerms.Size = new System.Drawing.Size(158, 17);
+            this.CheckAgreeTerms.TabIndex = 9;
+            this.CheckAgreeTerms.Text = "I agree to the Terms of Use";
+            this.CheckAgreeTerms.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CheckAgreeTerms.UncheckedState.BorderRadius = 0;
+            this.CheckAgreeTerms.UncheckedState.BorderThickness = 0;
+            this.CheckAgreeTerms.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CheckAgreeTerms.UseVisualStyleBackColor = false;
             // 
             // ToLogIn
             // 
@@ -215,38 +289,12 @@
             this.UsernameBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             this.UsernameBox.TabIndex = 3;
             // 
-            // EmailBox
-            // 
-            this.EmailBox.BorderThickness = 3;
-            this.EmailBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.EmailBox.DefaultText = "";
-            this.EmailBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.EmailBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.EmailBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.EmailBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.EmailBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.EmailBox.FocusedState.BorderColor = System.Drawing.Color.Green;
-            this.EmailBox.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.EmailBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.EmailBox.ForeColor = System.Drawing.Color.Gray;
-            this.EmailBox.HoverState.BorderColor = System.Drawing.Color.Green;
-            this.EmailBox.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.EmailBox.Location = new System.Drawing.Point(25, 255);
-            this.EmailBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.EmailBox.Name = "EmailBox";
-            this.EmailBox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.EmailBox.PlaceholderText = "Email";
-            this.EmailBox.SelectedText = "";
-            this.EmailBox.Size = new System.Drawing.Size(350, 35);
-            this.EmailBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
-            this.EmailBox.TabIndex = 2;
-            // 
             // SignUpLabel
             // 
             this.SignUpLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.SignUpLabel.BackColor = System.Drawing.Color.Transparent;
             this.SignUpLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpLabel.Location = new System.Drawing.Point(61, 152);
+            this.SignUpLabel.Location = new System.Drawing.Point(86, 152);
             this.SignUpLabel.Name = "SignUpLabel";
             this.SignUpLabel.Size = new System.Drawing.Size(291, 39);
             this.SignUpLabel.TabIndex = 1;
@@ -264,54 +312,6 @@
             this.Logo.TabIndex = 0;
             this.Logo.TabStop = false;
             this.Logo.UseTransparentBackground = true;
-            // 
-            // CheckAgreeTerms
-            // 
-            this.CheckAgreeTerms.AutoSize = true;
-            this.CheckAgreeTerms.BackColor = System.Drawing.SystemColors.Info;
-            this.CheckAgreeTerms.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.CheckAgreeTerms.CheckedState.BorderRadius = 0;
-            this.CheckAgreeTerms.CheckedState.BorderThickness = 0;
-            this.CheckAgreeTerms.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.CheckAgreeTerms.CheckMarkColor = System.Drawing.Color.Transparent;
-            this.CheckAgreeTerms.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckAgreeTerms.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.CheckAgreeTerms.Location = new System.Drawing.Point(25, 479);
-            this.CheckAgreeTerms.Name = "CheckAgreeTerms";
-            this.CheckAgreeTerms.Size = new System.Drawing.Size(158, 17);
-            this.CheckAgreeTerms.TabIndex = 9;
-            this.CheckAgreeTerms.Text = "I agree to the Terms of Use";
-            this.CheckAgreeTerms.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.CheckAgreeTerms.UncheckedState.BorderRadius = 0;
-            this.CheckAgreeTerms.UncheckedState.BorderThickness = 0;
-            this.CheckAgreeTerms.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.CheckAgreeTerms.UseVisualStyleBackColor = false;
-            // 
-            // PhoneBox
-            // 
-            this.PhoneBox.BorderThickness = 3;
-            this.PhoneBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.PhoneBox.DefaultText = "";
-            this.PhoneBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.PhoneBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.PhoneBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.PhoneBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.PhoneBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.PhoneBox.FocusedState.BorderColor = System.Drawing.Color.Green;
-            this.PhoneBox.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.PhoneBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.PhoneBox.ForeColor = System.Drawing.Color.Gray;
-            this.PhoneBox.HoverState.BorderColor = System.Drawing.Color.Green;
-            this.PhoneBox.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.PhoneBox.Location = new System.Drawing.Point(25, 207);
-            this.PhoneBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.PhoneBox.Name = "PhoneBox";
-            this.PhoneBox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.PhoneBox.PlaceholderText = "Số điện thoại";
-            this.PhoneBox.SelectedText = "";
-            this.PhoneBox.Size = new System.Drawing.Size(350, 35);
-            this.PhoneBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
-            this.PhoneBox.TabIndex = 10;
             // 
             // SignUpForm
             // 

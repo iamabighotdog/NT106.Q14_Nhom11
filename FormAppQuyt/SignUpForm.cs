@@ -162,7 +162,7 @@ namespace FormAppQuyt
                 MessageBox.Show("Đăng ký thành công,vui lòng đăng nhập");
                 LogInForm loginForm = new LogInForm();
                 loginForm.Show();
-                this.Hide();
+                this.Close();
             }
             catch (Exception ex)
             {
