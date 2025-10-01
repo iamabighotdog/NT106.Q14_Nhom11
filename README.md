@@ -1,23 +1,23 @@
-# Bài t?p 2.2 – ?ng d?ng Quiz Qu?n lý Ng??i dùng
+# Bai tap 2.2 â€“ Ung dung Quiz Quan ly Nguoi dung
 
-## Thông tin nhóm
-- 24520397 – Tr?n Anh Duy  
-- 24520462 – Tr?n Anh Hào  
-- 24520463 – Nguyê?n Ph??ng Phu?c Hâ?u  
-- 24520388 – Nguyê?n Nhâ?t Duy  
-
----
-
-## Mô t? bài t?p
-?ng d?ng **Quiz** qu?n lý ng??i dùng v?i các tính n?ng:  
-- ??ng ký ng??i dùng m?i.  
-- ??ng nh?p b?ng tài kho?n ?ã có.  
-- M?t kh?u ???c mã hóa b?ng **SHA-256** tr??c khi l?u vào c? s? d? li?u.  
-- Sau khi ??ng nh?p thành công, màn hình chính s? hi?n th? thông tin chi ti?t c?a ng??i dùng.  
+## Thong tin nhom
+- 24520397 â€“ Tran Anh Duy  
+- 24520462 â€“ Tran Anh Hao  
+- 24520463 â€“ Nguyen Phuong Phuc Hau  
+- 24520388 â€“ Nguyen Nhat Duy  
 
 ---
 
-## H??ng d?n cài ??t
+## Mo ta bai tap
+Ung dung **Quiz** quan ly nguoi dung voi cac tinh nang:  
+- Dang ky nguoi dung moi.  
+- Dang nhap bang tai khoan da co.  
+- Mat khau duoc ma hoa bang **SHA-256** truoc khi luu vao co so du lieu.  
+- Sau khi dang nhap thanh cong, man hinh chinh se hien thi thong tin chi tiet cua nguoi dung.  
+
+---
+
+## Huong dan cai dat
 
 ### 1. Clone repository
 ```bash
@@ -26,19 +26,27 @@ cd NT106.Q14_Nhom11
 git checkout BT2.2-NHOM11
 ```
 
-### 2. Kh?i t?o database
-M? SQL Server Management Studio ? Connect t?i SQL Server
-File ? Open ? File… ch?n SQLQuery.sql (? root repo).
-Nh?n Execute.
-Sau khi ch?y, s? có DB UserManagement và b?ng Users.
+### 2. Khoi tao database
+Mo SQL Server Management Studio â†’ Connect toi SQL Server
+File â†’ Open â†’ Fileâ€¦ chon SQLQuery.sql (o root repo).
+Nhan Execute.
+Sau khi chay, se co DB UserManagement va bang Users.
 
-### 3. M? & ch?y ?ng d?ng
-M? solution .sln b?ng Visual Studio 2022.
-Chu?t ph?i project WinForms ? Set as Startup Project.
-Nh?n F5 ?? ch?y.
+### 3. Mo va chay ung dung
+Mo solution .sln bang Visual Studio 2022.
+Chuot phai project WinForms â†’ Set as Startup Project.
+Nhan F5 de chay.
 
 ---
 
-## H??ng d?n s? d?ng
-- N?u b?n ch?a có tài kho?n thì ??ng kí tài kho?n.
-- N?u ?ã có thì th?c hi?n ??ng nh?p vào ?ng d?ng.
+## Huong dan su dung
+- Neu ban chua co tai khoan thi dang ky tai khoan.
+- Neu da co thi thuc hien dang nhap vao ung dung.
+
+---
+
+## Giao dien ung dung
+Dang nhap:
+![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/BT2.2-NHOM11/img/dangnhap.png)
+Dang ky:
+![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/BT2.2-NHOM11/img/dangky.png)
