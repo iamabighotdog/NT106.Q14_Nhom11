@@ -31,15 +31,17 @@
             this.GradientBackGround2 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.SignUpPanel = new Guna.UI2.WinForms.Guna2Panel();
-            this.LogInLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.ToLogIn = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.RewritePasswordBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.SignUpButton = new Guna.UI2.WinForms.Guna2Button();
+            this.ConfirmPassword = new Guna.UI2.WinForms.Guna2TextBox();
             this.PasswordBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.UsernameBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.EmailBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.SignUpLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.Logo = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.CheckAgreeTerms = new Guna.UI2.WinForms.Guna2CheckBox();
+            this.PhoneBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.GradientBackGround2.SuspendLayout();
             this.SignUpPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -47,6 +49,7 @@
             // 
             // GradientBackGround2
             // 
+            this.GradientBackGround2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.GradientBackGround2.Controls.Add(this.guna2ControlBox1);
             this.GradientBackGround2.Controls.Add(this.SignUpPanel);
             this.GradientBackGround2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -72,13 +75,15 @@
             // 
             // SignUpPanel
             // 
-            this.SignUpPanel.Controls.Add(this.LogInLabel);
+            this.SignUpPanel.Controls.Add(this.PhoneBox);
+            this.SignUpPanel.Controls.Add(this.EmailBox);
+            this.SignUpPanel.Controls.Add(this.CheckAgreeTerms);
+            this.SignUpPanel.Controls.Add(this.ToLogIn);
             this.SignUpPanel.Controls.Add(this.guna2HtmlLabel1);
-            this.SignUpPanel.Controls.Add(this.guna2Button1);
-            this.SignUpPanel.Controls.Add(this.RewritePasswordBox);
+            this.SignUpPanel.Controls.Add(this.SignUpButton);
+            this.SignUpPanel.Controls.Add(this.ConfirmPassword);
             this.SignUpPanel.Controls.Add(this.PasswordBox);
             this.SignUpPanel.Controls.Add(this.UsernameBox);
-            this.SignUpPanel.Controls.Add(this.EmailBox);
             this.SignUpPanel.Controls.Add(this.SignUpLabel);
             this.SignUpPanel.Controls.Add(this.Logo);
             this.SignUpPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -89,68 +94,74 @@
             this.SignUpPanel.Size = new System.Drawing.Size(400, 600);
             this.SignUpPanel.TabIndex = 0;
             // 
-            // LogInLabel
+            // ToLogIn
             // 
-            this.LogInLabel.BackColor = System.Drawing.Color.Transparent;
-            this.LogInLabel.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogInLabel.Location = new System.Drawing.Point(215, 574);
-            this.LogInLabel.Name = "LogInLabel";
-            this.LogInLabel.Size = new System.Drawing.Size(117, 23);
-            this.LogInLabel.TabIndex = 8;
-            this.LogInLabel.Text = "Đăng nhập ngay";
-            this.LogInLabel.MouseEnter += new System.EventHandler(this.LogInLabel_MouseEnter);
-            this.LogInLabel.MouseLeave += new System.EventHandler(this.LogInLabel_MouseLeave);
+            this.ToLogIn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ToLogIn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.ToLogIn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.ToLogIn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.ToLogIn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.ToLogIn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ToLogIn.Font = new System.Drawing.Font("Segoe UI", 10.01739F);
+            this.ToLogIn.ForeColor = System.Drawing.Color.Black;
+            this.ToLogIn.Location = new System.Drawing.Point(122, 572);
+            this.ToLogIn.Name = "ToLogIn";
+            this.ToLogIn.Size = new System.Drawing.Size(168, 28);
+            this.ToLogIn.TabIndex = 8;
+            this.ToLogIn.Text = "Đăng nhập ngay";
             // 
             // guna2HtmlLabel1
             // 
+            this.guna2HtmlLabel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(60, 574);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(122, 553);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(149, 23);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(168, 25);
             this.guna2HtmlLabel1.TabIndex = 7;
             this.guna2HtmlLabel1.Text = "Bạn đã có tài khoản ?";
             // 
-            // guna2Button1
+            // SignUpButton
             // 
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.Green;
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(110, 525);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(180, 45);
-            this.guna2Button1.TabIndex = 6;
-            this.guna2Button1.Text = "Đăng ký";
+            this.SignUpButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.SignUpButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.SignUpButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.SignUpButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.SignUpButton.FillColor = System.Drawing.Color.Green;
+            this.SignUpButton.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignUpButton.ForeColor = System.Drawing.Color.White;
+            this.SignUpButton.Location = new System.Drawing.Point(122, 502);
+            this.SignUpButton.Name = "SignUpButton";
+            this.SignUpButton.Size = new System.Drawing.Size(168, 45);
+            this.SignUpButton.TabIndex = 6;
+            this.SignUpButton.Text = "Đăng ký";
+            this.SignUpButton.Click += new System.EventHandler(this.SignUpButton_Click);
             // 
-            // RewritePasswordBox
+            // ConfirmPassword
             // 
-            this.RewritePasswordBox.BorderThickness = 3;
-            this.RewritePasswordBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.RewritePasswordBox.DefaultText = "";
-            this.RewritePasswordBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.RewritePasswordBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.RewritePasswordBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.RewritePasswordBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.RewritePasswordBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.RewritePasswordBox.FocusedState.BorderColor = System.Drawing.Color.Green;
-            this.RewritePasswordBox.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.RewritePasswordBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.RewritePasswordBox.ForeColor = System.Drawing.Color.Gray;
-            this.RewritePasswordBox.HoverState.BorderColor = System.Drawing.Color.Green;
-            this.RewritePasswordBox.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.RewritePasswordBox.Location = new System.Drawing.Point(25, 435);
-            this.RewritePasswordBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.RewritePasswordBox.Name = "RewritePasswordBox";
-            this.RewritePasswordBox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.RewritePasswordBox.PlaceholderText = "Nhập lại mật khẩu";
-            this.RewritePasswordBox.SelectedText = "";
-            this.RewritePasswordBox.Size = new System.Drawing.Size(350, 35);
-            this.RewritePasswordBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
-            this.RewritePasswordBox.TabIndex = 5;
+            this.ConfirmPassword.BorderThickness = 3;
+            this.ConfirmPassword.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ConfirmPassword.DefaultText = "";
+            this.ConfirmPassword.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.ConfirmPassword.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.ConfirmPassword.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.ConfirmPassword.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.ConfirmPassword.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ConfirmPassword.FocusedState.BorderColor = System.Drawing.Color.Green;
+            this.ConfirmPassword.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.ConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ConfirmPassword.ForeColor = System.Drawing.Color.Gray;
+            this.ConfirmPassword.HoverState.BorderColor = System.Drawing.Color.Green;
+            this.ConfirmPassword.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.ConfirmPassword.Location = new System.Drawing.Point(25, 435);
+            this.ConfirmPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ConfirmPassword.Name = "ConfirmPassword";
+            this.ConfirmPassword.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.ConfirmPassword.PlaceholderText = "Nhập lại mật khẩu";
+            this.ConfirmPassword.SelectedText = "";
+            this.ConfirmPassword.Size = new System.Drawing.Size(350, 35);
+            this.ConfirmPassword.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
+            this.ConfirmPassword.TabIndex = 5;
             // 
             // PasswordBox
             // 
@@ -224,7 +235,7 @@
             this.EmailBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.EmailBox.Name = "EmailBox";
             this.EmailBox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.EmailBox.PlaceholderText = "Email/Số điện thoại";
+            this.EmailBox.PlaceholderText = "Email";
             this.EmailBox.SelectedText = "";
             this.EmailBox.Size = new System.Drawing.Size(350, 35);
             this.EmailBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
@@ -232,11 +243,12 @@
             // 
             // SignUpLabel
             // 
+            this.SignUpLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.SignUpLabel.BackColor = System.Drawing.Color.Transparent;
             this.SignUpLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpLabel.Location = new System.Drawing.Point(60, 162);
+            this.SignUpLabel.Location = new System.Drawing.Point(61, 152);
             this.SignUpLabel.Name = "SignUpLabel";
-            this.SignUpLabel.Size = new System.Drawing.Size(283, 38);
+            this.SignUpLabel.Size = new System.Drawing.Size(291, 39);
             this.SignUpLabel.TabIndex = 1;
             this.SignUpLabel.Text = "Đăng ký tài khoản Quýt";
             // 
@@ -252,6 +264,54 @@
             this.Logo.TabIndex = 0;
             this.Logo.TabStop = false;
             this.Logo.UseTransparentBackground = true;
+            // 
+            // CheckAgreeTerms
+            // 
+            this.CheckAgreeTerms.AutoSize = true;
+            this.CheckAgreeTerms.BackColor = System.Drawing.SystemColors.Info;
+            this.CheckAgreeTerms.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CheckAgreeTerms.CheckedState.BorderRadius = 0;
+            this.CheckAgreeTerms.CheckedState.BorderThickness = 0;
+            this.CheckAgreeTerms.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CheckAgreeTerms.CheckMarkColor = System.Drawing.Color.Transparent;
+            this.CheckAgreeTerms.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckAgreeTerms.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.CheckAgreeTerms.Location = new System.Drawing.Point(25, 479);
+            this.CheckAgreeTerms.Name = "CheckAgreeTerms";
+            this.CheckAgreeTerms.Size = new System.Drawing.Size(158, 17);
+            this.CheckAgreeTerms.TabIndex = 9;
+            this.CheckAgreeTerms.Text = "I agree to the Terms of Use";
+            this.CheckAgreeTerms.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CheckAgreeTerms.UncheckedState.BorderRadius = 0;
+            this.CheckAgreeTerms.UncheckedState.BorderThickness = 0;
+            this.CheckAgreeTerms.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CheckAgreeTerms.UseVisualStyleBackColor = false;
+            // 
+            // PhoneBox
+            // 
+            this.PhoneBox.BorderThickness = 3;
+            this.PhoneBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.PhoneBox.DefaultText = "";
+            this.PhoneBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.PhoneBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.PhoneBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.PhoneBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.PhoneBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.PhoneBox.FocusedState.BorderColor = System.Drawing.Color.Green;
+            this.PhoneBox.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.PhoneBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.PhoneBox.ForeColor = System.Drawing.Color.Gray;
+            this.PhoneBox.HoverState.BorderColor = System.Drawing.Color.Green;
+            this.PhoneBox.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.PhoneBox.Location = new System.Drawing.Point(25, 207);
+            this.PhoneBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PhoneBox.Name = "PhoneBox";
+            this.PhoneBox.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.PhoneBox.PlaceholderText = "Số điện thoại";
+            this.PhoneBox.SelectedText = "";
+            this.PhoneBox.Size = new System.Drawing.Size(350, 35);
+            this.PhoneBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
+            this.PhoneBox.TabIndex = 10;
             // 
             // SignUpForm
             // 
@@ -278,11 +338,13 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel SignUpLabel;
         private Guna.UI2.WinForms.Guna2TextBox EmailBox;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
-        private Guna.UI2.WinForms.Guna2TextBox RewritePasswordBox;
+        private Guna.UI2.WinForms.Guna2TextBox ConfirmPassword;
         private Guna.UI2.WinForms.Guna2TextBox PasswordBox;
         private Guna.UI2.WinForms.Guna2TextBox UsernameBox;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel LogInLabel;
+        private Guna.UI2.WinForms.Guna2Button SignUpButton;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2Button ToLogIn;
+        private Guna.UI2.WinForms.Guna2CheckBox CheckAgreeTerms;
+        private Guna.UI2.WinForms.Guna2TextBox PhoneBox;
     }
 }

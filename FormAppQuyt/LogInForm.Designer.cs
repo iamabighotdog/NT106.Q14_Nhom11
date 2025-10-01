@@ -31,7 +31,7 @@
             Guna.UI2.WinForms.Guna2GradientPanel GradientBackground1;
             this.Close = new Guna.UI2.WinForms.Guna2ControlBox();
             this.Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.SignUpLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.ToSignUp = new Guna.UI2.WinForms.Guna2Button();
             this.HaveAccountLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ForgotPassword = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.LogInButton = new Guna.UI2.WinForms.Guna2Button();
@@ -47,10 +47,12 @@
             // 
             // GradientBackground1
             // 
+            GradientBackground1.Anchor = System.Windows.Forms.AnchorStyles.None;
             GradientBackground1.Controls.Add(this.Close);
             GradientBackground1.Controls.Add(this.Panel1);
             GradientBackground1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             GradientBackground1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            GradientBackground1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
             GradientBackground1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             GradientBackground1.Location = new System.Drawing.Point(0, 0);
             GradientBackground1.Name = "GradientBackground1";
@@ -69,11 +71,13 @@
             this.Close.PressedColor = System.Drawing.Color.Red;
             this.Close.Size = new System.Drawing.Size(45, 30);
             this.Close.TabIndex = 5;
+            this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
             // Panel1
             // 
+            this.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.Panel1.Controls.Add(this.SignUpLabel);
+            this.Panel1.Controls.Add(this.ToSignUp);
             this.Panel1.Controls.Add(this.HaveAccountLabel);
             this.Panel1.Controls.Add(this.ForgotPassword);
             this.Panel1.Controls.Add(this.LogInButton);
@@ -88,35 +92,44 @@
             this.Panel1.Size = new System.Drawing.Size(400, 600);
             this.Panel1.TabIndex = 0;
             // 
-            // SignUpLabel
+            // ToSignUp
             // 
-            this.SignUpLabel.BackColor = System.Drawing.Color.Transparent;
-            this.SignUpLabel.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpLabel.Location = new System.Drawing.Point(231, 471);
-            this.SignUpLabel.Name = "SignUpLabel";
-            this.SignUpLabel.Size = new System.Drawing.Size(98, 23);
-            this.SignUpLabel.TabIndex = 7;
-            this.SignUpLabel.Text = "Đăng ký ngay";
-            this.SignUpLabel.MouseEnter += new System.EventHandler(this.SignUpLabel_MouseEnter);
-            this.SignUpLabel.MouseLeave += new System.EventHandler(this.SignUpLabel_MouseLeave);
+            this.ToSignUp.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ToSignUp.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.ToSignUp.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.ToSignUp.DisabledState.FillColor = System.Drawing.Color.DarkGray;
+            this.ToSignUp.DisabledState.ForeColor = System.Drawing.Color.Black;
+            this.ToSignUp.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ToSignUp.FocusedColor = System.Drawing.Color.Transparent;
+            this.ToSignUp.Font = new System.Drawing.Font("Segoe UI", 10.01739F);
+            this.ToSignUp.ForeColor = System.Drawing.Color.Black;
+            this.ToSignUp.Location = new System.Drawing.Point(110, 502);
+            this.ToSignUp.Name = "ToSignUp";
+            this.ToSignUp.Size = new System.Drawing.Size(180, 45);
+            this.ToSignUp.TabIndex = 7;
+            this.ToSignUp.Text = "Đăng ký ngay";
+            this.ToSignUp.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.ToSignUp.Click += new System.EventHandler(this.ToSignUp_Click);
             // 
             // HaveAccountLabel
             // 
+            this.HaveAccountLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.HaveAccountLabel.BackColor = System.Drawing.Color.Transparent;
             this.HaveAccountLabel.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HaveAccountLabel.Location = new System.Drawing.Point(60, 471);
+            this.HaveAccountLabel.Location = new System.Drawing.Point(110, 471);
             this.HaveAccountLabel.Name = "HaveAccountLabel";
-            this.HaveAccountLabel.Size = new System.Drawing.Size(165, 23);
+            this.HaveAccountLabel.Size = new System.Drawing.Size(181, 25);
             this.HaveAccountLabel.TabIndex = 6;
-            this.HaveAccountLabel.Text = "Bạn chưa có tài khoản ?";
+            this.HaveAccountLabel.Text = "Bạn chưa có tài khoản?";
             // 
             // ForgotPassword
             // 
+            this.ForgotPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ForgotPassword.BackColor = System.Drawing.Color.Transparent;
             this.ForgotPassword.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForgotPassword.Location = new System.Drawing.Point(254, 374);
             this.ForgotPassword.Name = "ForgotPassword";
-            this.ForgotPassword.Size = new System.Drawing.Size(121, 23);
+            this.ForgotPassword.Size = new System.Drawing.Size(135, 25);
             this.ForgotPassword.TabIndex = 5;
             this.ForgotPassword.Text = "Quên mật khẩu ?";
             this.ForgotPassword.MouseEnter += new System.EventHandler(this.ForgotPassword_MouseEnter);
@@ -124,6 +137,7 @@
             // 
             // LogInButton
             // 
+            this.LogInButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LogInButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.LogInButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.LogInButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -136,6 +150,7 @@
             this.LogInButton.Size = new System.Drawing.Size(180, 45);
             this.LogInButton.TabIndex = 4;
             this.LogInButton.Text = "Đăng nhập";
+            this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
             // 
             // PasswordBox
             // 
@@ -183,7 +198,7 @@
             this.EmailBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.EmailBox.Name = "EmailBox";
             this.EmailBox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.EmailBox.PlaceholderText = "Email/Số điện thoại";
+            this.EmailBox.PlaceholderText = "Email/Số điện thoại/Username";
             this.EmailBox.SelectedText = "";
             this.EmailBox.Size = new System.Drawing.Size(350, 35);
             this.EmailBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
@@ -191,11 +206,12 @@
             // 
             // LogInLabel
             // 
+            this.LogInLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LogInLabel.BackColor = System.Drawing.Color.Transparent;
             this.LogInLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogInLabel.Location = new System.Drawing.Point(75, 162);
+            this.LogInLabel.Location = new System.Drawing.Point(91, 161);
             this.LogInLabel.Name = "LogInLabel";
-            this.LogInLabel.Size = new System.Drawing.Size(248, 38);
+            this.LogInLabel.Size = new System.Drawing.Size(255, 39);
             this.LogInLabel.TabIndex = 1;
             this.LogInLabel.Text = "Đăng nhập vào Quýt";
             // 
@@ -240,8 +256,8 @@
         private Guna.UI2.WinForms.Guna2ControlBox Close;
         private Guna.UI2.WinForms.Guna2Button LogInButton;
         private Guna.UI2.WinForms.Guna2HtmlLabel ForgotPassword;
-        private Guna.UI2.WinForms.Guna2HtmlLabel SignUpLabel;
         private Guna.UI2.WinForms.Guna2HtmlLabel HaveAccountLabel;
+        private Guna.UI2.WinForms.Guna2Button ToSignUp;
     }
 }
 
