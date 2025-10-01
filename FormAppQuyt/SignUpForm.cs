@@ -10,13 +10,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Configuration;
+
 
 namespace FormAppQuyt
 {
     public partial class SignUpForm : Form
     {
-        string connectionString = "Data Source=LAPTOP-BQLCJQLQ;Initial Catalog=UserManagement;Integrated Security=True;TrustServerCertificate=True";
-
+        string connectionString = ConfigurationManager.ConnectionStrings["UserAuthDB"].ConnectionString;
         public SignUpForm()
         {
             this.AutoScaleMode = AutoScaleMode.None;

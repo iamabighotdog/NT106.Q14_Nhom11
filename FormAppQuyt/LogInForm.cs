@@ -11,12 +11,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Configuration;
+
+
 
 namespace FormAppQuyt
 {
     public partial class LogInForm : Form
     {
-        string connectionString = "Data Source=LAPTOP-BQLCJQLQ;Initial Catalog=UserManagement;Integrated Security=True;TrustServerCertificate=True";
+        string connectionString = ConfigurationManager.ConnectionStrings["UserAuthDB"].ConnectionString;
         public LogInForm()
         {
             this.AutoScaleMode = AutoScaleMode.None;
