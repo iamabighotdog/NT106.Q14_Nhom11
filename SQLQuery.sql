@@ -1,5 +1,7 @@
 CREATE DATABASE UserManagement
+GO
 USE UserManagement
+GO
 CREATE TABLE Users (
     UserId INT IDENTITY(1,1) PRIMARY KEY,
     Username NVARCHAR(50) NOT NULL UNIQUE,
