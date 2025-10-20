@@ -121,4 +121,10 @@
   <data name="ChatGPT_Image_Sep_29__2025__09_58_10_PM-removebg-preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChatGPT_Image_Sep_29__2025__09_58_10_PM-removebg-preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="f4da28534b1e73299817f668c0052531" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\f4da28534b1e73299817f668c0052531.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="f4da28534b1e73299817f668c0052531-removebg-preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\f4da28534b1e73299817f668c0052531-removebg-preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -69,5 +69,25 @@ namespace FormAppQuyt.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap f4da28534b1e73299817f668c0052531 {
+            get {
+                object obj = ResourceManager.GetObject("f4da28534b1e73299817f668c0052531", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap f4da28534b1e73299817f668c0052531_removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("f4da28534b1e73299817f668c0052531-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
