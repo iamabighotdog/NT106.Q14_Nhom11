@@ -36,9 +36,9 @@ namespace FormAppQuyt
                     {
                         if (reader.Read())
                         {
-                            Username.Text = reader["Username"].ToString();
-                            Email.Text = reader["Email"].ToString();
-                            PhoneNumber.Text = reader["Phone"].ToString();
+                            username.Text = reader["Username"].ToString();
+                            email.Text = reader["Email"].ToString();
+                            phoneNumber.Text = reader["Phone"].ToString();
                         }
                         else
                         {
