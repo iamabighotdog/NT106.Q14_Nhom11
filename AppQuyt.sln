@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormAppQuyt", "FormAppQuyt\FormAppQuyt.csproj", "{15D3DEB6-02F4-43F8-AA5F-5F570244A2F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppQuyt", "FormAppQuyt\AppQuyt.csproj", "{15D3DEB6-02F4-43F8-AA5F-5F570244A2F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
