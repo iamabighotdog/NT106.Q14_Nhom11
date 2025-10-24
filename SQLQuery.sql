@@ -10,3 +10,4 @@ CREATE TABLE Users (
     Phone NVARCHAR(20) NOT NULL UNIQUE,
     Confirmed BIT NOT NULL DEFAULT 0
 ); 
+
