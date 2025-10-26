@@ -1,55 +1,60 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace FormAppQuyt
 {
     public partial class Main : Form
     {
-        private string userInput;
-        string connectionString = ConfigurationManager.ConnectionStrings["UserAuthDB"].ConnectionString;
+        private readonly string userInput;
+
         public Main(string input)
         {
             InitializeComponent();
-            userInput = input;
-
+            userInput = input?.Trim() ?? string.Empty;
         }
+        private class ProfileReply
+        {
+            public bool ok { get; set; }
+            public string message { get; set; }
+            public string username { get; set; }
+            public string email { get; set; }
+            public string phone { get; set; }
+        }
+
         private void Main_Load(object sender, EventArgs e)
         {
-            string query = "SELECT Username, Email, Phone FROM Users WHERE Email=@input OR Username=@input OR Phone=@input";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            if (string.IsNullOrWhiteSpace(userInput))
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@input", userInput);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            username.Text = reader["Username"].ToString();
-                            email.Text = reader["Email"].ToString();
-                            phoneNumber.Text = reader["Phone"].ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy thông tin người dùng!");
-                        }
-                    }
-                }
+                MessageBox.Show("Không có thông tin người dùng để tra cứu.");
+                return;
             }
 
+            try
+            {
+                var client = new tcpClient();
+                string response = client.SendProfileData(userInput);
+                ProfileReply reply = null;
+                try
+                {
+                    reply = JsonSerializer.Deserialize<ProfileReply>(response);
+                }
+                catch
+                {
+                    MessageBox.Show("Lỗi");
+                    return;
+                }
+                if (reply != null && reply.ok)
+                {
+                    username.Text = reply.username ?? "";
+                    email.Text = reply.email ?? "";
+                    phoneNumber.Text = reply.phone ?? "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
         }
-
-        
     }
 }

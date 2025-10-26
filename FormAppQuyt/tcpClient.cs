@@ -15,7 +15,7 @@ internal class tcpClient
             using (TcpClient client = new TcpClient(serverIp, serverPort))
             using (NetworkStream stream = client.GetStream())
             {
-                string jsonData = JsonSerializer.Serialize(data);
+                string jsonData = JsonSerializer.Serialize(data) + "\n";
                 byte[] bytes = Encoding.UTF8.GetBytes(jsonData);
                 stream.Write(bytes, 0, bytes.Length);
 
@@ -50,6 +50,15 @@ internal class tcpClient
             action = "login",
             username = username,
             password = hashedPassword
+        };
+        return SendToServer(data);
+    }
+    public string SendProfileData(string identifier)
+    {
+        var data = new
+        {
+            action = "profile",
+            identifier = identifier
         };
         return SendToServer(data);
     }

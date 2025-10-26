@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
-using System.Configuration;
 
 
 namespace FormAppQuyt
@@ -47,6 +49,11 @@ namespace FormAppQuyt
             LogInForm loginForm = new LogInForm();
             loginForm.Show(); 
             this.Close();
+        }
+        private class SimpleReply
+        {
+            public bool ok { get; set; }
+            public string message { get; set; }
         }
         private void SignUpButton_Click(object sender, EventArgs e)
         {
@@ -102,70 +109,45 @@ namespace FormAppQuyt
                 MessageBox.Show("Vui lòng đồng ý điều khoản sử dụng.");
                 return;
             }
-            
+
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                var client = new tcpClient();
+                string resp = client.SendRegisterData(username, email, phone, hashedPassword);
+                SimpleReply r = null;
+                try { r = JsonSerializer.Deserialize<SimpleReply>(resp); } catch { }
+
+                if (r != null)
                 {
-                    connection.Open();
-                    string checkUserQuery = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
-                    using (SqlCommand cmd = new SqlCommand(checkUserQuery, connection))
+                    if (r.ok)
                     {
-                        cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 50).Value = username;
-                        int exists = (int)cmd.ExecuteScalar();
-                        if (exists > 0)
-                        {
-                            MessageBox.Show("Tên người dùng đã tồn tại.");
-                            return;
-                        }
+                        MessageBox.Show(r.message ?? "Đăng ký thành công, vui lòng đăng nhập");
+                        var loginForm = new LogInForm();
+                        loginForm.Show();
+                        this.Close();
                     }
-                    string checkEmailQuery = "SELECT COUNT(*) FROM Users WHERE Email = @Email";
-                    using (SqlCommand cmd = new SqlCommand(checkEmailQuery, connection))
+                    else
                     {
-                        cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = email;
-                        int exists = (int)cmd.ExecuteScalar();
-                        if (exists > 0)
-                        {
-                            MessageBox.Show("Email đã tồn tại.");
-                            return;
-                        }
+                        MessageBox.Show(r.message ?? "Đăng ký thất bại");
                     }
-                    string checkPhoneQuery = "SELECT COUNT(*) FROM Users WHERE Phone = @Phone";
-                    using (SqlCommand cmd = new SqlCommand(checkPhoneQuery, connection))
-                    {
-                        cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = phone;
-                        int exists = (int)cmd.ExecuteScalar();
-                        if (exists > 0)
-                        {
-                            MessageBox.Show("Số điện thoại đã tồn tại.");
-                            return;
-                        }
-                    }
-
-                    string insertQuery = @"INSERT INTO Users (Username, Password, Email, Phone) 
-                               VALUES (@Username, @Password, @Email, @Phone)";
-                    using (SqlCommand cmd = new SqlCommand(insertQuery, connection))
-                    {
-                        cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 50).Value = username;
-                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = hashedPassword;
-                        cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = email;
-                        cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = phone;
-                        cmd.ExecuteNonQuery();
-                    }
+                    return;
                 }
-
-                MessageBox.Show("Đăng ký thành công,vui lòng đăng nhập");
-                LogInForm loginForm = new LogInForm();
-                loginForm.Show();
-                this.Close();
+                if (resp.IndexOf("success", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    MessageBox.Show("Đăng ký thành công, vui lòng đăng nhập");
+                    var loginForm = new LogInForm();
+                    loginForm.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(resp.StartsWith("ERROR:") ? resp : "Đăng ký thất bại");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại sau: " + ex.Message);
+                MessageBox.Show("Có lỗi xảy ra khi kết nối máy chủ: " + ex.Message);
             }
-
-
         }
-
     }
 }

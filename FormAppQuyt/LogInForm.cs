@@ -2,16 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
-using System.Configuration;
 
 
 
@@ -24,9 +26,9 @@ namespace FormAppQuyt
         {
             this.AutoScaleMode = AutoScaleMode.None;
             InitializeComponent();
-            ToSignUp.MouseEnter += ToSignUp_MouseEnter; 
-            ToSignUp.MouseLeave += ToSignUp_MouseLeave; 
-            ToSignUp.Click += ToSignUp_Click; 
+            ToSignUp.MouseEnter += ToSignUp_MouseEnter;
+            ToSignUp.MouseLeave += ToSignUp_MouseLeave;
+            ToSignUp.Click += ToSignUp_Click;
             ToSignUp.HoverState.FillColor = ToSignUp.FillColor;
             ToSignUp.PressedColor = ToSignUp.FillColor;
         }
@@ -64,50 +66,66 @@ namespace FormAppQuyt
             signUpForm.Show();
             this.Hide();
         }
-
+        private class LoginReply
+        {
+            public bool ok { get; set; }
+            public string message { get; set; }
+        }
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            
-            string EmailOrPhoneOrUsrname = EmailBox.Text;
-            string Password = PasswordBox.Text;
-            string hashedPassword = CryptoHelper.ComputeSha256Hash(Password);
-            if (EmailOrPhoneOrUsrname == "" || Password == "")
+            string identifier = EmailBox.Text?.Trim();
+            string password = PasswordBox.Text ?? "";
+            if (string.IsNullOrEmpty(identifier) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
                 return;
             }
-
-
-
-            string Query = "SELECT COUNT(*) FROM Users WHERE (Email='" + EmailOrPhoneOrUsrname + "' OR Username='" + EmailOrPhoneOrUsrname + "' OR Phone='" + EmailOrPhoneOrUsrname + "') AND Password='" + hashedPassword + "'";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string hashed = CryptoHelper.ComputeSha256Hash(password);
+            try
             {
+                var client = new tcpClient();
+                string resp = client.SendLoginData(identifier, hashed);
                 try
                 {
-                    connection.Open();
-                    using (SqlCommand cmd = new SqlCommand(Query, connection))
+                    var r = JsonSerializer.Deserialize<LoginReply>(resp);
+                    if (r != null)
                     {
-                        int count = (int)cmd.ExecuteScalar();
-                        if (count > 0)
+                        if (r.ok)
                         {
-                            MessageBox.Show("Đăng nhập thành công");
-                            Main mainForm = new Main(EmailOrPhoneOrUsrname);
+                            MessageBox.Show(r.message ?? "Đăng nhập thành công");
+                            var mainForm = new Main(identifier);
                             mainForm.Show();
                             this.Hide();
+                            return;
                         }
                         else
                         {
-                            MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
+                            MessageBox.Show(r.message ?? "Tài khoản hoặc mật khẩu không chính xác");
+                            return;
                         }
                     }
                 }
-                catch (Exception ex)
+                catch { }
+                if (resp.StartsWith("ERROR:"))
                 {
-                    MessageBox.Show("Có lỗi xảy ra: " + ex.Message);
+                    MessageBox.Show(resp);
+                }
+                else if (resp.IndexOf("success", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    MessageBox.Show("Đăng nhập thành công");
+                    var mainForm = new Main(identifier);
+                    mainForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra khi kết nối máy chủ: " + ex.Message);
+            }
         }
-
-
     }
 }
