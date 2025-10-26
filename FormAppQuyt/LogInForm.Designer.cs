@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             Guna.UI2.WinForms.Guna2GradientPanel GradientBackground1;
-            this.Close = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.closebox = new Guna.UI2.WinForms.Guna2ControlBox();
             this.Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.ToSignUp = new Guna.UI2.WinForms.Guna2Button();
             this.HaveAccountLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -48,7 +48,7 @@
             // GradientBackground1
             // 
             GradientBackground1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            GradientBackground1.Controls.Add(this.Close);
+            GradientBackground1.Controls.Add(this.closebox);
             GradientBackground1.Controls.Add(this.Panel1);
             GradientBackground1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             GradientBackground1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
@@ -62,16 +62,16 @@
             // 
             // Close
             // 
-            this.Close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Close.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.Close.HoverState.FillColor = System.Drawing.Color.Red;
-            this.Close.IconColor = System.Drawing.Color.Black;
-            this.Close.Location = new System.Drawing.Point(979, 0);
-            this.Close.Name = "Close";
-            this.Close.PressedColor = System.Drawing.Color.Red;
-            this.Close.Size = new System.Drawing.Size(45, 30);
-            this.Close.TabIndex = 5;
-            this.Close.Click += new System.EventHandler(this.Close_Click);
+            this.closebox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.closebox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.closebox.HoverState.FillColor = System.Drawing.Color.Red;
+            this.closebox.IconColor = System.Drawing.Color.Black;
+            this.closebox.Location = new System.Drawing.Point(979, 0);
+            this.closebox.Name = "closebox";
+            this.closebox.PressedColor = System.Drawing.Color.Red;
+            this.closebox.Size = new System.Drawing.Size(45, 30);
+            this.closebox.TabIndex = 5;
+            this.closebox.Click += new System.EventHandler(this.Close_Click);
             // 
             // Panel1
             // 
@@ -253,7 +253,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel LogInLabel;
         private Guna.UI2.WinForms.Guna2TextBox EmailBox;
         private Guna.UI2.WinForms.Guna2TextBox PasswordBox;
-        private Guna.UI2.WinForms.Guna2ControlBox Close;
+        private Guna.UI2.WinForms.Guna2ControlBox closebox;
         private Guna.UI2.WinForms.Guna2Button LogInButton;
         private Guna.UI2.WinForms.Guna2HtmlLabel ForgotPassword;
         private Guna.UI2.WinForms.Guna2HtmlLabel HaveAccountLabel;
