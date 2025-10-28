@@ -1,4 +1,4 @@
-# Bai tap 2.2 – Ung dung Quiz Quan ly Nguoi dung
+# Ung dung Quiz Quan ly Nguoi dung
 
 ## Thong tin nhom
 - 24520397 – Tran Anh Duy  
@@ -26,11 +26,11 @@ cd NT106.Q14_Nhom11
 git checkout BT2.2-NHOM11
 ```
 
-### 2. Khoi tao database
+### 2. Khoi tao database(Danh cho server)
 Mo SQL Server Management Studio → Connect toi SQL Server
 File → Open → File… chon SQLQuery.sql (o root repo).
 Nhan Execute.
-Sau khi chay, se co DB UserManagement va bang Users.
+Sau khi chay, se co DB UserAuthDB va bang Users.
 
 ### 3. Mo va chay ung dung
 Mo solution .sln bang Visual Studio 2022.
@@ -42,7 +42,6 @@ Nhan F5 de chay.
 ## Huong dan su dung
 - Neu ban chua co tai khoan thi dang ky tai khoan.
 - Neu da co thi thuc hien dang nhap vao ung dung.
-
 ---
 
 ## Giao dien ung dung
@@ -50,3 +49,5 @@ Dang nhap:
 ![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/BT2.2-NHOM11/img/dangnhap.png)
 Dang ky:
 ![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/BT2.2-NHOM11/img/dangky.png)
+Dashboard:
+![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/BT2.2-NHOM11/img/dashboard.png)
