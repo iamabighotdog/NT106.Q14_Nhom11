@@ -1,5 +1,7 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Net;
 using System.Net.Sockets;
@@ -14,22 +16,64 @@ internal class TcpServer
     private bool running = false;
 
     private readonly string connectionString =
-        @"Server=.;Database=UserAuthDB;Integrated Security=True;TrustServerCertificate=True;";
+        ConfigurationManager.ConnectionStrings["UserAuthDB"]?.ConnectionString
+        ?? @"Server=(localdb)\MSSQLLocalDB;Database=UserAuthDB;Integrated Security=True;TrustServerCertificate=True;";
+
 
     public void Start()
     {
+        Console.WriteLine("[DB] Using CS: " + connectionString);
+        try
+        {
+            EnsureDb();
+
+            using (var test = new SqlConnection(connectionString))
+            {
+                test.Open();
+                using (var cmd = new SqlCommand("SELECT DB_ID('UserAuthDB')", test))
+                {
+                    var id = cmd.ExecuteScalar();
+                    Console.WriteLine("[DB] DB_ID(UserAuthDB) = " + (id == null ? "NULL" : id.ToString()));
+                }
+            }
+            Console.WriteLine("[SERVER] DB ready.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("[SERVER] EnsureDb/Test error: " + ex);
+        }
         listener = new TcpListener(IPAddress.Any, port);
+        listener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         listener.Start();
         running = true;
-        Console.WriteLine($"[SERVER] Listening on port {port}...");
-
+        Console.WriteLine("[SERVER] Listening on port " + port + "...");
         while (running)
         {
-            TcpClient client = listener.AcceptTcpClient();
-            Console.WriteLine("[SERVER] Client connected!");
-            Thread t = new Thread(() => HandleClient(client));
-            t.Start();
+            try
+            {
+                var client = listener.AcceptTcpClient();
+                try
+                {
+                    var ep = (IPEndPoint)client.Client.RemoteEndPoint;
+                    Console.WriteLine("[SERVER] Client connected: " + ep.Address + ":" + ep.Port);
+                }
+                catch { Console.WriteLine("[SERVER] Client connected!"); }
+
+                var t = new Thread(() => HandleClient(client)) { IsBackground = true };
+                t.Start();
+            }
+            catch (SocketException se)
+            {
+                if (!running) break;
+                Console.WriteLine("[SERVER] Socket error: " + se.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[SERVER] Accept error: " + e);
+            }
         }
+
+        Console.WriteLine("[SERVER] Stopped.");
     }
     private void HandleClient(TcpClient client)
     {
@@ -49,6 +93,7 @@ internal class TcpServer
             }
             catch (Exception ex)
             {
+                Console.WriteLine("[SERVER] Error: " + ex);
                 WriteLine(stream, JsonSerializer.Serialize(new { ok = false, message = ex.Message }));
             }
         }
@@ -56,60 +101,68 @@ internal class TcpServer
     }
     private string ProcessRequest(Dictionary<string, string> data)
     {
-        if (data == null || !data.ContainsKey("action"))
+        if (data == null)
             return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
 
-        string action = (data["action"] ?? "").ToLower();
+        string actionRaw;
+        if (!data.TryGetValue("action", out actionRaw))
+            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
+
+        string action = (actionRaw ?? "").Trim().ToLowerInvariant();
 
         if (action == "register") return HandleRegister(data);
         if (action == "login") return HandleLogin(data);
         if (action == "profile") return HandleProfile(data);
+        if (action == "logout") return JsonSerializer.Serialize(new { ok = true, message = "Đăng xuất" });
 
         return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
     }
 
-    private string HandleRegister(Dictionary<string, string> data)
+    private string HandleRegister(Dictionary<string, string> d)
     {
-        string username = data.ContainsKey("username") ? data["username"] : "";
-        string password = data.ContainsKey("password") ? data["password"] : "";
-        string email = data.ContainsKey("email") ? data["email"] : "";
-        string phone = data.ContainsKey("phone") ? data["phone"] : "";
+        string username = d.TryGetValue("username", out var u) ? u : "";
+        string password = d.TryGetValue("password", out var pw) ? pw : "";
+        string email = d.TryGetValue("email", out var e) ? e : "";
+        string phone = d.TryGetValue("phone", out var p) ? p : "";
 
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             return JsonSerializer.Serialize(new { ok = false, message = "Các ô không được để trống" });
 
         try
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Username=@u", conn))
+
+                using (var cmd = new SqlCommand("SELECT COUNT(*) FROM dbo.Users WHERE Username=@u", conn))
                 {
                     cmd.Parameters.AddWithValue("@u", username);
-                    int count = (int)cmd.ExecuteScalar();
-                    if (count > 0)
+                    if ((int)cmd.ExecuteScalar() > 0)
                         return JsonSerializer.Serialize(new { ok = false, message = "Tên đăng nhập đã tồn tại" });
                 }
+
                 if (!string.IsNullOrWhiteSpace(email))
                 {
-                    using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Email=@e", conn))
+                    using (var cmd = new SqlCommand("SELECT COUNT(*) FROM dbo.Users WHERE Email=@e", conn))
                     {
                         cmd.Parameters.AddWithValue("@e", email);
                         if ((int)cmd.ExecuteScalar() > 0)
                             return JsonSerializer.Serialize(new { ok = false, message = "Email đã tồn tại" });
                     }
                 }
+
                 if (!string.IsNullOrWhiteSpace(phone))
                 {
-                    using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Phone=@p", conn))
+                    using (var cmd = new SqlCommand("SELECT COUNT(*) FROM dbo.Users WHERE Phone=@p", conn))
                     {
                         cmd.Parameters.AddWithValue("@p", phone);
                         if ((int)cmd.ExecuteScalar() > 0)
                             return JsonSerializer.Serialize(new { ok = false, message = "Số điện thoại đã tồn tại" });
                     }
                 }
-                using (SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO Users (Username, Email, Phone, Password) VALUES (@u, @e, @p, @pw)", conn))
+
+                using (var cmd = new SqlCommand(
+                    "INSERT INTO dbo.Users (Username, Email, Phone, Password) VALUES (@u, @e, @p, @pw)", conn))
                 {
                     cmd.Parameters.AddWithValue("@u", username);
                     cmd.Parameters.AddWithValue("@e", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email);
@@ -123,15 +176,16 @@ internal class TcpServer
         }
         catch (Exception ex)
         {
+            Console.WriteLine("[DB ERROR] " + ex);
             return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
         }
     }
 
-    private string HandleLogin(Dictionary<string, string> data)
+    private string HandleLogin(Dictionary<string, string> d)
     {
-        string identifier = data.ContainsKey("identifier") ? data["identifier"] : "";
-        string username = data.ContainsKey("username") ? data["username"] : "";
-        string password = data.ContainsKey("password") ? data["password"] : "";
+        string identifier = d.TryGetValue("identifier", out var id) ? id : "";
+        string username = d.TryGetValue("username", out var u) ? u : "";
+        string password = d.TryGetValue("password", out var pw) ? pw : "";
 
         if (string.IsNullOrWhiteSpace(identifier) && !string.IsNullOrWhiteSpace(username))
             identifier = username;
@@ -141,71 +195,62 @@ internal class TcpServer
 
         try
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(
+                "SELECT COUNT(*) FROM dbo.Users WHERE (Username=@k OR Email=@k OR Phone=@k) AND Password=@pw", conn))
             {
                 conn.Open();
-                string query = "SELECT COUNT(*) FROM Users WHERE (Username = @k OR Email = @k OR Phone = @k) AND Password = @pw";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@k", identifier);
-                    cmd.Parameters.AddWithValue("@pw", password);
+                cmd.Parameters.AddWithValue("@k", identifier);
+                cmd.Parameters.AddWithValue("@pw", password);
 
-                    int count = (int)cmd.ExecuteScalar();
-                    if (count > 0)
-                        return JsonSerializer.Serialize(new { ok = true, message = "Đăng Nhập Thành Công." });
-                    else
-                        return JsonSerializer.Serialize(new { ok = false, message = "Sai mật khẩu hoặc tên đăng nhập không tồn tại." });
-                }
+                int count = (int)cmd.ExecuteScalar();
+                return count > 0
+                    ? JsonSerializer.Serialize(new { ok = true, message = "Đăng Nhập Thành Công." })
+                    : JsonSerializer.Serialize(new { ok = false, message = "Sai mật khẩu hoặc tên đăng nhập không tồn tại." });
             }
         }
         catch (Exception ex)
         {
+            Console.WriteLine("[DB ERROR] " + ex);
             return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
         }
     }
-    private string HandleProfile(Dictionary<string, string> data)
+
+    private string HandleProfile(Dictionary<string, string> d)
     {
-        string id = data.ContainsKey("identifier") ? data["identifier"] : "";
+        string id = d.TryGetValue("identifier", out var v) ? v : "";
         if (string.IsNullOrWhiteSpace(id))
             return JsonSerializer.Serialize(new { ok = false, message = "Thiếu identifier" });
 
         try
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(
+                "SELECT TOP 1 Username, Email, Phone FROM dbo.Users WHERE Username=@k OR Email=@k OR Phone=@k", conn))
             {
                 conn.Open();
-                string sql = "SELECT TOP 1 Username, Email, Phone FROM Users WHERE Username=@k OR Email=@k OR Phone=@k";
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                cmd.Parameters.AddWithValue("@k", id);
+
+                using (var rd = cmd.ExecuteReader())
                 {
-                    cmd.Parameters.AddWithValue("@k", id);
-
-                    using (SqlDataReader rd = cmd.ExecuteReader())
+                    if (rd.Read())
                     {
-                        if (rd.Read())
+                        return JsonSerializer.Serialize(new
                         {
-                            string u = rd["Username"]?.ToString() ?? "";
-                            string e = rd["Email"]?.ToString() ?? "";
-                            string p = rd["Phone"]?.ToString() ?? "";
-
-                            return JsonSerializer.Serialize(new
-                            {
-                                ok = true,
-                                message = "OK",
-                                username = u,
-                                email = e,
-                                phone = p
-                            });
-                        }
-                        else
-                        {
-                            return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy người dùng" });
-                        }
+                            ok = true,
+                            message = "OK",
+                            username = rd["Username"]?.ToString() ?? "",
+                            email = rd["Email"]?.ToString() ?? "",
+                            phone = rd["Phone"]?.ToString() ?? ""
+                        });
                     }
+                    return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy người dùng" });
                 }
             }
         }
         catch (Exception ex)
         {
+            Console.WriteLine("[DB ERROR] " + ex);
             return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
         }
     }
@@ -221,12 +266,55 @@ internal class TcpServer
             sb.Append(Encoding.UTF8.GetString(buf, 0, n));
             if (buf[n - 1] == (byte)'\n') break;
         }
-        return sb.ToString().Trim();
+        return sb.ToString().TrimEnd('\r', '\n');
     }
 
     private static void WriteLine(NetworkStream stream, string text)
     {
-        byte[] bytes = Encoding.UTF8.GetBytes(text + "\n");
+        var bytes = Encoding.UTF8.GetBytes(text + "\n");
         stream.Write(bytes, 0, bytes.Length);
+    }
+
+    private void EnsureDb()
+    {
+        try
+        {
+            var csNoDb = connectionString
+                .Replace("Database=UserAuthDB;", string.Empty)
+                .Replace("Initial Catalog=UserAuthDB;", string.Empty);
+
+            using (var conn = new SqlConnection(csNoDb))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("IF DB_ID('UserAuthDB') IS NULL CREATE DATABASE UserAuthDB;", conn))
+                    cmd.ExecuteNonQuery();
+            }
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                var sql = @"
+IF OBJECT_ID('dbo.Users','U') IS NULL
+BEGIN
+    CREATE TABLE dbo.Users(
+        UserId   INT IDENTITY(1,1) PRIMARY KEY,
+        Username NVARCHAR(50)  NOT NULL UNIQUE,
+        Email    NVARCHAR(100) NULL UNIQUE,
+        Phone NVARCHAR(20) NULL UNIQUE,
+        Password NVARCHAR(64) NOT NULL,           
+        FullName NVARCHAR(150) NULL,
+        Birthday DATE          NULL
+    );
+END";
+                using (var cmd = new SqlCommand(sql, conn))
+                    cmd.ExecuteNonQuery();
+            }
+
+            Console.WriteLine("[SERVER] DB ready.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("[SERVER] EnsureDb error: " + ex.Message);
+        }
     }
 }
