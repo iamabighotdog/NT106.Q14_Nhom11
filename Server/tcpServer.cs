@@ -17,7 +17,7 @@ internal class TcpServer
 
     private readonly string connectionString =
         ConfigurationManager.ConnectionStrings["UserAuthDB"]?.ConnectionString
-        ?? @"Server=(localdb)\MSSQLLocalDB;Database=UserAuthDB;Integrated Security=True;TrustServerCertificate=True;";
+        ?? @"Server=.;Database=UserAuthDB;Integrated Security=True;TrustServerCertificate=True;";
 
 
     public void Start()
