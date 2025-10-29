@@ -46,8 +46,8 @@ Nhan F5 de chay.
 
 ## Giao dien ung dung
 Dang nhap:
-![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/tcpServer/img/dangnhap.png)
+![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/master/img/dangnhap.png)
 Dang ky:
-![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/tcpServer/img/dangky.png)
+![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/master/img/dangky.png)
 Dashboard:
-![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/tcpServer/img/dashboard.png)
+![image](https://github.com/iamabighotdog/NT106.Q14_Nhom11/blob/master/img/dashboard.png)
