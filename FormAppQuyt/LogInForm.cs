@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Security.Policy;
@@ -21,14 +20,12 @@ namespace FormAppQuyt
 {
     public partial class LogInForm : Form
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["UserAuthDB"].ConnectionString;
         public LogInForm()
         {
             this.AutoScaleMode = AutoScaleMode.None;
             InitializeComponent();
-            ToSignUp.MouseEnter += ToSignUp_MouseEnter; 
-            ToSignUp.MouseLeave += ToSignUp_MouseLeave; 
-            ToSignUp.Click += ToSignUp_Click; 
+            ToSignUp.MouseEnter += ToSignUp_MouseEnter;
+            ToSignUp.MouseLeave += ToSignUp_MouseLeave;
             ToSignUp.HoverState.FillColor = ToSignUp.FillColor;
             ToSignUp.PressedColor = ToSignUp.FillColor;
         }
@@ -63,10 +60,14 @@ namespace FormAppQuyt
         private void ToSignUp_Click(object sender, EventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();
-            signUpForm.Show();
             this.Hide();
+            signUpForm.Show();
         }
-
+        private class LoginReply
+        {
+            public bool ok { get; set; }
+            public string message { get; set; }
+        }
         private void LogInButton_Click(object sender, EventArgs e)
         {
             string identifier = EmailBox.Text?.Trim();
@@ -106,13 +107,6 @@ namespace FormAppQuyt
                 {
                     MessageBox.Show(resp);
                 }
-                else if (resp.IndexOf("success", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    MessageBox.Show("Đăng nhập thành công");
-                    var mainForm = new Main(identifier);
-                    mainForm.Show();
-                    this.Hide();
-                }
                 else
                 {
                     MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
@@ -123,5 +117,6 @@ namespace FormAppQuyt
                 MessageBox.Show("Có lỗi xảy ra khi kết nối máy chủ: " + ex.Message);
             }
         }
+
     }
 }
