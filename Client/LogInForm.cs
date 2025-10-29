@@ -26,7 +26,6 @@ namespace FormAppQuyt
             InitializeComponent();
             ToSignUp.MouseEnter += ToSignUp_MouseEnter;
             ToSignUp.MouseLeave += ToSignUp_MouseLeave;
-            ToSignUp.Click += ToSignUp_Click;
             ToSignUp.HoverState.FillColor = ToSignUp.FillColor;
             ToSignUp.PressedColor = ToSignUp.FillColor;
         }
@@ -61,8 +60,8 @@ namespace FormAppQuyt
         private void ToSignUp_Click(object sender, EventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();
-            signUpForm.Show();
             this.Hide();
+            signUpForm.Show();
         }
         private class LoginReply
         {

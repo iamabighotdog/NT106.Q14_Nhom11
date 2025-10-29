@@ -31,6 +31,8 @@ namespace FormAppQuyt
         {
             this.GradientPanel = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.fullNamebox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.birthDate = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.phoneNumber = new Guna.UI2.WinForms.Guna2TextBox();
@@ -49,8 +51,6 @@ namespace FormAppQuyt
             this.leaderboard = new Guna.UI2.WinForms.Guna2Button();
             this.play = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.fullNamebox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.GradientPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -92,6 +92,38 @@ namespace FormAppQuyt
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(522, 717);
             this.guna2Panel1.TabIndex = 2;
+            // 
+            // fullNamebox
+            // 
+            this.fullNamebox.AutoRoundedCorners = true;
+            this.fullNamebox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fullNamebox.DefaultText = "";
+            this.fullNamebox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.fullNamebox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.fullNamebox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.fullNamebox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.fullNamebox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.fullNamebox.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fullNamebox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.fullNamebox.Location = new System.Drawing.Point(4, 308);
+            this.fullNamebox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fullNamebox.Name = "fullNamebox";
+            this.fullNamebox.PlaceholderText = "";
+            this.fullNamebox.SelectedText = "";
+            this.fullNamebox.Size = new System.Drawing.Size(502, 34);
+            this.fullNamebox.TabIndex = 13;
+            // 
+            // guna2HtmlLabel4
+            // 
+            this.guna2HtmlLabel4.AutoSize = false;
+            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel4.Location = new System.Drawing.Point(21, 269);
+            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(159, 31);
+            this.guna2HtmlLabel4.TabIndex = 12;
+            this.guna2HtmlLabel4.Text = "Họ và tên";
+            this.guna2HtmlLabel4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // birthDate
             // 
@@ -174,6 +206,7 @@ namespace FormAppQuyt
             this.logOut.Size = new System.Drawing.Size(180, 45);
             this.logOut.TabIndex = 7;
             this.logOut.Text = "Đăng xuất";
+            this.logOut.Click += new System.EventHandler(this.logOut_Click);
             // 
             // email
             // 
@@ -378,39 +411,6 @@ namespace FormAppQuyt
             this.guna2PictureBox1.TabIndex = 1;
             this.guna2PictureBox1.TabStop = false;
             this.guna2PictureBox1.UseTransparentBackground = true;
-            // 
-            // fullNamebox
-            // 
-            this.fullNamebox.AutoRoundedCorners = true;
-            this.fullNamebox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.fullNamebox.DefaultText = "";
-            this.fullNamebox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.fullNamebox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.fullNamebox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.fullNamebox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.fullNamebox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.fullNamebox.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fullNamebox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.fullNamebox.Location = new System.Drawing.Point(4, 308);
-            this.fullNamebox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.fullNamebox.Name = "fullNamebox";
-            this.fullNamebox.PlaceholderText = "";
-            this.fullNamebox.SelectedText = "";
-            this.fullNamebox.Size = new System.Drawing.Size(502, 34);
-            this.fullNamebox.TabIndex = 13;
-            this.fullNamebox.TextChanged += new System.EventHandler(this.fullNamebox_TextChanged);
-            // 
-            // guna2HtmlLabel4
-            // 
-            this.guna2HtmlLabel4.AutoSize = false;
-            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(21, 269);
-            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(159, 31);
-            this.guna2HtmlLabel4.TabIndex = 12;
-            this.guna2HtmlLabel4.Text = "Họ và tên";
-            this.guna2HtmlLabel4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Main
             // 

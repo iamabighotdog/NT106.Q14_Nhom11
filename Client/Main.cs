@@ -46,5 +46,16 @@ namespace FormAppQuyt
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
+
+        private void logOut_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            using (var login = new LogInForm())
+            {
+                login.StartPosition = FormStartPosition.CenterScreen;
+                login.ShowDialog();
+            }
+            this.Close();
+        }
     }
 }
