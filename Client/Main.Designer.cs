@@ -49,6 +49,8 @@ namespace FormAppQuyt
             this.leaderboard = new Guna.UI2.WinForms.Guna2Button();
             this.play = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.fullNamebox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.GradientPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -73,6 +75,8 @@ namespace FormAppQuyt
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.guna2Panel1.Controls.Add(this.fullNamebox);
+            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel4);
             this.guna2Panel1.Controls.Add(this.birthDate);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel3);
             this.guna2Panel1.Controls.Add(this.phoneNumber);
@@ -101,7 +105,7 @@ namespace FormAppQuyt
             this.birthDate.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.birthDate.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.birthDate.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.birthDate.Location = new System.Drawing.Point(16, 546);
+            this.birthDate.Location = new System.Drawing.Point(4, 611);
             this.birthDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.birthDate.Name = "birthDate";
             this.birthDate.PlaceholderText = "";
@@ -114,7 +118,7 @@ namespace FormAppQuyt
             this.guna2HtmlLabel3.AutoSize = false;
             this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(33, 511);
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(21, 576);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
             this.guna2HtmlLabel3.Padding = new System.Windows.Forms.Padding(3);
             this.guna2HtmlLabel3.Size = new System.Drawing.Size(156, 30);
@@ -134,7 +138,7 @@ namespace FormAppQuyt
             this.phoneNumber.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.phoneNumber.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.phoneNumber.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.phoneNumber.Location = new System.Drawing.Point(16, 471);
+            this.phoneNumber.Location = new System.Drawing.Point(4, 536);
             this.phoneNumber.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.phoneNumber.Name = "phoneNumber";
             this.phoneNumber.PlaceholderText = "";
@@ -147,7 +151,7 @@ namespace FormAppQuyt
             this.phoneNumberLabel.AutoSize = false;
             this.phoneNumberLabel.BackColor = System.Drawing.Color.Transparent;
             this.phoneNumberLabel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.phoneNumberLabel.Location = new System.Drawing.Point(33, 436);
+            this.phoneNumberLabel.Location = new System.Drawing.Point(21, 501);
             this.phoneNumberLabel.Name = "phoneNumberLabel";
             this.phoneNumberLabel.Padding = new System.Windows.Forms.Padding(3);
             this.phoneNumberLabel.Size = new System.Drawing.Size(182, 30);
@@ -165,7 +169,7 @@ namespace FormAppQuyt
             this.logOut.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.logOut.Font = new System.Drawing.Font("Segoe UI Semibold", 11.26957F, System.Drawing.FontStyle.Bold);
             this.logOut.ForeColor = System.Drawing.Color.White;
-            this.logOut.Location = new System.Drawing.Point(171, 598);
+            this.logOut.Location = new System.Drawing.Point(159, 663);
             this.logOut.Name = "logOut";
             this.logOut.Size = new System.Drawing.Size(180, 45);
             this.logOut.TabIndex = 7;
@@ -183,7 +187,7 @@ namespace FormAppQuyt
             this.email.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.email.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.email.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.email.Location = new System.Drawing.Point(16, 396);
+            this.email.Location = new System.Drawing.Point(4, 461);
             this.email.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.email.Name = "email";
             this.email.PlaceholderText = "";
@@ -196,7 +200,7 @@ namespace FormAppQuyt
             this.guna2HtmlLabel2.AutoSize = false;
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(33, 361);
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(21, 426);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
             this.guna2HtmlLabel2.Padding = new System.Windows.Forms.Padding(3);
             this.guna2HtmlLabel2.Size = new System.Drawing.Size(122, 30);
@@ -216,12 +220,12 @@ namespace FormAppQuyt
             this.username.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.username.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.username.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.username.Location = new System.Drawing.Point(22, 319);
+            this.username.Location = new System.Drawing.Point(4, 384);
             this.username.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.username.Name = "username";
             this.username.PlaceholderText = "";
             this.username.SelectedText = "";
-            this.username.Size = new System.Drawing.Size(496, 34);
+            this.username.Size = new System.Drawing.Size(502, 34);
             this.username.TabIndex = 4;
             // 
             // guna2HtmlLabel1
@@ -229,7 +233,7 @@ namespace FormAppQuyt
             this.guna2HtmlLabel1.AutoSize = false;
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(33, 284);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(21, 349);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(159, 31);
             this.guna2HtmlLabel1.TabIndex = 3;
@@ -246,7 +250,7 @@ namespace FormAppQuyt
             this.changeInfo.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.changeInfo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.changeInfo.ForeColor = System.Drawing.Color.White;
-            this.changeInfo.Location = new System.Drawing.Point(130, 222);
+            this.changeInfo.Location = new System.Drawing.Point(130, 195);
             this.changeInfo.Name = "changeInfo";
             this.changeInfo.Size = new System.Drawing.Size(260, 56);
             this.changeInfo.TabIndex = 3;
@@ -375,6 +379,39 @@ namespace FormAppQuyt
             this.guna2PictureBox1.TabStop = false;
             this.guna2PictureBox1.UseTransparentBackground = true;
             // 
+            // fullNamebox
+            // 
+            this.fullNamebox.AutoRoundedCorners = true;
+            this.fullNamebox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fullNamebox.DefaultText = "";
+            this.fullNamebox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.fullNamebox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.fullNamebox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.fullNamebox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.fullNamebox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.fullNamebox.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fullNamebox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.fullNamebox.Location = new System.Drawing.Point(4, 308);
+            this.fullNamebox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fullNamebox.Name = "fullNamebox";
+            this.fullNamebox.PlaceholderText = "";
+            this.fullNamebox.SelectedText = "";
+            this.fullNamebox.Size = new System.Drawing.Size(502, 34);
+            this.fullNamebox.TabIndex = 13;
+            this.fullNamebox.TextChanged += new System.EventHandler(this.fullNamebox_TextChanged);
+            // 
+            // guna2HtmlLabel4
+            // 
+            this.guna2HtmlLabel4.AutoSize = false;
+            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel4.Location = new System.Drawing.Point(21, 269);
+            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(159, 31);
+            this.guna2HtmlLabel4.TabIndex = 12;
+            this.guna2HtmlLabel4.Text = "Họ và tên";
+            this.guna2HtmlLabel4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -417,5 +454,7 @@ namespace FormAppQuyt
         private Guna.UI2.WinForms.Guna2Button leaderboard;
         private Guna.UI2.WinForms.Guna2TextBox birthDate;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
+        private Guna.UI2.WinForms.Guna2TextBox fullNamebox;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
     }
 }
