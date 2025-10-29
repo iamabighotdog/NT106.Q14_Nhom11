@@ -20,7 +20,6 @@ namespace FormAppQuyt
 {
     public partial class LogInForm : Form
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["UserAuthDB"].ConnectionString;
         public LogInForm()
         {
             this.AutoScaleMode = AutoScaleMode.None;

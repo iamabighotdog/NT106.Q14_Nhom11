@@ -19,7 +19,6 @@ namespace FormAppQuyt
 {
     public partial class SignUpForm : Form
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["UserAuthDB"].ConnectionString;
         public SignUpForm()
         {
             this.AutoScaleMode = AutoScaleMode.None;
