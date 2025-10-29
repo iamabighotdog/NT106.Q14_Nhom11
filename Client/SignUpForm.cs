@@ -55,6 +55,7 @@ namespace FormAppQuyt
             public bool ok { get; set; }
             public string message { get; set; }
         }
+   
         private void SignUpButton_Click(object sender, EventArgs e)
         {
             string email = EmailBox.Text;
@@ -67,26 +68,10 @@ namespace FormAppQuyt
                 MessageBox.Show("Vui lòng nhập email");
                 return;
             }
-            else
-            {
-                if (!ValidationHelper.IsValidEmail(email))
-                {
-                    MessageBox.Show("Email không hợp lệ");
-                    return;
-                }
-            }
             if (string.IsNullOrWhiteSpace(phone))
             {
                 MessageBox.Show("Vui lòng nhập số điện thoại");
                 return;
-            }
-            else
-            {
-                if (!ValidationHelper.IsValidPhone(phone))
-                {
-                    MessageBox.Show("Số điện thoại phải gồm 10 chữ số");
-                    return;
-                }
             }
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -132,22 +117,13 @@ namespace FormAppQuyt
                     }
                     return;
                 }
-                if (resp.IndexOf("success", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    MessageBox.Show("Đăng ký thành công, vui lòng đăng nhập");
-                    var loginForm = new LogInForm();
-                    loginForm.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show(resp.StartsWith("ERROR:") ? resp : "Đăng ký thất bại");
-                }
+                MessageBox.Show("Đăng ký thất bại");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Có lỗi xảy ra khi kết nối máy chủ: " + ex.Message);
             }
         }
+
     }
 }

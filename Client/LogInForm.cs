@@ -109,13 +109,6 @@ namespace FormAppQuyt
                 {
                     MessageBox.Show(resp);
                 }
-                else if (resp.IndexOf("success", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    MessageBox.Show("Đăng nhập thành công");
-                    var mainForm = new Main(identifier);
-                    mainForm.Show();
-                    this.Hide();
-                }
                 else
                 {
                     MessageBox.Show("Tài khoản hoặc mật khẩu không chính xác");
@@ -126,5 +119,6 @@ namespace FormAppQuyt
                 MessageBox.Show("Có lỗi xảy ra khi kết nối máy chủ: " + ex.Message);
             }
         }
+
     }
 }

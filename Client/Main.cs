@@ -21,7 +21,6 @@ namespace FormAppQuyt
             public string email { get; set; }
             public string phone { get; set; }
         }
-
         private void Main_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(userInput))
@@ -34,16 +33,7 @@ namespace FormAppQuyt
             {
                 var client = new tcpClient();
                 string response = client.SendProfileData(userInput);
-                ProfileReply reply = null;
-                try
-                {
-                    reply = JsonSerializer.Deserialize<ProfileReply>(response);
-                }
-                catch
-                {
-                    MessageBox.Show("Lỗi");
-                    return;
-                }
+                ProfileReply reply = JsonSerializer.Deserialize<ProfileReply>(response);
                 if (reply != null && reply.ok)
                 {
                     username.Text = reply.username ?? "";
@@ -56,5 +46,6 @@ namespace FormAppQuyt
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
+      
     }
 }
