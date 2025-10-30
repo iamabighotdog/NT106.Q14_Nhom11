@@ -1,4 +1,4 @@
-# Ung dung Quiz Quan ly Nguoi dung
+# Ung dung trac nghiem Quyt 
 
 ## Thong tin nhom
 - 24520397 – Tran Anh Duy  
@@ -9,7 +9,7 @@
 ---
 
 ## Mo ta bai tap
-Ung dung **Quiz** quan ly nguoi dung voi cac tinh nang:  
+Ung dung trac nghiem **Quyt**:  
 - Dang ky nguoi dung moi.  
 - Dang nhap bang tai khoan da co.  
 - Mat khau duoc ma hoa bang **SHA-256** truoc khi luu vao co so du lieu.  
