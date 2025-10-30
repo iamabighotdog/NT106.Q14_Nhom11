@@ -23,7 +23,7 @@ Ung dung **Quiz** quan ly nguoi dung voi cac tinh nang:
 ```bash
 git clone https://github.com/iamabighotdog/NT106.Q14_Nhom11.git
 cd NT106.Q14_Nhom11
-git checkout BT2.2-NHOM11
+git checkout master
 ```
 
 ### 2. Khoi tao database(Danh cho server)

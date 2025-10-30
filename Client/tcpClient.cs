@@ -6,7 +6,7 @@ using System.Text.Json;
 
 internal class tcpClient
 {
-    private string serverIp = "192.168.2.44";
+    private string serverIp = "26.202.204.10";
     private int serverPort = 3636;
 
     private string SendToServer(object data)

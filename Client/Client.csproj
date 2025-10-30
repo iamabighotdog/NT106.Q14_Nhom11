@@ -101,7 +101,6 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="tcpClient.cs" />
-    <Compile Include="tcpServer.cs" />
     <Compile Include="ValidationHelper.cs" />
     <Compile Include="CryptoHelper.cs" />
     <Compile Include="LogInForm.cs">
