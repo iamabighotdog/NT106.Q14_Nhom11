@@ -31,7 +31,7 @@ namespace FormAppQuyt
 
             try
             {
-                var client = new tcpClient();
+                tcpClient client = new tcpClient();
                 string response = client.SendProfileData(userInput);
                 ProfileReply reply = JsonSerializer.Deserialize<ProfileReply>(response);
                 if (reply != null && reply.ok)
@@ -50,7 +50,7 @@ namespace FormAppQuyt
         private void logOut_Click(object sender, EventArgs e)
         {
             this.Hide();
-            using (var login = new LogInForm())
+            using (LogInForm login = new LogInForm())
             {
                 login.StartPosition = FormStartPosition.CenterScreen;
                 login.ShowDialog();

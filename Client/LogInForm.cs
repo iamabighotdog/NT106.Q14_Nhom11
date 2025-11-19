@@ -80,17 +80,17 @@ namespace FormAppQuyt
             string hashed = CryptoHelper.ComputeSha256Hash(password);
             try
             {
-                var client = new tcpClient();
+                tcpClient client = new tcpClient();
                 string resp = client.SendLoginData(identifier, hashed);
                 try
                 {
-                    var r = JsonSerializer.Deserialize<LoginReply>(resp);
+                    LoginReply r = JsonSerializer.Deserialize<LoginReply>(resp);
                     if (r != null)
                     {
                         if (r.ok)
                         {
                             MessageBox.Show(r.message ?? "Đăng nhập thành công");
-                            var mainForm = new Main(identifier);
+                            Main mainForm = new Main(identifier);
                             mainForm.Show();
                             this.Hide();
                             return;

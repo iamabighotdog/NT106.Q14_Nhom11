@@ -96,7 +96,7 @@ namespace FormAppQuyt
 
             try
             {
-                var client = new tcpClient();
+                tcpClient client = new tcpClient();
                 string resp = client.SendRegisterData(username, email, phone, hashedPassword);
                 SimpleReply r = null;
                 try { r = JsonSerializer.Deserialize<SimpleReply>(resp); } catch { }
@@ -106,7 +106,7 @@ namespace FormAppQuyt
                     if (r.ok)
                     {
                         MessageBox.Show(r.message ?? "Đăng ký thành công, vui lòng đăng nhập");
-                        var loginForm = new LogInForm();
+                        LogInForm loginForm = new LogInForm();
                         loginForm.Show();
                         this.Close();
                     }
