@@ -62,20 +62,45 @@ namespace FormAppQuyt
             string phone = PhoneBox.Text;
             string password = PasswordBox.Text;
             string confirmPassword = ConfirmPassword.Text;
+
             if (string.IsNullOrWhiteSpace(email))
             {
                 MessageBox.Show("Vui lòng nhập email");
                 return;
             }
+
+            if (!ValidationHelper.IsValidEmail(email))
+            {
+                MessageBox.Show("Email không hợp lệ.");
+                EmailBox.Focus();
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(phone))
             {
                 MessageBox.Show("Vui lòng nhập số điện thoại");
                 return;
             }
+
+            if (!ValidationHelper.IsValidPhone(phone))
+            {
+                MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số.");
+                PhoneBox.Focus();
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(username))
             {
                 MessageBox.Show("Tên đăng nhập không được bỏ trống.");
             }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu.");
+                PasswordBox.Focus();
+                return;
+            }
+
             if (!ValidationHelper.IsStrongPass(password))
             {
                 MessageBox.Show("Mật khẩu phải từ 8 ký tự, gồm chữ hoa, thường, số và ký tự đặc biệt.");
