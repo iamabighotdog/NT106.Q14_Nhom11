@@ -32,16 +32,20 @@
             this.answerD = new Guna.UI2.WinForms.Guna2Button();
             this.answerC = new Guna.UI2.WinForms.Guna2Button();
             this.answerB = new Guna.UI2.WinForms.Guna2Button();
-            this.pic = new Guna.UI2.WinForms.Guna2PictureBox();
             this.question = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.answerA = new Guna.UI2.WinForms.Guna2Button();
             this.close = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.pic = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.next = new Guna.UI2.WinForms.Guna2Button();
+            this.back = new Guna.UI2.WinForms.Guna2Button();
             this.guna2GradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2GradientPanel1
             // 
+            this.guna2GradientPanel1.Controls.Add(this.back);
+            this.guna2GradientPanel1.Controls.Add(this.next);
             this.guna2GradientPanel1.Controls.Add(this.answerD);
             this.guna2GradientPanel1.Controls.Add(this.answerC);
             this.guna2GradientPanel1.Controls.Add(this.answerB);
@@ -102,18 +106,6 @@
             this.answerB.TabIndex = 7;
             this.answerB.Text = "B";
             // 
-            // pic
-            // 
-            this.pic.BackColor = System.Drawing.Color.Transparent;
-            this.pic.Image = global::FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
-            this.pic.ImageRotate = 0F;
-            this.pic.Location = new System.Drawing.Point(511, 147);
-            this.pic.Name = "pic";
-            this.pic.Size = new System.Drawing.Size(706, 443);
-            this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pic.TabIndex = 6;
-            this.pic.TabStop = false;
-            // 
             // question
             // 
             this.question.BackColor = System.Drawing.Color.Transparent;
@@ -150,6 +142,48 @@
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
             // 
+            // pic
+            // 
+            this.pic.BackColor = System.Drawing.Color.Transparent;
+            this.pic.Image = global::FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
+            this.pic.ImageRotate = 0F;
+            this.pic.Location = new System.Drawing.Point(511, 147);
+            this.pic.Name = "pic";
+            this.pic.Size = new System.Drawing.Size(706, 443);
+            this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pic.TabIndex = 6;
+            this.pic.TabStop = false;
+            // 
+            // next
+            // 
+            this.next.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.next.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.next.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.next.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.next.FillColor = System.Drawing.Color.Green;
+            this.next.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.next.ForeColor = System.Drawing.Color.White;
+            this.next.Location = new System.Drawing.Point(1037, 606);
+            this.next.Name = "next";
+            this.next.Size = new System.Drawing.Size(180, 45);
+            this.next.TabIndex = 10;
+            this.next.Text = "Tiếp theo";
+            // 
+            // back
+            // 
+            this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.back.FillColor = System.Drawing.Color.Green;
+            this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.back.ForeColor = System.Drawing.Color.White;
+            this.back.Location = new System.Drawing.Point(511, 606);
+            this.back.Name = "back";
+            this.back.Size = new System.Drawing.Size(180, 45);
+            this.back.TabIndex = 11;
+            this.back.Text = "Quay lại";
+            // 
             // Play
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -176,5 +210,7 @@
         private Guna.UI2.WinForms.Guna2Button answerD;
         private Guna.UI2.WinForms.Guna2Button answerC;
         private Guna.UI2.WinForms.Guna2Button answerB;
+        private Guna.UI2.WinForms.Guna2Button next;
+        private Guna.UI2.WinForms.Guna2Button back;
     }
 }

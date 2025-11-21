@@ -100,6 +100,12 @@
     <Compile Include="createQuiz.Designer.cs">
       <DependentUpon>createQuiz.cs</DependentUpon>
     </Compile>
+    <Compile Include="leaderboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="leaderboard.Designer.cs">
+      <DependentUpon>leaderboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,12 @@
     </Compile>
     <Compile Include="Play.Designer.cs">
       <DependentUpon>Play.cs</DependentUpon>
+    </Compile>
+    <Compile Include="resultForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="resultForm.Designer.cs">
+      <DependentUpon>resultForm.cs</DependentUpon>
     </Compile>
     <Compile Include="tcpClient.cs" />
     <Compile Include="ValidationHelper.cs" />
@@ -132,11 +144,17 @@
     <EmbeddedResource Include="createQuiz.resx">
       <DependentUpon>createQuiz.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="leaderboard.resx">
+      <DependentUpon>leaderboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Play.resx">
       <DependentUpon>Play.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resultForm.resx">
+      <DependentUpon>resultForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>

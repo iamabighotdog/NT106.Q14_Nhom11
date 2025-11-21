@@ -51,6 +51,7 @@ namespace FormAppQuyt
             this.leaderboard = new Guna.UI2.WinForms.Guna2Button();
             this.play = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.myQuiz = new Guna.UI2.WinForms.Guna2Button();
             this.GradientPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -320,6 +321,7 @@ namespace FormAppQuyt
             // guna2GradientPanel1
             // 
             this.guna2GradientPanel1.BorderColor = System.Drawing.Color.White;
+            this.guna2GradientPanel1.Controls.Add(this.myQuiz);
             this.guna2GradientPanel1.Controls.Add(this.exit);
             this.guna2GradientPanel1.Controls.Add(this.createQuiz);
             this.guna2GradientPanel1.Controls.Add(this.leaderboard);
@@ -342,10 +344,10 @@ namespace FormAppQuyt
             this.exit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.exit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.exit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.exit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(164)))));
+            this.exit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(215)))), ((int)(((byte)(175)))));
             this.exit.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.exit.ForeColor = System.Drawing.Color.Black;
-            this.exit.Location = new System.Drawing.Point(0, 359);
+            this.exit.Location = new System.Drawing.Point(0, 447);
             this.exit.Name = "exit";
             this.exit.Size = new System.Drawing.Size(329, 45);
             this.exit.TabIndex = 5;
@@ -361,7 +363,7 @@ namespace FormAppQuyt
             this.createQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(215)))), ((int)(((byte)(175)))));
             this.createQuiz.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.createQuiz.ForeColor = System.Drawing.Color.Black;
-            this.createQuiz.Location = new System.Drawing.Point(0, 308);
+            this.createQuiz.Location = new System.Drawing.Point(0, 351);
             this.createQuiz.Name = "createQuiz";
             this.createQuiz.Size = new System.Drawing.Size(329, 45);
             this.createQuiz.TabIndex = 4;
@@ -377,7 +379,7 @@ namespace FormAppQuyt
             this.leaderboard.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(164)))));
             this.leaderboard.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.leaderboard.ForeColor = System.Drawing.Color.Black;
-            this.leaderboard.Location = new System.Drawing.Point(0, 257);
+            this.leaderboard.Location = new System.Drawing.Point(0, 303);
             this.leaderboard.Name = "leaderboard";
             this.leaderboard.Size = new System.Drawing.Size(329, 45);
             this.leaderboard.TabIndex = 3;
@@ -393,7 +395,7 @@ namespace FormAppQuyt
             this.play.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(215)))), ((int)(((byte)(175)))));
             this.play.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.play.ForeColor = System.Drawing.Color.Black;
-            this.play.Location = new System.Drawing.Point(0, 206);
+            this.play.Location = new System.Drawing.Point(0, 255);
             this.play.Name = "play";
             this.play.Size = new System.Drawing.Size(329, 45);
             this.play.TabIndex = 2;
@@ -411,6 +413,22 @@ namespace FormAppQuyt
             this.guna2PictureBox1.TabIndex = 1;
             this.guna2PictureBox1.TabStop = false;
             this.guna2PictureBox1.UseTransparentBackground = true;
+            // 
+            // myQuiz
+            // 
+            this.myQuiz.BorderColor = System.Drawing.Color.Transparent;
+            this.myQuiz.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.myQuiz.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.myQuiz.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.myQuiz.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.myQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(164)))));
+            this.myQuiz.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
+            this.myQuiz.ForeColor = System.Drawing.Color.Black;
+            this.myQuiz.Location = new System.Drawing.Point(0, 399);
+            this.myQuiz.Name = "myQuiz";
+            this.myQuiz.Size = new System.Drawing.Size(329, 45);
+            this.myQuiz.TabIndex = 6;
+            this.myQuiz.Text = "Bộ quiz của tôi";
             // 
             // Main
             // 
@@ -456,5 +474,6 @@ namespace FormAppQuyt
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2TextBox fullNamebox;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
+        private Guna.UI2.WinForms.Guna2Button myQuiz;
     }
 }

@@ -40,25 +40,29 @@
             this.pic = new Guna.UI2.WinForms.Guna2PictureBox();
             this.question = new Guna.UI2.WinForms.Guna2GroupBox();
             this.addPic = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.quesBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.correct = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.correctBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.wrong = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2TextBox5 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2TextBox4 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2TextBox3 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.wrongBox3 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.wrongBox2 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.wrongBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
+            this.quizName = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.quizBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.question.SuspendLayout();
             this.correct.SuspendLayout();
             this.wrong.SuspendLayout();
+            this.quizName.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.Controls.Add(this.quizName);
             this.guna2Panel1.Controls.Add(this.back);
             this.guna2Panel1.Controls.Add(this.save);
             this.guna2Panel1.Controls.Add(this.num);
@@ -186,10 +190,10 @@
             // question
             // 
             this.question.Controls.Add(this.addPic);
-            this.question.Controls.Add(this.guna2TextBox1);
+            this.question.Controls.Add(this.quesBox);
             this.question.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.question.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.question.Location = new System.Drawing.Point(23, 61);
+            this.question.Location = new System.Drawing.Point(23, 173);
             this.question.Name = "question";
             this.question.Size = new System.Drawing.Size(474, 136);
             this.question.TabIndex = 5;
@@ -209,64 +213,64 @@
             this.addPic.TabIndex = 5;
             this.addPic.Text = "Thêm ảnh";
             // 
-            // guna2TextBox1
+            // quesBox
             // 
-            this.guna2TextBox1.AutoRoundedCorners = true;
-            this.guna2TextBox1.BackColor = System.Drawing.Color.White;
-            this.guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox1.DefaultText = "";
-            this.guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.Location = new System.Drawing.Point(4, 58);
-            this.guna2TextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.guna2TextBox1.Name = "guna2TextBox1";
-            this.guna2TextBox1.PlaceholderText = "";
-            this.guna2TextBox1.SelectedText = "";
-            this.guna2TextBox1.Size = new System.Drawing.Size(466, 28);
-            this.guna2TextBox1.TabIndex = 4;
+            this.quesBox.AutoRoundedCorners = true;
+            this.quesBox.BackColor = System.Drawing.Color.White;
+            this.quesBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.quesBox.DefaultText = "";
+            this.quesBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.quesBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.quesBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.quesBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.quesBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.quesBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
+            this.quesBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.quesBox.Location = new System.Drawing.Point(4, 58);
+            this.quesBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.quesBox.Name = "quesBox";
+            this.quesBox.PlaceholderText = "";
+            this.quesBox.SelectedText = "";
+            this.quesBox.Size = new System.Drawing.Size(466, 28);
+            this.quesBox.TabIndex = 4;
             // 
             // correct
             // 
-            this.correct.Controls.Add(this.guna2TextBox2);
+            this.correct.Controls.Add(this.correctBox);
             this.correct.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.correct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.correct.Location = new System.Drawing.Point(23, 259);
+            this.correct.Location = new System.Drawing.Point(23, 315);
             this.correct.Name = "correct";
             this.correct.Size = new System.Drawing.Size(474, 118);
             this.correct.TabIndex = 2;
             this.correct.Text = "Câu trả lời đúng";
             // 
-            // guna2TextBox2
+            // correctBox
             // 
-            this.guna2TextBox2.AutoRoundedCorners = true;
-            this.guna2TextBox2.BackColor = System.Drawing.Color.White;
-            this.guna2TextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox2.DefaultText = "";
-            this.guna2TextBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Location = new System.Drawing.Point(4, 58);
-            this.guna2TextBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.guna2TextBox2.Name = "guna2TextBox2";
-            this.guna2TextBox2.PlaceholderText = "";
-            this.guna2TextBox2.SelectedText = "";
-            this.guna2TextBox2.Size = new System.Drawing.Size(466, 28);
-            this.guna2TextBox2.TabIndex = 4;
+            this.correctBox.AutoRoundedCorners = true;
+            this.correctBox.BackColor = System.Drawing.Color.White;
+            this.correctBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.correctBox.DefaultText = "";
+            this.correctBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.correctBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.correctBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.correctBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.correctBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.correctBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
+            this.correctBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.correctBox.Location = new System.Drawing.Point(4, 58);
+            this.correctBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.correctBox.Name = "correctBox";
+            this.correctBox.PlaceholderText = "";
+            this.correctBox.SelectedText = "";
+            this.correctBox.Size = new System.Drawing.Size(466, 28);
+            this.correctBox.TabIndex = 4;
             // 
             // wrong
             // 
-            this.wrong.Controls.Add(this.guna2TextBox5);
-            this.wrong.Controls.Add(this.guna2TextBox4);
-            this.wrong.Controls.Add(this.guna2TextBox3);
+            this.wrong.Controls.Add(this.wrongBox3);
+            this.wrong.Controls.Add(this.wrongBox2);
+            this.wrong.Controls.Add(this.wrongBox1);
             this.wrong.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.wrong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.wrong.Location = new System.Drawing.Point(23, 439);
@@ -275,68 +279,68 @@
             this.wrong.TabIndex = 2;
             this.wrong.Text = "Câu trả lời sai";
             // 
-            // guna2TextBox5
+            // wrongBox3
             // 
-            this.guna2TextBox5.AutoRoundedCorners = true;
-            this.guna2TextBox5.BackColor = System.Drawing.Color.White;
-            this.guna2TextBox5.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox5.DefaultText = "";
-            this.guna2TextBox5.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox5.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox5.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox5.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.guna2TextBox5.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox5.Location = new System.Drawing.Point(4, 132);
-            this.guna2TextBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.guna2TextBox5.Name = "guna2TextBox5";
-            this.guna2TextBox5.PlaceholderText = "";
-            this.guna2TextBox5.SelectedText = "";
-            this.guna2TextBox5.Size = new System.Drawing.Size(466, 28);
-            this.guna2TextBox5.TabIndex = 7;
+            this.wrongBox3.AutoRoundedCorners = true;
+            this.wrongBox3.BackColor = System.Drawing.Color.White;
+            this.wrongBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.wrongBox3.DefaultText = "";
+            this.wrongBox3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.wrongBox3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.wrongBox3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.wrongBox3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.wrongBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.wrongBox3.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
+            this.wrongBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.wrongBox3.Location = new System.Drawing.Point(4, 132);
+            this.wrongBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.wrongBox3.Name = "wrongBox3";
+            this.wrongBox3.PlaceholderText = "";
+            this.wrongBox3.SelectedText = "";
+            this.wrongBox3.Size = new System.Drawing.Size(466, 28);
+            this.wrongBox3.TabIndex = 7;
             // 
-            // guna2TextBox4
+            // wrongBox2
             // 
-            this.guna2TextBox4.AutoRoundedCorners = true;
-            this.guna2TextBox4.BackColor = System.Drawing.Color.White;
-            this.guna2TextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox4.DefaultText = "";
-            this.guna2TextBox4.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox4.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox4.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox4.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.guna2TextBox4.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox4.Location = new System.Drawing.Point(4, 94);
-            this.guna2TextBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.guna2TextBox4.Name = "guna2TextBox4";
-            this.guna2TextBox4.PlaceholderText = "";
-            this.guna2TextBox4.SelectedText = "";
-            this.guna2TextBox4.Size = new System.Drawing.Size(466, 28);
-            this.guna2TextBox4.TabIndex = 6;
+            this.wrongBox2.AutoRoundedCorners = true;
+            this.wrongBox2.BackColor = System.Drawing.Color.White;
+            this.wrongBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.wrongBox2.DefaultText = "";
+            this.wrongBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.wrongBox2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.wrongBox2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.wrongBox2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.wrongBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.wrongBox2.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
+            this.wrongBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.wrongBox2.Location = new System.Drawing.Point(4, 94);
+            this.wrongBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.wrongBox2.Name = "wrongBox2";
+            this.wrongBox2.PlaceholderText = "";
+            this.wrongBox2.SelectedText = "";
+            this.wrongBox2.Size = new System.Drawing.Size(466, 28);
+            this.wrongBox2.TabIndex = 6;
             // 
-            // guna2TextBox3
+            // wrongBox1
             // 
-            this.guna2TextBox3.AutoRoundedCorners = true;
-            this.guna2TextBox3.BackColor = System.Drawing.Color.White;
-            this.guna2TextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox3.DefaultText = "";
-            this.guna2TextBox3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.guna2TextBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.Location = new System.Drawing.Point(4, 56);
-            this.guna2TextBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.guna2TextBox3.Name = "guna2TextBox3";
-            this.guna2TextBox3.PlaceholderText = "";
-            this.guna2TextBox3.SelectedText = "";
-            this.guna2TextBox3.Size = new System.Drawing.Size(466, 28);
-            this.guna2TextBox3.TabIndex = 5;
+            this.wrongBox1.AutoRoundedCorners = true;
+            this.wrongBox1.BackColor = System.Drawing.Color.White;
+            this.wrongBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.wrongBox1.DefaultText = "";
+            this.wrongBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.wrongBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.wrongBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.wrongBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.wrongBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.wrongBox1.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
+            this.wrongBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.wrongBox1.Location = new System.Drawing.Point(4, 56);
+            this.wrongBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.wrongBox1.Name = "wrongBox1";
+            this.wrongBox1.PlaceholderText = "";
+            this.wrongBox1.SelectedText = "";
+            this.wrongBox1.Size = new System.Drawing.Size(466, 28);
+            this.wrongBox1.TabIndex = 5;
             // 
             // guna2ControlBox1
             // 
@@ -355,6 +359,38 @@
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
+            // quizName
+            // 
+            this.quizName.Controls.Add(this.quizBox);
+            this.quizName.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.quizName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.quizName.Location = new System.Drawing.Point(23, 49);
+            this.quizName.Name = "quizName";
+            this.quizName.Size = new System.Drawing.Size(474, 118);
+            this.quizName.TabIndex = 5;
+            this.quizName.Text = "Tên bộ câu hỏi";
+            // 
+            // quizBox
+            // 
+            this.quizBox.AutoRoundedCorners = true;
+            this.quizBox.BackColor = System.Drawing.Color.White;
+            this.quizBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.quizBox.DefaultText = "";
+            this.quizBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.quizBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.quizBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.quizBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.quizBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.quizBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
+            this.quizBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.quizBox.Location = new System.Drawing.Point(4, 58);
+            this.quizBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.quizBox.Name = "quizBox";
+            this.quizBox.PlaceholderText = "";
+            this.quizBox.SelectedText = "";
+            this.quizBox.Size = new System.Drawing.Size(466, 28);
+            this.quizBox.TabIndex = 4;
+            // 
             // createQuiz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -370,6 +406,7 @@
             this.question.ResumeLayout(false);
             this.correct.ResumeLayout(false);
             this.wrong.ResumeLayout(false);
+            this.quizName.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -380,13 +417,13 @@
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
         private Guna.UI2.WinForms.Guna2GroupBox correct;
         private Guna.UI2.WinForms.Guna2GroupBox wrong;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
+        private Guna.UI2.WinForms.Guna2TextBox correctBox;
         private Guna.UI2.WinForms.Guna2PictureBox pic;
         private Guna.UI2.WinForms.Guna2GroupBox question;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox5;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox4;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox3;
+        private Guna.UI2.WinForms.Guna2TextBox quesBox;
+        private Guna.UI2.WinForms.Guna2TextBox wrongBox3;
+        private Guna.UI2.WinForms.Guna2TextBox wrongBox2;
+        private Guna.UI2.WinForms.Guna2TextBox wrongBox1;
         private Guna.UI2.WinForms.Guna2Button next;
         private Guna.UI2.WinForms.Guna2Button previous;
         private Guna.UI2.WinForms.Guna2Button add;
@@ -396,5 +433,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel num;
         private Guna.UI2.WinForms.Guna2Button back;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
+        private Guna.UI2.WinForms.Guna2GroupBox quizName;
+        private Guna.UI2.WinForms.Guna2TextBox quizBox;
     }
 }
