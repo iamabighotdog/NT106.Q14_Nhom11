@@ -94,11 +94,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="createQuiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="createQuiz.Designer.cs">
+      <DependentUpon>createQuiz.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Play.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Play.Designer.cs">
+      <DependentUpon>Play.cs</DependentUpon>
     </Compile>
     <Compile Include="tcpClient.cs" />
     <Compile Include="ValidationHelper.cs" />
@@ -117,8 +129,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="createQuiz.resx">
+      <DependentUpon>createQuiz.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Play.resx">
+      <DependentUpon>Play.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
@@ -161,6 +179,7 @@
     <None Include="Resources\f4da28534b1e73299817f668c0052531-removebg-preview.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\istockphoto-1386740242-612x612.jpg" />
     <Content Include="Resources\Screenshot 2025-10-28 211339.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
