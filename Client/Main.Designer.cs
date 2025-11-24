@@ -52,6 +52,7 @@ namespace FormAppQuyt
             this.leaderboard = new Guna.UI2.WinForms.Guna2Button();
             this.play = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.createRoom = new Guna.UI2.WinForms.Guna2Button();
             this.GradientPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -321,6 +322,7 @@ namespace FormAppQuyt
             // guna2GradientPanel1
             // 
             this.guna2GradientPanel1.BorderColor = System.Drawing.Color.White;
+            this.guna2GradientPanel1.Controls.Add(this.createRoom);
             this.guna2GradientPanel1.Controls.Add(this.myQuiz);
             this.guna2GradientPanel1.Controls.Add(this.exit);
             this.guna2GradientPanel1.Controls.Add(this.createQuiz);
@@ -344,7 +346,7 @@ namespace FormAppQuyt
             this.myQuiz.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.myQuiz.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.myQuiz.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.myQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(164)))));
+            this.myQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.myQuiz.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.myQuiz.ForeColor = System.Drawing.Color.Black;
             this.myQuiz.Location = new System.Drawing.Point(0, 399);
@@ -360,10 +362,10 @@ namespace FormAppQuyt
             this.exit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.exit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.exit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.exit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(215)))), ((int)(((byte)(175)))));
+            this.exit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.exit.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.exit.ForeColor = System.Drawing.Color.Black;
-            this.exit.Location = new System.Drawing.Point(0, 447);
+            this.exit.Location = new System.Drawing.Point(0, 495);
             this.exit.Name = "exit";
             this.exit.Size = new System.Drawing.Size(329, 45);
             this.exit.TabIndex = 5;
@@ -376,7 +378,7 @@ namespace FormAppQuyt
             this.createQuiz.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.createQuiz.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.createQuiz.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.createQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(215)))), ((int)(((byte)(175)))));
+            this.createQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.createQuiz.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.createQuiz.ForeColor = System.Drawing.Color.Black;
             this.createQuiz.Location = new System.Drawing.Point(0, 351);
@@ -393,7 +395,7 @@ namespace FormAppQuyt
             this.leaderboard.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.leaderboard.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.leaderboard.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.leaderboard.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(164)))));
+            this.leaderboard.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.leaderboard.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.leaderboard.ForeColor = System.Drawing.Color.Black;
             this.leaderboard.Location = new System.Drawing.Point(0, 303);
@@ -409,7 +411,7 @@ namespace FormAppQuyt
             this.play.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.play.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.play.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.play.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(215)))), ((int)(((byte)(175)))));
+            this.play.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.play.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
             this.play.ForeColor = System.Drawing.Color.Black;
             this.play.Location = new System.Drawing.Point(0, 255);
@@ -430,6 +432,22 @@ namespace FormAppQuyt
             this.guna2PictureBox1.TabIndex = 1;
             this.guna2PictureBox1.TabStop = false;
             this.guna2PictureBox1.UseTransparentBackground = true;
+            // 
+            // createRoom
+            // 
+            this.createRoom.BorderColor = System.Drawing.Color.Transparent;
+            this.createRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.createRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.createRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.createRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.createRoom.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.createRoom.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
+            this.createRoom.ForeColor = System.Drawing.Color.Black;
+            this.createRoom.Location = new System.Drawing.Point(0, 447);
+            this.createRoom.Name = "createRoom";
+            this.createRoom.Size = new System.Drawing.Size(329, 45);
+            this.createRoom.TabIndex = 7;
+            this.createRoom.Text = "Tạo phòng";
             // 
             // Main
             // 
@@ -476,5 +494,6 @@ namespace FormAppQuyt
         private Guna.UI2.WinForms.Guna2TextBox fullNamebox;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2Button myQuiz;
+        private Guna.UI2.WinForms.Guna2Button createRoom;
     }
 }
