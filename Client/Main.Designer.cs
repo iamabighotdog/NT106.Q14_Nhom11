@@ -43,7 +43,7 @@ namespace FormAppQuyt
             this.username = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.changeInfo = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.pic_Avatar = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.Close = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.myQuiz = new Guna.UI2.WinForms.Guna2Button();
@@ -54,7 +54,7 @@ namespace FormAppQuyt
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.GradientPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_Avatar)).BeginInit();
             this.guna2GradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +88,7 @@ namespace FormAppQuyt
             this.guna2Panel1.Controls.Add(this.username);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2Panel1.Controls.Add(this.changeInfo);
-            this.guna2Panel1.Controls.Add(this.guna2CirclePictureBox1);
+            this.guna2Panel1.Controls.Add(this.pic_Avatar);
             this.guna2Panel1.Location = new System.Drawing.Point(338, 0);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(522, 717);
@@ -290,20 +290,21 @@ namespace FormAppQuyt
             this.changeInfo.TabIndex = 3;
             this.changeInfo.Text = "Thay đổi thông tin";
             // 
-            // guna2CirclePictureBox1
+            // pic_Avatar
             // 
-            this.guna2CirclePictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2CirclePictureBox1.FillColor = System.Drawing.Color.Transparent;
-            this.guna2CirclePictureBox1.Image = global::FormAppQuyt.Properties.Resources.f4da28534b1e73299817f668c0052531_removebg_preview;
-            this.guna2CirclePictureBox1.ImageRotate = 0F;
-            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(130, 0);
-            this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
-            this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(262, 216);
-            this.guna2CirclePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2CirclePictureBox1.TabIndex = 0;
-            this.guna2CirclePictureBox1.TabStop = false;
-            this.guna2CirclePictureBox1.UseTransparentBackground = true;
+            this.pic_Avatar.BackColor = System.Drawing.Color.Transparent;
+            this.pic_Avatar.FillColor = System.Drawing.Color.Transparent;
+            this.pic_Avatar.Image = global::FormAppQuyt.Properties.Resources.f4da28534b1e73299817f668c0052531_removebg_preview;
+            this.pic_Avatar.ImageRotate = 0F;
+            this.pic_Avatar.Location = new System.Drawing.Point(159, 12);
+            this.pic_Avatar.Name = "pic_Avatar";
+            this.pic_Avatar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.pic_Avatar.Size = new System.Drawing.Size(207, 168);
+            this.pic_Avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pic_Avatar.TabIndex = 0;
+            this.pic_Avatar.TabStop = false;
+            this.pic_Avatar.UseTransparentBackground = true;
+            this.pic_Avatar.Click += new System.EventHandler(this.guna2CirclePictureBox1_Click);
             // 
             // Close
             // 
@@ -444,7 +445,7 @@ namespace FormAppQuyt
             this.Load += new System.EventHandler(this.Main_Load);
             this.GradientPanel.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_Avatar)).EndInit();
             this.guna2GradientPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -457,7 +458,7 @@ namespace FormAppQuyt
         private Guna.UI2.WinForms.Guna2ControlBox Close;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox pic_Avatar;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2Button changeInfo;
         private Guna.UI2.WinForms.Guna2TextBox username;
