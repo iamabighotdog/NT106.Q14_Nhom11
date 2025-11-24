@@ -46,12 +46,12 @@ namespace FormAppQuyt
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.Close = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.myQuiz = new Guna.UI2.WinForms.Guna2Button();
             this.exit = new Guna.UI2.WinForms.Guna2Button();
             this.createQuiz = new Guna.UI2.WinForms.Guna2Button();
             this.leaderboard = new Guna.UI2.WinForms.Guna2Button();
             this.play = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.myQuiz = new Guna.UI2.WinForms.Guna2Button();
             this.GradientPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
@@ -337,6 +337,22 @@ namespace FormAppQuyt
             this.guna2GradientPanel1.Size = new System.Drawing.Size(332, 720);
             this.guna2GradientPanel1.TabIndex = 10;
             // 
+            // myQuiz
+            // 
+            this.myQuiz.BorderColor = System.Drawing.Color.Transparent;
+            this.myQuiz.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.myQuiz.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.myQuiz.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.myQuiz.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.myQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(164)))));
+            this.myQuiz.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
+            this.myQuiz.ForeColor = System.Drawing.Color.Black;
+            this.myQuiz.Location = new System.Drawing.Point(0, 399);
+            this.myQuiz.Name = "myQuiz";
+            this.myQuiz.Size = new System.Drawing.Size(329, 45);
+            this.myQuiz.TabIndex = 6;
+            this.myQuiz.Text = "Bộ quiz của tôi";
+            // 
             // exit
             // 
             this.exit.BorderColor = System.Drawing.Color.Transparent;
@@ -368,6 +384,7 @@ namespace FormAppQuyt
             this.createQuiz.Size = new System.Drawing.Size(329, 45);
             this.createQuiz.TabIndex = 4;
             this.createQuiz.Text = "Tạo bộ Quiz";
+            this.createQuiz.Click += new System.EventHandler(this.createQuiz_Click);
             // 
             // leaderboard
             // 
@@ -413,22 +430,6 @@ namespace FormAppQuyt
             this.guna2PictureBox1.TabIndex = 1;
             this.guna2PictureBox1.TabStop = false;
             this.guna2PictureBox1.UseTransparentBackground = true;
-            // 
-            // myQuiz
-            // 
-            this.myQuiz.BorderColor = System.Drawing.Color.Transparent;
-            this.myQuiz.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.myQuiz.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.myQuiz.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.myQuiz.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.myQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(164)))));
-            this.myQuiz.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
-            this.myQuiz.ForeColor = System.Drawing.Color.Black;
-            this.myQuiz.Location = new System.Drawing.Point(0, 399);
-            this.myQuiz.Name = "myQuiz";
-            this.myQuiz.Size = new System.Drawing.Size(329, 45);
-            this.myQuiz.TabIndex = 6;
-            this.myQuiz.Text = "Bộ quiz của tôi";
             // 
             // Main
             // 

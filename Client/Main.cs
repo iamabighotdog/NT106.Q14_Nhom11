@@ -57,5 +57,11 @@ namespace FormAppQuyt
             }
             this.Close();
         }
+
+        private void createQuiz_Click(object sender, EventArgs e)
+        {
+            createQuiz createQuiz = new createQuiz();
+            createQuiz.ShowDialog();
+        }
     }
 }
