@@ -187,7 +187,7 @@ internal class TcpServer
         string username = d.TryGetValue("username", out var u) ? u : "";
         string password = d.TryGetValue("password", out var pw) ? pw : "";
 
-        if (string.IsNullOrWhiteSpace(identifier) || string.IsNullOrWhiteSpace(password))
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             return JsonSerializer.Serialize(new { ok = false, message = "Các ô không được để trống" });
 
         try
