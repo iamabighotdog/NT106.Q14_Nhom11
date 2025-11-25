@@ -13,7 +13,10 @@ namespace FormAppQuyt
 {
     public partial class createQuiz : Form
     {
-        private byte[] selectedImage = null;
+        private string _imageBase64 = null;
+        private List<QuizQuestion> _questions = new List<QuizQuestion>();
+        private int currentIndex = 0;
+
         public createQuiz()
         {
             InitializeComponent();
@@ -23,40 +26,75 @@ namespace FormAppQuyt
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                ofd.Filter = "Ảnh .jpg|*.jpg;*.jpeg|Ảnh .png|*.png";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    string filePath = ofd.FileName;
-                    FileInfo fileInfo = new FileInfo(filePath);
+                    byte[] bytes = File.ReadAllBytes(ofd.FileName);
 
-                    const int MAX_FILE_SIZE_BYTES = 500 * 1024;  
-
-                    if (fileInfo.Length > MAX_FILE_SIZE_BYTES)
+                    if (bytes.Length > 200 * 1024)
                     {
-                        MessageBox.Show("Kích thước file ảnh quá lớn (> 500KB). Vui lòng chọn ảnh nhỏ hơn.",
-                                        "Cảnh báo Kích thước", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        selectedImage = null;
+                        MessageBox.Show("Ảnh quá lớn! < 200KB");
                         return;
                     }
 
-                    try
-                    {
-
-                        selectedImage = File.ReadAllBytes(filePath);
-
-                        using (MemoryStream ms = new MemoryStream(selectedImage))
-                        {
-                            pic.Image = Image.FromStream(ms);
-                        }
-
-                        MessageBox.Show("Đã chọn ảnh thành công.", "Thành công");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Lỗi đọc file: " + ex.Message, "Lỗi");
-                    }
+                    _imageBase64 = Convert.ToBase64String(bytes);
+                    pic.Image = Image.FromFile(ofd.FileName);
                 }
             }
         }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(quesBox.Text)
+             || string.IsNullOrWhiteSpace(correctBox.Text)
+             || string.IsNullOrWhiteSpace(wrongBox1.Text)
+             || string.IsNullOrWhiteSpace(wrongBox2.Text)
+             || string.IsNullOrWhiteSpace(wrongBox3.Text))
+            {
+                MessageBox.Show("Nhập đầy đủ dữ liệu câu hỏi");
+                return;
+            }
+
+            var q = new QuizQuestion()
+            {
+                NoiDung = quesBox.Text.Trim(),
+                DapAnDung = correctBox.Text.Trim(),
+                Sai1 = wrongBox1.Text.Trim(),
+                Sai2 = wrongBox2.Text.Trim(),
+                Sai3 = wrongBox3.Text.Trim(),
+                ImageBase64 = _imageBase64
+            };
+
+            if (currentIndex >= _questions.Count)
+                _questions.Add(q);
+            else
+                _questions[currentIndex] = q;
+
+            currentIndex++;
+
+            ClearInputs();
+        }
+
+        private void ClearInputs()
+        {
+            quesBox.Text = "";
+            correctBox.Text = "";
+            wrongBox1.Text = "";
+            wrongBox2.Text = "";
+            wrongBox3.Text = "";
+            pic.Image = null;
+            _imageBase64 = null;
+        }
     }
+
+    public class QuizQuestion
+    {
+        public string NoiDung { get; set; }
+        public string DapAnDung { get; set; }
+        public string Sai1 { get; set; }
+        public string Sai2 { get; set; }
+        public string Sai3 { get; set; }
+        public string ImageBase64 { get; set; }
+    }
+
 }

@@ -16,8 +16,8 @@ internal class TcpServer
     private bool running = false;
 
     private readonly string connectionString =
-        ConfigurationManager.ConnectionStrings["UserAuthDB"]?.ConnectionString
-        ?? @"Server=.;Database=UserAuthDB;Integrated Security=True;TrustServerCertificate=True;";
+        ConfigurationManager.ConnectionStrings["QuizDB"]?.ConnectionString
+        ?? @"Server=.;Database=QuizDB;Integrated Security=True;TrustServerCertificate=True;";
 
 
     public void Start()
@@ -30,10 +30,10 @@ internal class TcpServer
             using (var test = new SqlConnection(connectionString))
             {
                 test.Open();
-                using (var cmd = new SqlCommand("SELECT DB_ID('UserAuthDB')", test))
+                using (var cmd = new SqlCommand("SELECT DB_ID('QuizDB')", test))
                 {
                     var id = cmd.ExecuteScalar();
-                    Console.WriteLine("[DB] DB_ID(UserAuthDB) = " + (id == null ? "NULL" : id.ToString()));
+                    Console.WriteLine("[DB] DB_ID(QuizDB) = " + (id == null ? "NULL" : id.ToString()));
                 }
             }
             Console.WriteLine("[SERVER] DB ready.");
@@ -280,37 +280,76 @@ internal class TcpServer
         try
         {
             var csNoDb = connectionString
-                .Replace("Database=UserAuthDB;", string.Empty)
-                .Replace("Initial Catalog=UserAuthDB;", string.Empty);
+                .Replace("Database=QuizDB;", "")
+                .Replace("Initial Catalog=QuizDB;", "");
 
             using (var conn = new SqlConnection(csNoDb))
             {
                 conn.Open();
-                using (var cmd = new SqlCommand("IF DB_ID('UserAuthDB') IS NULL CREATE DATABASE UserAuthDB;", conn))
+                using (var cmd = new SqlCommand(
+                    "IF DB_ID('QuizDB') IS NULL CREATE DATABASE QuizDB;", conn))
                     cmd.ExecuteNonQuery();
             }
 
             using (var conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                var sql = @"
+                string sql = @"
                 IF OBJECT_ID('dbo.Users','U') IS NULL
                 BEGIN
                     CREATE TABLE dbo.Users(
-                        UserId   INT IDENTITY(1,1) PRIMARY KEY,
-                        Username NVARCHAR(50)  NOT NULL UNIQUE,
-                        Email    NVARCHAR(100) NULL UNIQUE,
+                        UserId INT IDENTITY(1,1) PRIMARY KEY,
+                        Username NVARCHAR(50) NOT NULL UNIQUE,
+                        Email NVARCHAR(100) NULL UNIQUE,
                         Phone NVARCHAR(20) NULL UNIQUE,
                         Password NVARCHAR(64) NOT NULL,           
                         FullName NVARCHAR(150) NULL,
-                        Birthday DATE          NULL
+                        Birthday DATE NULL
                     );
-                END";
+                END;
+
+                IF OBJECT_ID('dbo.Question','U') IS NULL
+                BEGIN
+                    CREATE TABLE dbo.Question(
+                        Id INT IDENTITY(1,1) PRIMARY KEY,
+                        NoiDung NVARCHAR(500) NOT NULL,
+                        DapAnDung NVARCHAR(200) NOT NULL,
+                        DapAnSai1 NVARCHAR(200) NOT NULL,
+                        DapAnSai2 NVARCHAR(200) NOT NULL,
+                        DapAnSai3 NVARCHAR(200) NOT NULL,
+                        UserId INT NOT NULL,
+                        FOREIGN KEY (UserId) REFERENCES dbo.Users(UserId)
+                    );
+                END;
+
+                IF OBJECT_ID('dbo.DeThi','U') IS NULL
+                BEGIN
+                    CREATE TABLE dbo.DeThi(
+                        IdDeThi INT IDENTITY(1,1) PRIMARY KEY,
+                        TenDeThi NVARCHAR(200) NOT NULL,
+                        SoCau INT NOT NULL,
+                        NgayTao DATETIME DEFAULT GETDATE(),
+                        UserId INT NOT NULL,
+                        FOREIGN KEY (UserId) REFERENCES dbo.Users(UserId)
+                    );
+                END;
+
+                IF OBJECT_ID('dbo.DeThi_CauHoi','U') IS NULL
+                BEGIN
+                    CREATE TABLE dbo.DeThi_CauHoi(
+                        IdDeThi INT NOT NULL,
+                        IdCauHoi INT NOT NULL,
+                        PRIMARY KEY (IdDeThi, IdCauHoi),
+                        FOREIGN KEY (IdDeThi) REFERENCES dbo.DeThi(IdDeThi) ON DELETE CASCADE,
+                        FOREIGN KEY (IdCauHoi) REFERENCES dbo.Question(Id) ON DELETE CASCADE
+                    );
+                END;
+                ";
                 using (var cmd = new SqlCommand(sql, conn))
                     cmd.ExecuteNonQuery();
             }
 
-            Console.WriteLine("[SERVER] DB ready.");
+            Console.WriteLine("[SERVER] QuizDB schema ready.");
         }
         catch (Exception ex)
         {
