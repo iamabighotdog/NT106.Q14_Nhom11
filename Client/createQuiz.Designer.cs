@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.quizName = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.quizBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.back = new Guna.UI2.WinForms.Guna2Button();
             this.save = new Guna.UI2.WinForms.Guna2Button();
             this.num = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -49,14 +51,12 @@
             this.wrongBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
-            this.quizName = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.quizBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel1.SuspendLayout();
+            this.quizName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.question.SuspendLayout();
             this.correct.SuspendLayout();
             this.wrong.SuspendLayout();
-            this.quizName.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -79,6 +79,38 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1263, 674);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // quizName
+            // 
+            this.quizName.Controls.Add(this.quizBox);
+            this.quizName.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.quizName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.quizName.Location = new System.Drawing.Point(23, 49);
+            this.quizName.Name = "quizName";
+            this.quizName.Size = new System.Drawing.Size(474, 118);
+            this.quizName.TabIndex = 5;
+            this.quizName.Text = "Tên bộ câu hỏi";
+            // 
+            // quizBox
+            // 
+            this.quizBox.AutoRoundedCorners = true;
+            this.quizBox.BackColor = System.Drawing.Color.White;
+            this.quizBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.quizBox.DefaultText = "";
+            this.quizBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.quizBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.quizBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.quizBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.quizBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.quizBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
+            this.quizBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.quizBox.Location = new System.Drawing.Point(4, 58);
+            this.quizBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.quizBox.Name = "quizBox";
+            this.quizBox.PlaceholderText = "";
+            this.quizBox.SelectedText = "";
+            this.quizBox.Size = new System.Drawing.Size(466, 28);
+            this.quizBox.TabIndex = 4;
             // 
             // back
             // 
@@ -109,6 +141,7 @@
             this.save.Size = new System.Drawing.Size(180, 60);
             this.save.TabIndex = 11;
             this.save.Text = "Lưu và thoát";
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // num
             // 
@@ -116,7 +149,7 @@
             this.num.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num.Location = new System.Drawing.Point(845, 558);
             this.num.Name = "num";
-            this.num.Size = new System.Drawing.Size(13, 27);
+            this.num.Size = new System.Drawing.Size(14, 30);
             this.num.TabIndex = 10;
             this.num.Text = "1";
             // 
@@ -212,6 +245,7 @@
             this.addPic.Size = new System.Drawing.Size(180, 32);
             this.addPic.TabIndex = 5;
             this.addPic.Text = "Thêm ảnh";
+            this.addPic.Click += new System.EventHandler(this.addPic_Click);
             // 
             // quesBox
             // 
@@ -359,38 +393,6 @@
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
-            // quizName
-            // 
-            this.quizName.Controls.Add(this.quizBox);
-            this.quizName.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.quizName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.quizName.Location = new System.Drawing.Point(23, 49);
-            this.quizName.Name = "quizName";
-            this.quizName.Size = new System.Drawing.Size(474, 118);
-            this.quizName.TabIndex = 5;
-            this.quizName.Text = "Tên bộ câu hỏi";
-            // 
-            // quizBox
-            // 
-            this.quizBox.AutoRoundedCorners = true;
-            this.quizBox.BackColor = System.Drawing.Color.White;
-            this.quizBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.quizBox.DefaultText = "";
-            this.quizBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.quizBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.quizBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.quizBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.quizBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.quizBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.quizBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.quizBox.Location = new System.Drawing.Point(4, 58);
-            this.quizBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.quizBox.Name = "quizBox";
-            this.quizBox.PlaceholderText = "";
-            this.quizBox.SelectedText = "";
-            this.quizBox.Size = new System.Drawing.Size(466, 28);
-            this.quizBox.TabIndex = 4;
-            // 
             // createQuiz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -402,11 +404,11 @@
             this.Text = "Form1";
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
+            this.quizName.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pic)).EndInit();
             this.question.ResumeLayout(false);
             this.correct.ResumeLayout(false);
             this.wrong.ResumeLayout(false);
-            this.quizName.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

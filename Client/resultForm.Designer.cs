@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.refresh = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.exitToMenu = new Guna.UI2.WinForms.Guna2Button();
+            this.newGame = new Guna.UI2.WinForms.Guna2Button();
             this.leaderboard = new Guna.UI2.WinForms.Guna2GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.newGame = new Guna.UI2.WinForms.Guna2Button();
-            this.exitToMenu = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.refresh.SuspendLayout();
             this.leaderboard.SuspendLayout();
             this.SuspendLayout();
@@ -52,16 +52,50 @@
             this.refresh.Size = new System.Drawing.Size(1262, 677);
             this.refresh.TabIndex = 0;
             // 
-            // guna2ControlBox1
+            // guna2Button1
             // 
-            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.Red;
-            this.guna2ControlBox1.IconColor = System.Drawing.Color.Black;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(1217, 0);
-            this.guna2ControlBox1.Name = "guna2ControlBox1";
-            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
-            this.guna2ControlBox1.TabIndex = 0;
+            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.Green;
+            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button1.ForeColor = System.Drawing.Color.White;
+            this.guna2Button1.Location = new System.Drawing.Point(541, 603);
+            this.guna2Button1.Name = "guna2Button1";
+            this.guna2Button1.Size = new System.Drawing.Size(180, 45);
+            this.guna2Button1.TabIndex = 4;
+            this.guna2Button1.Text = "Làm mới";
+            // 
+            // exitToMenu
+            // 
+            this.exitToMenu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.exitToMenu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.exitToMenu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.exitToMenu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.exitToMenu.FillColor = System.Drawing.Color.Green;
+            this.exitToMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.exitToMenu.ForeColor = System.Drawing.Color.White;
+            this.exitToMenu.Location = new System.Drawing.Point(276, 603);
+            this.exitToMenu.Name = "exitToMenu";
+            this.exitToMenu.Size = new System.Drawing.Size(180, 45);
+            this.exitToMenu.TabIndex = 3;
+            this.exitToMenu.Text = "Thoát ra menu";
+            // 
+            // newGame
+            // 
+            this.newGame.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.newGame.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.newGame.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.newGame.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.newGame.FillColor = System.Drawing.Color.Green;
+            this.newGame.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.newGame.ForeColor = System.Drawing.Color.White;
+            this.newGame.Location = new System.Drawing.Point(806, 603);
+            this.newGame.Name = "newGame";
+            this.newGame.Size = new System.Drawing.Size(180, 45);
+            this.newGame.TabIndex = 2;
+            this.newGame.Text = "Chơi tiếp";
             // 
             // leaderboard
             // 
@@ -87,50 +121,16 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
-            // newGame
+            // guna2ControlBox1
             // 
-            this.newGame.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.newGame.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.newGame.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.newGame.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.newGame.FillColor = System.Drawing.Color.Green;
-            this.newGame.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.newGame.ForeColor = System.Drawing.Color.White;
-            this.newGame.Location = new System.Drawing.Point(806, 603);
-            this.newGame.Name = "newGame";
-            this.newGame.Size = new System.Drawing.Size(180, 45);
-            this.newGame.TabIndex = 2;
-            this.newGame.Text = "Chơi tiếp";
-            // 
-            // exitToMenu
-            // 
-            this.exitToMenu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.exitToMenu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.exitToMenu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.exitToMenu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.exitToMenu.FillColor = System.Drawing.Color.Green;
-            this.exitToMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.exitToMenu.ForeColor = System.Drawing.Color.White;
-            this.exitToMenu.Location = new System.Drawing.Point(276, 603);
-            this.exitToMenu.Name = "exitToMenu";
-            this.exitToMenu.Size = new System.Drawing.Size(180, 45);
-            this.exitToMenu.TabIndex = 3;
-            this.exitToMenu.Text = "Thoát ra menu";
-            // 
-            // guna2Button1
-            // 
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.Green;
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(541, 603);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(180, 45);
-            this.guna2Button1.TabIndex = 4;
-            this.guna2Button1.Text = "Làm mới";
+            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.Red;
+            this.guna2ControlBox1.IconColor = System.Drawing.Color.Black;
+            this.guna2ControlBox1.Location = new System.Drawing.Point(1217, 0);
+            this.guna2ControlBox1.Name = "guna2ControlBox1";
+            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
+            this.guna2ControlBox1.TabIndex = 0;
             // 
             // resultForm
             // 
