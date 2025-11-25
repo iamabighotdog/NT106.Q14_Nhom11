@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FormAppQuyt
 {
-    public partial class createRoom : Form
+    public partial class host : Form
     {
-        public createRoom()
+        public host()
         {
             InitializeComponent();
         }

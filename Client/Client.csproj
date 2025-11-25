@@ -112,17 +112,17 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="createRoom.cs">
+    <Compile Include="host.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="createRoom.Designer.cs">
-      <DependentUpon>createRoom.cs</DependentUpon>
+    <Compile Include="host.Designer.cs">
+      <DependentUpon>host.cs</DependentUpon>
     </Compile>
-    <Compile Include="Play.cs">
+    <Compile Include="play.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Play.Designer.cs">
-      <DependentUpon>Play.cs</DependentUpon>
+    <Compile Include="play.Designer.cs">
+      <DependentUpon>play.cs</DependentUpon>
     </Compile>
     <Compile Include="resultForm.cs">
       <SubType>Form</SubType>
@@ -156,11 +156,11 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="createRoom.resx">
-      <DependentUpon>createRoom.cs</DependentUpon>
+    <EmbeddedResource Include="host.resx">
+      <DependentUpon>host.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Play.resx">
-      <DependentUpon>Play.cs</DependentUpon>
+    <EmbeddedResource Include="play.resx">
+      <DependentUpon>play.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="resultForm.resx">
       <DependentUpon>resultForm.cs</DependentUpon>
