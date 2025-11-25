@@ -29,21 +29,25 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.back = new Guna.UI2.WinForms.Guna2Button();
+            this.next = new Guna.UI2.WinForms.Guna2Button();
             this.answerD = new Guna.UI2.WinForms.Guna2Button();
             this.answerC = new Guna.UI2.WinForms.Guna2Button();
             this.answerB = new Guna.UI2.WinForms.Guna2Button();
+            this.pic = new Guna.UI2.WinForms.Guna2PictureBox();
             this.question = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.answerA = new Guna.UI2.WinForms.Guna2Button();
             this.close = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.pic = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.next = new Guna.UI2.WinForms.Guna2Button();
-            this.back = new Guna.UI2.WinForms.Guna2Button();
+            this.ID = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2GradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2GradientPanel1
             // 
+            this.guna2GradientPanel1.Controls.Add(this.ID);
+            this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2GradientPanel1.Controls.Add(this.back);
             this.guna2GradientPanel1.Controls.Add(this.next);
             this.guna2GradientPanel1.Controls.Add(this.answerD);
@@ -60,6 +64,46 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(12, 631);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(67, 23);
+            this.guna2HtmlLabel1.TabIndex = 12;
+            this.guna2HtmlLabel1.Text = "Room ID: ";
+            // 
+            // back
+            // 
+            this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.back.FillColor = System.Drawing.Color.Green;
+            this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.back.ForeColor = System.Drawing.Color.White;
+            this.back.Location = new System.Drawing.Point(511, 606);
+            this.back.Name = "back";
+            this.back.Size = new System.Drawing.Size(180, 45);
+            this.back.TabIndex = 11;
+            this.back.Text = "Quay lại";
+            // 
+            // next
+            // 
+            this.next.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.next.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.next.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.next.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.next.FillColor = System.Drawing.Color.Green;
+            this.next.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.next.ForeColor = System.Drawing.Color.White;
+            this.next.Location = new System.Drawing.Point(1037, 606);
+            this.next.Name = "next";
+            this.next.Size = new System.Drawing.Size(180, 45);
+            this.next.TabIndex = 10;
+            this.next.Text = "Tiếp theo";
             // 
             // answerD
             // 
@@ -106,6 +150,18 @@
             this.answerB.TabIndex = 7;
             this.answerB.Text = "B";
             // 
+            // pic
+            // 
+            this.pic.BackColor = System.Drawing.Color.Transparent;
+            this.pic.Image = global::FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
+            this.pic.ImageRotate = 0F;
+            this.pic.Location = new System.Drawing.Point(511, 147);
+            this.pic.Name = "pic";
+            this.pic.Size = new System.Drawing.Size(706, 443);
+            this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pic.TabIndex = 6;
+            this.pic.TabStop = false;
+            // 
             // question
             // 
             this.question.BackColor = System.Drawing.Color.Transparent;
@@ -142,47 +198,15 @@
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
             // 
-            // pic
+            // ID
             // 
-            this.pic.BackColor = System.Drawing.Color.Transparent;
-            this.pic.Image = global::FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
-            this.pic.ImageRotate = 0F;
-            this.pic.Location = new System.Drawing.Point(511, 147);
-            this.pic.Name = "pic";
-            this.pic.Size = new System.Drawing.Size(706, 443);
-            this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pic.TabIndex = 6;
-            this.pic.TabStop = false;
-            // 
-            // next
-            // 
-            this.next.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.next.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.next.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.next.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.next.FillColor = System.Drawing.Color.Green;
-            this.next.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.next.ForeColor = System.Drawing.Color.White;
-            this.next.Location = new System.Drawing.Point(1037, 606);
-            this.next.Name = "next";
-            this.next.Size = new System.Drawing.Size(180, 45);
-            this.next.TabIndex = 10;
-            this.next.Text = "Tiếp theo";
-            // 
-            // back
-            // 
-            this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.back.FillColor = System.Drawing.Color.Green;
-            this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.back.ForeColor = System.Drawing.Color.White;
-            this.back.Location = new System.Drawing.Point(511, 606);
-            this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(180, 45);
-            this.back.TabIndex = 11;
-            this.back.Text = "Quay lại";
+            this.ID.BackColor = System.Drawing.Color.Transparent;
+            this.ID.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ID.Location = new System.Drawing.Point(85, 631);
+            this.ID.Name = "ID";
+            this.ID.Size = new System.Drawing.Size(24, 23);
+            this.ID.TabIndex = 13;
+            this.ID.Text = "xxx";
             // 
             // Play
             // 
@@ -212,5 +236,7 @@
         private Guna.UI2.WinForms.Guna2Button answerB;
         private Guna.UI2.WinForms.Guna2Button next;
         private Guna.UI2.WinForms.Guna2Button back;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2HtmlLabel ID;
     }
 }
