@@ -17,7 +17,6 @@ namespace FormAppQuyt
         private string _imageBase64 = null;
         private List<QuizQuestion> _questions = new List<QuizQuestion>();
         private int currentIndex = 0;
-
         public createQuiz()
         {
             InitializeComponent();
@@ -34,7 +33,8 @@ namespace FormAppQuyt
                 {"Sai1", q.Sai1},
                 {"Sai2", q.Sai2},
                 {"Sai3", q.Sai3},
-                {"ImageBase64", q.ImageBase64 ?? "" }
+                {"ImageBase64", q.ImageBase64 ?? "" },
+                {"UserId", q.userId.ToString()}
             };
                 string json = System.Text.Json.JsonSerializer.Serialize(dict);
 
@@ -74,7 +74,7 @@ namespace FormAppQuyt
             }
         }
 
-        private void save_Click(object sender, EventArgs e)
+        private void add_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(quesBox.Text)
              || string.IsNullOrWhiteSpace(correctBox.Text)
@@ -93,7 +93,8 @@ namespace FormAppQuyt
                 Sai1 = wrongBox1.Text.Trim(),
                 Sai2 = wrongBox2.Text.Trim(),
                 Sai3 = wrongBox3.Text.Trim(),
-                ImageBase64 = _imageBase64
+                ImageBase64 = _imageBase64,
+                userId = Global.UserId
             };
 
             if (currentIndex >= _questions.Count)
@@ -126,5 +127,6 @@ namespace FormAppQuyt
         public string Sai2 { get; set; }
         public string Sai3 { get; set; }
         public string ImageBase64 { get; set; }
+        public int userId { get; set; }
     }
 }

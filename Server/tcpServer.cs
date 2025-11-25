@@ -202,11 +202,18 @@ internal class TcpServer
                 conn.Open();
                 cmd.Parameters.AddWithValue("@k", identifier);
                 cmd.Parameters.AddWithValue("@pw", password);
-
-                int count = (int)cmd.ExecuteScalar();
-                return count > 0
-                    ? JsonSerializer.Serialize(new { ok = true, message = "Đăng Nhập Thành Công." })
-                    : JsonSerializer.Serialize(new { ok = false, message = "Sai mật khẩu hoặc tên đăng nhập không tồn tại." });
+                object result = cmd.ExecuteScalar();
+                if (result == null)
+                {
+                    return JsonSerializer.Serialize(new { ok = false, message = "Sai mật khẩu hoặc tên đăng nhập không tồn tại" });
+                }
+                int userId = Convert.ToInt32(result);
+                return JsonSerializer.Serialize(new
+                {
+                    ok = true,
+                    userId = userId,
+                    message = "Đăng nhập thành công"
+                });
             }
         }
         catch (Exception ex)
@@ -256,28 +263,31 @@ internal class TcpServer
     }
     private string HandleCreateQuestion(Dictionary<string, string> d)
     {
-        string noiDung = d.TryGetValue("NoiDung", out var v1) ? v1 : "";
-        string dapAnDung = d.TryGetValue("DapAnDung", out var v2) ? v2 : "";
-        string s1 = d.TryGetValue("Sai1", out var v3) ? v3 : "";
-        string s2 = d.TryGetValue("Sai2", out var v4) ? v4 : "";
-        string s3 = d.TryGetValue("Sai3", out var v5) ? v5 : "";
-        string img = d.TryGetValue("ImageBase64", out var v6) ? v6 : "";
+        string noiDung = d.TryGetValue("NoiDung", out var nd) ? nd : "";
+        string dapAnDung = d.TryGetValue("DapAnDung", out var da) ? da : "";
+        string s1 = d.TryGetValue("Sai1", out var w1) ? w1 : "";
+        string s2 = d.TryGetValue("Sai2", out var w2) ? w2 : "";
+        string s3 = d.TryGetValue("Sai3", out var w3) ? w3 : "";
+        string imgBase = d.TryGetValue("ImageBase64", out var img) ? img : "";
+        string uidRaw = d.TryGetValue("UserId", out var uid) ? uid : "";
 
-        if (string.IsNullOrWhiteSpace(noiDung) ||
-            string.IsNullOrWhiteSpace(dapAnDung) ||
-            string.IsNullOrWhiteSpace(s1) ||
-            string.IsNullOrWhiteSpace(s2) ||
-            string.IsNullOrWhiteSpace(s3))
-        {
-            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu dữ liệu" });
-        }
+        if (!int.TryParse(uidRaw, out int userId))
+            return JsonSerializer.Serialize(new { ok = false, message = "UserId không hợp lệ" });
+
+        if (string.IsNullOrWhiteSpace(noiDung)
+            || string.IsNullOrWhiteSpace(dapAnDung)
+            || string.IsNullOrWhiteSpace(s1)
+            || string.IsNullOrWhiteSpace(s2)
+            || string.IsNullOrWhiteSpace(s3))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu dữ liệu câu hỏi" });
+
         try
         {
             using (var conn = new SqlConnection(connectionString))
             using (var cmd = new SqlCommand(@"
-            INSERT INTO dbo.Question(NoiDung, DapAnDung, DapAnSai1, DapAnSai2, DapAnSai3)
-            VALUES (@n, @d, @s1, @s2, @s3);
-        ", conn))
+            INSERT INTO dbo.Question
+            (NoiDung, DapAnDung, DapAnSai1, DapAnSai2, DapAnSai3, UserId)
+            VALUES (@n, @d, @s1, @s2, @s3, @u)", conn))
             {
                 conn.Open();
                 cmd.Parameters.AddWithValue("@n", noiDung);
@@ -285,9 +295,12 @@ internal class TcpServer
                 cmd.Parameters.AddWithValue("@s1", s1);
                 cmd.Parameters.AddWithValue("@s2", s2);
                 cmd.Parameters.AddWithValue("@s3", s3);
+                cmd.Parameters.AddWithValue("@u", userId);
+
                 cmd.ExecuteNonQuery();
             }
-            return JsonSerializer.Serialize(new { ok = true, message = "Đã lưu câu hỏi" });
+
+            return JsonSerializer.Serialize(new { ok = true, message = "Lưu câu hỏi thành công" });
         }
         catch (Exception ex)
         {

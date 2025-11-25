@@ -67,7 +67,9 @@ namespace FormAppQuyt
         {
             public bool ok { get; set; }
             public string message { get; set; }
+            public int userId { get; set; }
         }
+
         private void LogInButton_Click(object sender, EventArgs e)
         {
             string identifier = EmailBox.Text?.Trim();
@@ -89,6 +91,8 @@ namespace FormAppQuyt
                     {
                         if (r.ok)
                         {
+                            Global.UserId = r.userId;
+                            Global.Username = identifier;
                             MessageBox.Show(r.message ?? "Đăng nhập thành công");
                             Main mainForm = new Main(identifier);
                             mainForm.Show();

@@ -141,7 +141,6 @@
             this.save.Size = new System.Drawing.Size(180, 60);
             this.save.TabIndex = 11;
             this.save.Text = "Lưu và thoát";
-            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // num
             // 
@@ -194,6 +193,7 @@
             this.add.Size = new System.Drawing.Size(180, 32);
             this.add.TabIndex = 7;
             this.add.Text = "Thêm";
+            this.add.Click += new System.EventHandler(this.add_Click);
             // 
             // delete
             // 
