@@ -114,7 +114,7 @@ internal class TcpServer
         if (action == "login") return HandleLogin(data);
         if (action == "profile") return HandleProfile(data);
         if (action == "logout") return JsonSerializer.Serialize(new { ok = true, message = "Đăng xuất" });
-
+        if (action == "create_question") return HandleCreateQuestion(data);
         return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
     }
 
@@ -252,6 +252,46 @@ internal class TcpServer
         {
             Console.WriteLine("[DB ERROR] " + ex);
             return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
+        }
+    }
+    private string HandleCreateQuestion(Dictionary<string, string> d)
+    {
+        string noiDung = d.TryGetValue("NoiDung", out var v1) ? v1 : "";
+        string dapAnDung = d.TryGetValue("DapAnDung", out var v2) ? v2 : "";
+        string s1 = d.TryGetValue("Sai1", out var v3) ? v3 : "";
+        string s2 = d.TryGetValue("Sai2", out var v4) ? v4 : "";
+        string s3 = d.TryGetValue("Sai3", out var v5) ? v5 : "";
+        string img = d.TryGetValue("ImageBase64", out var v6) ? v6 : "";
+
+        if (string.IsNullOrWhiteSpace(noiDung) ||
+            string.IsNullOrWhiteSpace(dapAnDung) ||
+            string.IsNullOrWhiteSpace(s1) ||
+            string.IsNullOrWhiteSpace(s2) ||
+            string.IsNullOrWhiteSpace(s3))
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu dữ liệu" });
+        }
+        try
+        {
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(@"
+            INSERT INTO dbo.Question(NoiDung, DapAnDung, DapAnSai1, DapAnSai2, DapAnSai3)
+            VALUES (@n, @d, @s1, @s2, @s3);
+        ", conn))
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("@n", noiDung);
+                cmd.Parameters.AddWithValue("@d", dapAnDung);
+                cmd.Parameters.AddWithValue("@s1", s1);
+                cmd.Parameters.AddWithValue("@s2", s2);
+                cmd.Parameters.AddWithValue("@s3", s3);
+                cmd.ExecuteNonQuery();
+            }
+            return JsonSerializer.Serialize(new { ok = true, message = "Đã lưu câu hỏi" });
+        }
+        catch (Exception ex)
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
         }
     }
 

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,7 +22,37 @@ namespace FormAppQuyt
         {
             InitializeComponent();
         }
+        private void SendQuestion(QuizQuestion q)
+        {
+            try
+            {
+                var dict = new Dictionary<string, string>()
+            {
+                {"action", "create_question"},
+                {"NoiDung", q.NoiDung},
+                {"DapAnDung", q.DapAnDung},
+                {"Sai1", q.Sai1},
+                {"Sai2", q.Sai2},
+                {"Sai3", q.Sai3},
+                {"ImageBase64", q.ImageBase64 ?? "" }
+            };
+                string json = System.Text.Json.JsonSerializer.Serialize(dict);
 
+                using (TcpClient client = new TcpClient())
+                {
+                    client.Connect("127.0.0.1", 3636);
+                    using (var stream = client.GetStream())
+                    {
+                        byte[] data = Encoding.UTF8.GetBytes(json + "\n");
+                        stream.Write(data, 0, data.Length);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi gửi server: " + ex.Message);
+            }
+        }
         private void addPic_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -71,7 +102,7 @@ namespace FormAppQuyt
                 _questions[currentIndex] = q;
 
             currentIndex++;
-
+            SendQuestion(q);
             ClearInputs();
         }
 
@@ -96,5 +127,4 @@ namespace FormAppQuyt
         public string Sai3 { get; set; }
         public string ImageBase64 { get; set; }
     }
-
 }
