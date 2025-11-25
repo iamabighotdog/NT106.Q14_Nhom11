@@ -187,9 +187,6 @@ internal class TcpServer
         string username = d.TryGetValue("username", out var u) ? u : "";
         string password = d.TryGetValue("password", out var pw) ? pw : "";
 
-        if (string.IsNullOrWhiteSpace(identifier) && !string.IsNullOrWhiteSpace(username))
-            identifier = username;
-
         if (string.IsNullOrWhiteSpace(identifier) || string.IsNullOrWhiteSpace(password))
             return JsonSerializer.Serialize(new { ok = false, message = "Các ô không được để trống" });
 
@@ -197,17 +194,24 @@ internal class TcpServer
         {
             using (var conn = new SqlConnection(connectionString))
             using (var cmd = new SqlCommand(
-                "SELECT COUNT(*) FROM dbo.Users WHERE (Username=@k OR Email=@k OR Phone=@k) AND Password=@pw", conn))
+               @"SELECT TOP 1 UserId
+             FROM dbo.Users
+             WHERE (Username = @k OR Email = @k OR Phone = @k)
+             AND Password = @pw", conn))
             {
                 conn.Open();
                 cmd.Parameters.AddWithValue("@k", identifier);
                 cmd.Parameters.AddWithValue("@pw", password);
-                object result = cmd.ExecuteScalar();
+
+                var result = cmd.ExecuteScalar();
+
                 if (result == null)
                 {
-                    return JsonSerializer.Serialize(new { ok = false, message = "Sai mật khẩu hoặc tên đăng nhập không tồn tại" });
+                    return JsonSerializer.Serialize(new { ok = false, message = "Sai mật khẩu hoặc tài khoản không tồn tại" });
                 }
+
                 int userId = Convert.ToInt32(result);
+
                 return JsonSerializer.Serialize(new
                 {
                     ok = true,
@@ -218,10 +222,10 @@ internal class TcpServer
         }
         catch (Exception ex)
         {
-            Console.WriteLine("[DB ERROR] " + ex);
-            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
+            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
         }
     }
+
 
     private string HandleProfile(Dictionary<string, string> d)
     {
