@@ -18,10 +18,15 @@ namespace FormAppQuyt
         private List<QuizQuestion> _questions = new List<QuizQuestion>();
         private int currentIndex = 0;
         private string _imageBase64 = null;
+        private int _maxQuestions = 10;
         public createQuiz()
         {
             InitializeComponent();
+            _questions.Add(new QuizQuestion()); 
+            LoadQuestionToUI();
             UpdateQuestionNumber();
+
+            questionCountBox.TextChanged += QuestionCountBox_TextChanged;
         }
         private void ClearInputs()
         {
@@ -35,7 +40,8 @@ namespace FormAppQuyt
         }
         private void UpdateQuestionNumber()
         {
-            num.Text = $"{currentIndex + 1}/{_questions.Count}";
+            int totalQuestions = Math.Max(1, _questions.Count);
+            num.Text = $"{currentIndex + 1}/{totalQuestions}";
         }
         private Image Base64ToImage(string base64)
         {
@@ -70,23 +76,44 @@ namespace FormAppQuyt
 
             var q = _questions[currentIndex];
 
-            quesBox.Text = q.NoiDung;
-            correctBox.Text = q.DapAnDung;
-            wrongBox1.Text = q.Sai1;
-            wrongBox2.Text = q.Sai2;
-            wrongBox3.Text = q.Sai3;
+            quesBox.Text = q.NoiDung ?? "";
+            correctBox.Text = q.DapAnDung ?? "";
+            wrongBox1.Text = q.Sai1 ?? "";
+            wrongBox2.Text = q.Sai2 ?? "";
+            wrongBox3.Text = q.Sai3 ?? "";
 
-            pic.Image = string.IsNullOrEmpty(q.ImageBase64) ? null : Base64ToImage(q.ImageBase64);
+            _imageBase64 = q.ImageBase64; 
+
+            if (string.IsNullOrEmpty(q.ImageBase64))
+            {
+                pic.Image = Properties.Resources.istockphoto_1386740242_612x612;  
+            }
+            else
+            {
+                pic.Image = Base64ToImage(q.ImageBase64);
+            }
         }
         private void next_Click(object sender, EventArgs e)
         {
-            SaveCurrentInputToList();
-            if (currentIndex == _questions.Count - 1)
+            if (currentIndex >= _maxQuestions - 1)
+            {
+                MessageBox.Show($"Đã đạt giới hạn {_maxQuestions} câu hỏi!");
+                return;
+            }
+
+            if (!ValidateCurrentQuestion())
+            {
+                return;
+            }
+
+            SaveCurrentInputToList(); 
+            currentIndex++;
+
+            if (currentIndex >= _questions.Count)
             {
                 _questions.Add(new QuizQuestion());
             }
 
-            currentIndex++;
             LoadQuestionToUI();
             UpdateQuestionNumber();
         }
@@ -96,9 +123,14 @@ namespace FormAppQuyt
 
             if (currentIndex > 0)
             {
+                SaveCurrentInputToList();
                 currentIndex--;
                 LoadQuestionToUI();
                 UpdateQuestionNumber();
+            }
+            else
+            {
+                MessageBox.Show("Đây là câu hỏi đầu tiên!");
             }
         }
         private void addPic_Click(object sender, EventArgs e)
@@ -124,24 +156,41 @@ namespace FormAppQuyt
 
         private void add_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(quesBox.Text)
-             || string.IsNullOrWhiteSpace(correctBox.Text)
-             || string.IsNullOrWhiteSpace(wrongBox1.Text)
-             || string.IsNullOrWhiteSpace(wrongBox2.Text)
-             || string.IsNullOrWhiteSpace(wrongBox3.Text))
+            if (_questions.Count > _maxQuestions)
             {
-                MessageBox.Show("Nhập đầy đủ dữ liệu câu hỏi");
+                MessageBox.Show($"Đã đạt giới hạn {_maxQuestions} câu hỏi!");
+                return;
+            }
+
+            if (!ValidateCurrentQuestion())
+            {
                 return;
             }
 
             SaveCurrentInputToList();
-            currentIndex++;
-            UpdateQuestionNumber();
+            _questions.Add(new QuizQuestion());
+            currentIndex = _questions.Count - 1;
+
             ClearInputs();
+            UpdateQuestionNumber();
+
+            MessageBox.Show("Đã thêm câu hỏi mới!");
         }
 
         private void save_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(quizBox.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên bộ câu hỏi!");
+                quizBox.Focus();
+                return;
+            }
+
+            if (!ValidateCurrentQuestion())
+            {
+                return;
+            }
+
             SaveCurrentInputToList();
 
             if (_questions.Count == 0)
@@ -150,10 +199,19 @@ namespace FormAppQuyt
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(quizBox.Text))
+            if (_questions.Count < _maxQuestions)
             {
-                MessageBox.Show("Nhập tên bộ câu hỏi!");
-                return;
+                var result = MessageBox.Show(
+                    $"Bạn mới tạo {_questions.Count}/{_maxQuestions} câu. Bạn có muốn lưu không?",
+                    "Xác nhận",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
             }
 
             var pkg = new QuizPackage
@@ -163,23 +221,88 @@ namespace FormAppQuyt
                 TenBo = quizBox.Text.Trim(),
                 Questions = _questions
             };
-
-            string json = JsonSerializer.Serialize(pkg);
-
-            using (TcpClient client = new TcpClient())
+            try
             {
-                client.Connect("127.0.0.1", 3636);
-                using (var stream = client.GetStream())
+                string json = JsonSerializer.Serialize(pkg);
+
+                using (TcpClient client = new TcpClient())
                 {
-                    byte[] buf = Encoding.UTF8.GetBytes(json + "\n");
-                    stream.Write(buf, 0, buf.Length);
+                    client.Connect("127.0.0.1", 3636);
+                    using (var stream = client.GetStream())
+                    {
+                        byte[] buf = Encoding.UTF8.GetBytes(json + "\n");
+                        stream.Write(buf, 0, buf.Length);
+                    }
+                }
+
+                MessageBox.Show("Đã gửi bộ câu hỏi!");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lưu: {ex.Message}");
+            }
+        }
+
+        private void QuestionCountBox_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(questionCountBox.Text, out int count))
+            {
+                if (count > 0 && count <= 100) // Giới hạn tối đa 100 câu
+                {
+                    _maxQuestions = count;
+                    UpdateQuestionNumber();
+                }
+                else
+                {
+                    MessageBox.Show("Số câu hỏi phải từ 1 đến 100!");
+                    questionCountBox.Text = _maxQuestions.ToString();
                 }
             }
+        }
 
-            MessageBox.Show("Đã gửi bộ câu hỏi!");
-            this.Close();
+        private bool ValidateCurrentQuestion()
+        {
+            if (string.IsNullOrWhiteSpace(quesBox.Text))
+            {
+                MessageBox.Show("Vui lòng nhập câu hỏi!");
+                quesBox.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(correctBox.Text))
+            {
+                MessageBox.Show("Vui lòng nhập câu trả lời đúng!");
+                correctBox.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(wrongBox1.Text))
+            {
+                MessageBox.Show("Vui lòng nhập câu trả lời sai thứ 1!");
+                wrongBox1.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(wrongBox2.Text))
+            {
+                MessageBox.Show("Vui lòng nhập câu trả lời sai thứ 2!");
+                wrongBox2.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(wrongBox3.Text))
+            {
+                MessageBox.Show("Vui lòng nhập câu trả lời sai thứ 3!");
+                wrongBox3.Focus();
+                return false;
+            }
+
+            return true;
         }
     }
+
+
 
     public class QuizQuestion
     {

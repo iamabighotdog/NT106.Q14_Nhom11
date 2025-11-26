@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.quizName = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.questionCountBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.lblQuestionCount = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.quizBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.back = new Guna.UI2.WinForms.Guna2Button();
             this.save = new Guna.UI2.WinForms.Guna2Button();
@@ -82,6 +84,8 @@
             // 
             // quizName
             // 
+            this.quizName.Controls.Add(this.questionCountBox);
+            this.quizName.Controls.Add(this.lblQuestionCount);
             this.quizName.Controls.Add(this.quizBox);
             this.quizName.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.quizName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -90,6 +94,31 @@
             this.quizName.Size = new System.Drawing.Size(474, 118);
             this.quizName.TabIndex = 5;
             this.quizName.Text = "Tên bộ câu hỏi";
+            // 
+            // questionCountBox
+            // 
+            this.questionCountBox.AutoRoundedCorners = true;
+            this.questionCountBox.BackColor = System.Drawing.Color.White;
+            this.questionCountBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.questionCountBox.DefaultText = "10";
+            this.questionCountBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.questionCountBox.Location = new System.Drawing.Point(110, 86);
+            this.questionCountBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.questionCountBox.Name = "questionCountBox";
+            this.questionCountBox.PlaceholderText = "";
+            this.questionCountBox.SelectedText = "";
+            this.questionCountBox.Size = new System.Drawing.Size(100, 28);
+            this.questionCountBox.TabIndex = 6;
+            // 
+            // lblQuestionCount
+            // 
+            this.lblQuestionCount.BackColor = System.Drawing.Color.Transparent;
+            this.lblQuestionCount.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblQuestionCount.Location = new System.Drawing.Point(4, 90);
+            this.lblQuestionCount.Name = "lblQuestionCount";
+            this.lblQuestionCount.Size = new System.Drawing.Size(75, 22);
+            this.lblQuestionCount.TabIndex = 5;
+            this.lblQuestionCount.Text = "Số câu hỏi:";
             // 
             // quizBox
             // 
@@ -408,6 +437,7 @@
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             this.quizName.ResumeLayout(false);
+            this.quizName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).EndInit();
             this.question.ResumeLayout(false);
             this.correct.ResumeLayout(false);
@@ -440,5 +470,7 @@
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
         private Guna.UI2.WinForms.Guna2GroupBox quizName;
         private Guna.UI2.WinForms.Guna2TextBox quizBox;
+        private Guna.UI2.WinForms.Guna2TextBox questionCountBox;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblQuestionCount;
     }
 }
