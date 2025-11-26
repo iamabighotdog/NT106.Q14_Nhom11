@@ -40,8 +40,7 @@ namespace FormAppQuyt
         }
         private void UpdateQuestionNumber()
         {
-            int totalQuestions = Math.Max(1, _questions.Count);
-            num.Text = $"{currentIndex + 1}/{totalQuestions}";
+            num.Text = $"{currentIndex + 1}/{_maxQuestions}";
         }
         private Image Base64ToImage(string base64)
         {
@@ -95,7 +94,7 @@ namespace FormAppQuyt
         }
         private void next_Click(object sender, EventArgs e)
         {
-            if (currentIndex >= _maxQuestions - 1)
+            if (currentIndex + 1 >= _maxQuestions)
             {
                 MessageBox.Show($"Đã đạt giới hạn {_maxQuestions} câu hỏi!");
                 return;
@@ -106,7 +105,9 @@ namespace FormAppQuyt
                 return;
             }
 
-            SaveCurrentInputToList(); 
+            SaveCurrentInputToList();
+
+            
             currentIndex++;
 
             if (currentIndex >= _questions.Count)
@@ -156,7 +157,7 @@ namespace FormAppQuyt
 
         private void add_Click(object sender, EventArgs e)
         {
-            if (_questions.Count > _maxQuestions)
+            if (_questions.Count >= _maxQuestions)
             {
                 MessageBox.Show($"Đã đạt giới hạn {_maxQuestions} câu hỏi!");
                 return;
@@ -168,6 +169,7 @@ namespace FormAppQuyt
             }
 
             SaveCurrentInputToList();
+
             _questions.Add(new QuizQuestion());
             currentIndex = _questions.Count - 1;
 
@@ -186,23 +188,58 @@ namespace FormAppQuyt
                 return;
             }
 
-            if (!ValidateCurrentQuestion())
+            bool currentQuestionIsEmpty = string.IsNullOrWhiteSpace(quesBox.Text) &&
+                                   string.IsNullOrWhiteSpace(correctBox.Text) &&
+                                   string.IsNullOrWhiteSpace(wrongBox1.Text) &&
+                                   string.IsNullOrWhiteSpace(wrongBox2.Text) &&
+                                   string.IsNullOrWhiteSpace(wrongBox3.Text);
+
+            if (!currentQuestionIsEmpty)
             {
+                // Nếu câu hiện tại có dữ liệu thì phải validate
+                if (!ValidateCurrentQuestion())
+                {
+                    return;
+                }
+
+                // Kiểm tra xem có vượt quá giới hạn không (trường hợp người dùng đã nhập câu thứ 3 khi giới hạn là 2)
+                if (currentIndex >= _maxQuestions)
+                {
+                    MessageBox.Show($"Câu hỏi hiện tại vượt quá giới hạn {_maxQuestions} câu!\nVui lòng xóa câu này hoặc tăng giới hạn.");
+                    return;
+                }
+
+                SaveCurrentInputToList();
+            }
+
+            // Lọc bỏ các câu rỗng
+            var validQuestions = _questions.Where(q =>
+                !string.IsNullOrWhiteSpace(q.NoiDung) &&
+                !string.IsNullOrWhiteSpace(q.DapAnDung) &&
+                !string.IsNullOrWhiteSpace(q.Sai1) &&
+                !string.IsNullOrWhiteSpace(q.Sai2) &&
+                !string.IsNullOrWhiteSpace(q.Sai3)
+            ).ToList();
+
+            // Kiểm tra số câu hỏi hợp lệ
+            if (validQuestions.Count == 0)
+            {
+                MessageBox.Show("Chưa có câu hỏi hợp lệ nào!");
                 return;
             }
 
-            SaveCurrentInputToList();
-
-            if (_questions.Count == 0)
+            // Kiểm tra có vượt giới hạn không
+            if (validQuestions.Count > _maxQuestions)
             {
-                MessageBox.Show("Chưa có câu hỏi nào!");
+                MessageBox.Show($"Số câu hỏi ({validQuestions.Count}) vượt quá giới hạn ({_maxQuestions})!");
                 return;
             }
 
-            if (_questions.Count < _maxQuestions)
+            // Kiểm tra đã đủ số câu chưa
+            if (validQuestions.Count < _maxQuestions)
             {
                 var result = MessageBox.Show(
-                    $"Bạn mới tạo {_questions.Count}/{_maxQuestions} câu. Bạn có muốn lưu không?",
+                    $"Bạn mới tạo {validQuestions.Count}/{_maxQuestions} câu. Bạn có muốn lưu không?",
                     "Xác nhận",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
@@ -219,12 +256,13 @@ namespace FormAppQuyt
                 action = "create_exam",
                 UserId = Global.UserId,
                 TenBo = quizBox.Text.Trim(),
-                Questions = _questions
+                Questions = validQuestions // Chỉ lưu câu hợp lệ
             };
+
+            string json = JsonSerializer.Serialize(pkg);
+
             try
             {
-                string json = JsonSerializer.Serialize(pkg);
-
                 using (TcpClient client = new TcpClient())
                 {
                     client.Connect("127.0.0.1", 3636);
@@ -235,7 +273,7 @@ namespace FormAppQuyt
                     }
                 }
 
-                MessageBox.Show("Đã gửi bộ câu hỏi!");
+                MessageBox.Show($"Đã lưu {validQuestions.Count} câu hỏi thành công!");
                 this.Close();
             }
             catch (Exception ex)
