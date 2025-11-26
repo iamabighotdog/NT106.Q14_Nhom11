@@ -141,6 +141,7 @@
             this.save.Size = new System.Drawing.Size(180, 60);
             this.save.TabIndex = 11;
             this.save.Text = "Lưu và thoát";
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // num
             // 
@@ -165,6 +166,7 @@
             this.next.Size = new System.Drawing.Size(180, 32);
             this.next.TabIndex = 9;
             this.next.Text = "Câu kế tiếp";
+            this.next.Click += new System.EventHandler(this.next_Click);
             // 
             // previous
             // 
@@ -179,6 +181,7 @@
             this.previous.Size = new System.Drawing.Size(180, 32);
             this.previous.TabIndex = 8;
             this.previous.Text = "Câu trước";
+            this.previous.Click += new System.EventHandler(this.previous_Click);
             // 
             // add
             // 
