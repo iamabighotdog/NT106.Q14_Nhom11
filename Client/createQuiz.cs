@@ -1,78 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FormAppQuyt
 {
     public partial class createQuiz : Form
     {
-        private List<QuizQuestion> _questions = new List<QuizQuestion>();
         private int currentIndex = 0;
-        private string _imageBase64 = null;
         private int _maxQuestions = 10;
+        private List<QuizQuestion> _questions;
+        private string _imageBase64 = null;
+
         public createQuiz()
         {
             InitializeComponent();
-            _questions.Add(new QuizQuestion()); 
-            LoadQuestionToUI();
-            UpdateQuestionNumber();
+            _questions = Enumerable.Range(0, _maxQuestions)
+                .Select(x => new QuizQuestion())
+                .ToList();
 
+            LoadQuestionUI();
+            UpdatePage();
             questionCountBox.TextChanged += QuestionCountBox_TextChanged;
         }
-        private void ClearInputs()
-        {
-            quesBox.Text = "";
-            correctBox.Text = "";
-            wrongBox1.Text = "";
-            wrongBox2.Text = "";
-            wrongBox3.Text = "";
-            pic.Image = null;
-            _imageBase64 = null;
-        }
-        private void UpdateQuestionNumber()
-        {
-            num.Text = $"{currentIndex + 1}/{_maxQuestions}";
-        }
-        private Image Base64ToImage(string base64)
-        {
-            byte[] bytes = Convert.FromBase64String(base64);
-            using (MemoryStream ms = new MemoryStream(bytes))
-                return Image.FromStream(ms);
-        }
-        private void SaveCurrentInputToList()
-        {
-            var q = new QuizQuestion()
-            {
-                NoiDung = quesBox.Text.Trim(),
-                DapAnDung = correctBox.Text.Trim(),
-                Sai1 = wrongBox1.Text.Trim(),
-                Sai2 = wrongBox2.Text.Trim(),
-                Sai3 = wrongBox3.Text.Trim(),
-                ImageBase64 = _imageBase64
-            };
 
-            if (currentIndex >= _questions.Count)
-                _questions.Add(q);
-            else
-                _questions[currentIndex] = q;
-        }
-        private void LoadQuestionToUI()
+        private void LoadQuestionUI()
         {
-            if (currentIndex >= _questions.Count)
-            {
-                ClearInputs();
-                return;
-            }
-
             var q = _questions[currentIndex];
 
             quesBox.Text = q.NoiDung ?? "";
@@ -81,59 +39,62 @@ namespace FormAppQuyt
             wrongBox2.Text = q.Sai2 ?? "";
             wrongBox3.Text = q.Sai3 ?? "";
 
-            _imageBase64 = q.ImageBase64; 
+            _imageBase64 = q.ImageBase64;
 
-            if (string.IsNullOrEmpty(q.ImageBase64))
-            {
-                pic.Image = Properties.Resources.istockphoto_1386740242_612x612;  
-            }
-            else
-            {
+            if (!string.IsNullOrEmpty(q.ImageBase64))
                 pic.Image = Base64ToImage(q.ImageBase64);
+            else
+                pic.Image = null;
+        }
+
+        private void SaveCurrent()
+        {
+            var q = _questions[currentIndex];
+            q.NoiDung = quesBox.Text.Trim();
+            q.DapAnDung = correctBox.Text.Trim();
+            q.Sai1 = wrongBox1.Text.Trim();
+            q.Sai2 = wrongBox2.Text.Trim();
+            q.Sai3 = wrongBox3.Text.Trim();
+            q.ImageBase64 = _imageBase64;
+        }
+
+        private void UpdatePage()
+        {
+            num.Text = $"{currentIndex + 1}/{_maxQuestions}";
+        }
+
+        private Image Base64ToImage(string b64)
+        {
+            byte[] bytes = Convert.FromBase64String(b64);
+            using (var ms = new MemoryStream(bytes))
+            {
+                return Image.FromStream(ms);
             }
         }
+
+
         private void next_Click(object sender, EventArgs e)
         {
-            if (currentIndex + 1 >= _maxQuestions)
+            SaveCurrent();
+            if (currentIndex < _maxQuestions - 1)
             {
-                MessageBox.Show($"Đã đạt giới hạn {_maxQuestions} câu hỏi!");
-                return;
+                currentIndex++;
+                LoadQuestionUI();
+                UpdatePage();
             }
-
-            if (!ValidateCurrentQuestion())
-            {
-                return;
-            }
-
-            SaveCurrentInputToList();
-
-            
-            currentIndex++;
-
-            if (currentIndex >= _questions.Count)
-            {
-                _questions.Add(new QuizQuestion());
-            }
-
-            LoadQuestionToUI();
-            UpdateQuestionNumber();
         }
+
         private void previous_Click(object sender, EventArgs e)
         {
-            SaveCurrentInputToList();
-
+            SaveCurrent();
             if (currentIndex > 0)
             {
-                SaveCurrentInputToList();
                 currentIndex--;
-                LoadQuestionToUI();
-                UpdateQuestionNumber();
-            }
-            else
-            {
-                MessageBox.Show("Đây là câu hỏi đầu tiên!");
+                LoadQuestionUI();
+                UpdatePage();
             }
         }
+
         private void addPic_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -145,7 +106,7 @@ namespace FormAppQuyt
 
                     if (bytes.Length > 200 * 1024)
                     {
-                        MessageBox.Show("Ảnh quá lớn! < 200KB");
+                        MessageBox.Show("Ảnh quá lớn! <200KB");
                         return;
                     }
 
@@ -157,98 +118,34 @@ namespace FormAppQuyt
 
         private void add_Click(object sender, EventArgs e)
         {
-            if (_questions.Count >= _maxQuestions)
+            if (!ValidateCurrent())
             {
-                MessageBox.Show($"Đã đạt giới hạn {_maxQuestions} câu hỏi!");
+                MessageBox.Show("Câu hỏi chưa hợp lệ!");
                 return;
             }
 
-            if (!ValidateCurrentQuestion())
-            {
-                return;
-            }
-
-            SaveCurrentInputToList();
-
-            _questions.Add(new QuizQuestion());
-            currentIndex = _questions.Count - 1;
-
-            ClearInputs();
-            UpdateQuestionNumber();
-
-            MessageBox.Show("Đã thêm câu hỏi mới!");
+            SaveCurrent();
+            MessageBox.Show($"Đã lưu câu hỏi #{currentIndex + 1}");
         }
 
         private void save_Click(object sender, EventArgs e)
         {
+            SaveCurrent();
+
             if (string.IsNullOrWhiteSpace(quizBox.Text))
             {
-                MessageBox.Show("Vui lòng nhập tên bộ câu hỏi!");
-                quizBox.Focus();
+                MessageBox.Show("Nhập tên bộ câu hỏi");
                 return;
             }
 
-            bool currentQuestionIsEmpty = string.IsNullOrWhiteSpace(quesBox.Text) &&
-                                   string.IsNullOrWhiteSpace(correctBox.Text) &&
-                                   string.IsNullOrWhiteSpace(wrongBox1.Text) &&
-                                   string.IsNullOrWhiteSpace(wrongBox2.Text) &&
-                                   string.IsNullOrWhiteSpace(wrongBox3.Text);
+            var valid = _questions
+                .Where(q => ValidateObject(q))
+                .ToList();
 
-            if (!currentQuestionIsEmpty)
+            if (valid.Count == 0)
             {
-                // Nếu câu hiện tại có dữ liệu thì phải validate
-                if (!ValidateCurrentQuestion())
-                {
-                    return;
-                }
-
-                // Kiểm tra xem có vượt quá giới hạn không (trường hợp người dùng đã nhập câu thứ 3 khi giới hạn là 2)
-                if (currentIndex >= _maxQuestions)
-                {
-                    MessageBox.Show($"Câu hỏi hiện tại vượt quá giới hạn {_maxQuestions} câu!\nVui lòng xóa câu này hoặc tăng giới hạn.");
-                    return;
-                }
-
-                SaveCurrentInputToList();
-            }
-
-            // Lọc bỏ các câu rỗng
-            var validQuestions = _questions.Where(q =>
-                !string.IsNullOrWhiteSpace(q.NoiDung) &&
-                !string.IsNullOrWhiteSpace(q.DapAnDung) &&
-                !string.IsNullOrWhiteSpace(q.Sai1) &&
-                !string.IsNullOrWhiteSpace(q.Sai2) &&
-                !string.IsNullOrWhiteSpace(q.Sai3)
-            ).ToList();
-
-            // Kiểm tra số câu hỏi hợp lệ
-            if (validQuestions.Count == 0)
-            {
-                MessageBox.Show("Chưa có câu hỏi hợp lệ nào!");
+                MessageBox.Show("Không có câu hỏi hợp lệ");
                 return;
-            }
-
-            // Kiểm tra có vượt giới hạn không
-            if (validQuestions.Count > _maxQuestions)
-            {
-                MessageBox.Show($"Số câu hỏi ({validQuestions.Count}) vượt quá giới hạn ({_maxQuestions})!");
-                return;
-            }
-
-            // Kiểm tra đã đủ số câu chưa
-            if (validQuestions.Count < _maxQuestions)
-            {
-                var result = MessageBox.Show(
-                    $"Bạn mới tạo {validQuestions.Count}/{_maxQuestions} câu. Bạn có muốn lưu không?",
-                    "Xác nhận",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
-                if (result != DialogResult.Yes)
-                {
-                    return;
-                }
             }
 
             var pkg = new QuizPackage
@@ -256,91 +153,75 @@ namespace FormAppQuyt
                 action = "create_exam",
                 UserId = Global.UserId,
                 TenBo = quizBox.Text.Trim(),
-                Questions = validQuestions // Chỉ lưu câu hợp lệ
+                Questions = valid
             };
 
             string json = JsonSerializer.Serialize(pkg);
 
             try
             {
-                using (TcpClient client = new TcpClient())
+                using (TcpClient client = new TcpClient("127.0.0.1", 3636))
                 {
-                    client.Connect("127.0.0.1", 3636);
-                    using (var stream = client.GetStream())
+                    using (NetworkStream stream = client.GetStream())
                     {
                         byte[] buf = Encoding.UTF8.GetBytes(json + "\n");
                         stream.Write(buf, 0, buf.Length);
                     }
                 }
 
-                MessageBox.Show($"Đã lưu {validQuestions.Count} câu hỏi thành công!");
+                MessageBox.Show("Đã lưu bộ câu hỏi!");
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi lưu: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}");
             }
+
         }
 
         private void QuestionCountBox_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(questionCountBox.Text, out int count))
+            if (!int.TryParse(questionCountBox.Text, out int newCount)) return;
+            if (newCount < 1 || newCount > 100)
             {
-                if (count > 0 && count <= 100) // Giới hạn tối đa 100 câu
-                {
-                    _maxQuestions = count;
-                    UpdateQuestionNumber();
-                }
-                else
-                {
-                    MessageBox.Show("Số câu hỏi phải từ 1 đến 100!");
-                    questionCountBox.Text = _maxQuestions.ToString();
-                }
+                MessageBox.Show("Số câu từ 1 đến 100");
+                questionCountBox.Text = _maxQuestions.ToString();
+                return;
             }
+
+            _maxQuestions = newCount;
+
+            // Resize list
+            _questions = _questions.Take(newCount).ToList();
+            while (_questions.Count < newCount)
+                _questions.Add(new QuizQuestion());
+
+            if (currentIndex >= newCount)
+                currentIndex = newCount - 1;
+
+            UpdatePage();
+            LoadQuestionUI();
         }
 
-        private bool ValidateCurrentQuestion()
+        private bool ValidateObject(QuizQuestion q)
         {
-            if (string.IsNullOrWhiteSpace(quesBox.Text))
-            {
-                MessageBox.Show("Vui lòng nhập câu hỏi!");
-                quesBox.Focus();
-                return false;
-            }
+            return !string.IsNullOrWhiteSpace(q.NoiDung)
+                && !string.IsNullOrWhiteSpace(q.DapAnDung)
+                && !string.IsNullOrWhiteSpace(q.Sai1)
+                && !string.IsNullOrWhiteSpace(q.Sai2)
+                && !string.IsNullOrWhiteSpace(q.Sai3);
+        }
 
-            if (string.IsNullOrWhiteSpace(correctBox.Text))
-            {
-                MessageBox.Show("Vui lòng nhập câu trả lời đúng!");
-                correctBox.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(wrongBox1.Text))
-            {
-                MessageBox.Show("Vui lòng nhập câu trả lời sai thứ 1!");
-                wrongBox1.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(wrongBox2.Text))
-            {
-                MessageBox.Show("Vui lòng nhập câu trả lời sai thứ 2!");
-                wrongBox2.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(wrongBox3.Text))
-            {
-                MessageBox.Show("Vui lòng nhập câu trả lời sai thứ 3!");
-                wrongBox3.Focus();
-                return false;
-            }
-
+        private bool ValidateCurrent()
+        {
+            if (string.IsNullOrWhiteSpace(quesBox.Text)) return false;
+            if (string.IsNullOrWhiteSpace(correctBox.Text)) return false;
+            if (string.IsNullOrWhiteSpace(wrongBox1.Text)) return false;
+            if (string.IsNullOrWhiteSpace(wrongBox2.Text)) return false;
+            if (string.IsNullOrWhiteSpace(wrongBox3.Text)) return false;
             return true;
         }
     }
-
-
 
     public class QuizQuestion
     {

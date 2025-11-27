@@ -82,12 +82,10 @@ internal class TcpServer
         {
             try
             {
-                string json = ReadLine(stream);
-                Console.WriteLine("[SERVER] Received: " + json);
-
-                var data = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
-                string response = ProcessRequest(data);
-
+                string rawJson = ReadLine(stream);
+                Console.WriteLine("[SERVER] Received: " + rawJson);
+                var data = JsonSerializer.Deserialize<Dictionary<string, object>>(rawJson);
+                string response = ProcessRequest(rawJson, data);
                 WriteLine(stream, response);
                 Console.WriteLine("[SERVER] Sent: " + response);
             }
@@ -99,31 +97,34 @@ internal class TcpServer
         }
         Console.WriteLine("[SERVER] Client disconnected.");
     }
-    private string ProcessRequest(Dictionary<string, string> data)
+    private string ProcessRequest(string rawJson, Dictionary<string, object> data)
     {
         if (data == null)
-            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
+            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi JSON" });
 
-        string actionRaw;
-        if (!data.TryGetValue("action", out actionRaw))
-            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
+        if (!data.TryGetValue("action", out var actionRaw))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu action" });
 
-        string action = (actionRaw ?? "").Trim().ToLowerInvariant();
+        string action = actionRaw?.ToString()?.Trim().ToLowerInvariant() ?? "";
 
         if (action == "register") return HandleRegister(data);
         if (action == "login") return HandleLogin(data);
         if (action == "profile") return HandleProfile(data);
         if (action == "logout") return JsonSerializer.Serialize(new { ok = true, message = "Đăng xuất" });
-        if (action == "create_question") return HandleCreateQuestion(data);
-        return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
+
+        if (action == "create_exam")
+            return HandleCreateExam(rawJson);
+
+        return JsonSerializer.Serialize(new { ok = false, message = "Action không hợp lệ" });
     }
 
-    private string HandleRegister(Dictionary<string, string> d)
+
+    private string HandleRegister(Dictionary<string, object> d)
     {
-        string username = d.TryGetValue("username", out var u) ? u : "";
-        string password = d.TryGetValue("password", out var pw) ? pw : "";
-        string email = d.TryGetValue("email", out var e) ? e : "";
-        string phone = d.TryGetValue("phone", out var p) ? p : "";
+        string username = d.TryGetValue("username", out var u) ? u?.ToString() : "";
+        string password = d.TryGetValue("password", out var pw) ? pw?.ToString() : "";
+        string email = d.TryGetValue("email", out var e) ? e?.ToString() : "";
+        string phone = d.TryGetValue("phone", out var p) ? p?.ToString() : "";
 
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             return JsonSerializer.Serialize(new { ok = false, message = "Các ô không được để trống" });
@@ -181,11 +182,12 @@ internal class TcpServer
         }
     }
 
-    private string HandleLogin(Dictionary<string, string> d)
+    private string HandleLogin(Dictionary<string, object> d)
     {
-        string identifier = d.TryGetValue("identifier", out var id) ? id : "";
-        string username = d.TryGetValue("username", out var u) ? u : "";
-        string password = d.TryGetValue("password", out var pw) ? pw : "";
+        string identifier = d.TryGetValue("identifier", out var id) ? id?.ToString() : "";
+        string username = d.TryGetValue("username", out var u) ? u?.ToString() : "";
+        string password = d.TryGetValue("password", out var pw) ? pw?.ToString() : "";
+
 
         if (string.IsNullOrWhiteSpace(identifier) && !string.IsNullOrWhiteSpace(username))
             identifier = username;
@@ -229,9 +231,9 @@ internal class TcpServer
     }
 
 
-    private string HandleProfile(Dictionary<string, string> d)
+    private string HandleProfile(Dictionary<string, object> d)
     {
-        string id = d.TryGetValue("identifier", out var v) ? v : "";
+        string id = d.TryGetValue("identifier", out var v) ? v?.ToString() : "";
         if (string.IsNullOrWhiteSpace(id))
             return JsonSerializer.Serialize(new { ok = false, message = "Thiếu identifier" });
 
@@ -267,46 +269,76 @@ internal class TcpServer
             return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
         }
     }
-    private string HandleCreateQuestion(Dictionary<string, string> d)
+    private string HandleCreateExam(string rawJson)
     {
-        string noiDung = d.TryGetValue("NoiDung", out var nd) ? nd : "";
-        string dapAnDung = d.TryGetValue("DapAnDung", out var da) ? da : "";
-        string s1 = d.TryGetValue("Sai1", out var w1) ? w1 : "";
-        string s2 = d.TryGetValue("Sai2", out var w2) ? w2 : "";
-        string s3 = d.TryGetValue("Sai3", out var w3) ? w3 : "";
-        string imgBase = d.TryGetValue("ImageBase64", out var img) ? img : "";
-        string uidRaw = d.TryGetValue("UserId", out var uid) ? uid : "";
+        QuizPackage pkg;
+        try
+        {
+            pkg = JsonSerializer.Deserialize<QuizPackage>(rawJson);
+        }
+        catch (Exception ex)
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = "JSON lỗi: " + ex.Message });
+        }
 
-        if (!int.TryParse(uidRaw, out int userId))
-            return JsonSerializer.Serialize(new { ok = false, message = "UserId không hợp lệ" });
-
-        if (string.IsNullOrWhiteSpace(noiDung)
-            || string.IsNullOrWhiteSpace(dapAnDung)
-            || string.IsNullOrWhiteSpace(s1)
-            || string.IsNullOrWhiteSpace(s2)
-            || string.IsNullOrWhiteSpace(s3))
-            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu dữ liệu câu hỏi" });
+        if (pkg == null || pkg.Questions == null || pkg.Questions.Count == 0)
+            return JsonSerializer.Serialize(new { ok = false, message = "Không có câu hỏi" });
 
         try
         {
-            using (var conn = new SqlConnection(connectionString))
-            using (var cmd = new SqlCommand(@"
-            INSERT INTO dbo.Question
-            (NoiDung, DapAnDung, DapAnSai1, DapAnSai2, DapAnSai3, UserId)
-            VALUES (@n, @d, @s1, @s2, @s3, @u)", conn))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("@n", noiDung);
-                cmd.Parameters.AddWithValue("@d", dapAnDung);
-                cmd.Parameters.AddWithValue("@s1", s1);
-                cmd.Parameters.AddWithValue("@s2", s2);
-                cmd.Parameters.AddWithValue("@s3", s3);
-                cmd.Parameters.AddWithValue("@u", userId);
+                using (SqlTransaction tran = conn.BeginTransaction())
+                {
+                    int idDeThi;
+                    using (var cmd = new SqlCommand(@"
+                    INSERT INTO dbo.DeThi (TenDeThi, SoCau, UserId)
+                    VALUES (@t, @c, @u);
+                    SELECT SCOPE_IDENTITY();", conn, tran))
+                    {
+                        cmd.Parameters.AddWithValue("@t", pkg.TenBo);
+                        cmd.Parameters.AddWithValue("@c", pkg.Questions.Count);
+                        cmd.Parameters.AddWithValue("@u", pkg.UserId);
+                        idDeThi = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
 
-                cmd.ExecuteNonQuery();
+                    
+                    foreach (var q in pkg.Questions)
+                    {
+                        int idQ;
+
+                        using (var cmd = new SqlCommand(@"
+                        INSERT INTO dbo.Question
+                        (NoiDung, DapAnDung, DapAnSai1, DapAnSai2, DapAnSai3, ImageBase64, UserId)
+                        VALUES (@n, @d, @s1, @s2, @s3, @img, @u);
+                        SELECT SCOPE_IDENTITY();", conn, tran))
+                        {
+                            cmd.Parameters.AddWithValue("@n", q.NoiDung);
+                            cmd.Parameters.AddWithValue("@d", q.DapAnDung);
+                            cmd.Parameters.AddWithValue("@s1", q.Sai1);
+                            cmd.Parameters.AddWithValue("@s2", q.Sai2);
+                            cmd.Parameters.AddWithValue("@s3", q.Sai3);
+                            cmd.Parameters.AddWithValue("@img", (object)q.ImageBase64 ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@u", pkg.UserId);
+
+                            idQ = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+                        
+                        using (var cmd = new SqlCommand(@"
+                        INSERT INTO dbo.DeThi_CauHoi (IdDeThi, IdCauHoi)
+                        VALUES (@d, @q)", conn, tran))
+                        {
+                            cmd.Parameters.AddWithValue("@d", idDeThi);
+                            cmd.Parameters.AddWithValue("@q", idQ);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    tran.Commit();
+                    return JsonSerializer.Serialize(new { ok = true, idDeThi, message = "Tạo đề thành công" });
+                }
             }
-
-            return JsonSerializer.Serialize(new { ok = true, message = "Lưu câu hỏi thành công" });
         }
         catch (Exception ex)
         {
@@ -376,6 +408,7 @@ internal class TcpServer
                         DapAnSai1 NVARCHAR(200) NOT NULL,
                         DapAnSai2 NVARCHAR(200) NOT NULL,
                         DapAnSai3 NVARCHAR(200) NOT NULL,
+                        ImageBase64 NVARCHAR(MAX) NULL,
                         UserId INT NOT NULL,
                         FOREIGN KEY (UserId) REFERENCES dbo.Users(UserId)
                     );
@@ -414,5 +447,21 @@ internal class TcpServer
         {
             Console.WriteLine("[SERVER] EnsureDb error: " + ex.Message);
         }
+    }
+    public class QuestionModel
+    {
+        public string NoiDung { get; set; }
+        public string DapAnDung { get; set; }
+        public string Sai1 { get; set; }
+        public string Sai2 { get; set; }
+        public string Sai3 { get; set; }
+        public string ImageBase64 { get; set; }
+    }
+    public class QuizPackage
+    {
+        public string action { get; set; }
+        public int UserId { get; set; }
+        public string TenBo { get; set; }
+        public List<QuestionModel> Questions { get; set; }
     }
 }
