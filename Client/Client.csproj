@@ -119,6 +119,12 @@
     <Compile Include="host.Designer.cs">
       <DependentUpon>host.cs</DependentUpon>
     </Compile>
+    <Compile Include="myQuiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="myQuiz.Designer.cs">
+      <DependentUpon>myQuiz.cs</DependentUpon>
+    </Compile>
     <Compile Include="play.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="host.resx">
       <DependentUpon>host.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="myQuiz.resx">
+      <DependentUpon>myQuiz.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="play.resx">
       <DependentUpon>play.cs</DependentUpon>
