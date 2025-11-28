@@ -159,7 +159,7 @@
             this.CheckAgreeTerms.ForeColor = System.Drawing.SystemColors.ControlText;
             this.CheckAgreeTerms.Location = new System.Drawing.Point(25, 479);
             this.CheckAgreeTerms.Name = "CheckAgreeTerms";
-            this.CheckAgreeTerms.Size = new System.Drawing.Size(158, 17);
+            this.CheckAgreeTerms.Size = new System.Drawing.Size(155, 17);
             this.CheckAgreeTerms.TabIndex = 9;
             this.CheckAgreeTerms.Text = "I agree to the Terms of Use";
             this.CheckAgreeTerms.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -178,7 +178,7 @@
             this.ToLogIn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ToLogIn.Font = new System.Drawing.Font("Segoe UI", 10.01739F);
             this.ToLogIn.ForeColor = System.Drawing.Color.Black;
-            this.ToLogIn.Location = new System.Drawing.Point(122, 572);
+            this.ToLogIn.Location = new System.Drawing.Point(116, 572);
             this.ToLogIn.Name = "ToLogIn";
             this.ToLogIn.Size = new System.Drawing.Size(168, 28);
             this.ToLogIn.TabIndex = 8;
@@ -189,9 +189,9 @@
             this.guna2HtmlLabel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(122, 553);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(126, 553);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(168, 25);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(149, 23);
             this.guna2HtmlLabel1.TabIndex = 7;
             this.guna2HtmlLabel1.Text = "Bạn đã có tài khoản ?";
             // 
@@ -204,7 +204,7 @@
             this.SignUpButton.FillColor = System.Drawing.Color.Green;
             this.SignUpButton.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUpButton.ForeColor = System.Drawing.Color.White;
-            this.SignUpButton.Location = new System.Drawing.Point(122, 502);
+            this.SignUpButton.Location = new System.Drawing.Point(116, 502);
             this.SignUpButton.Name = "SignUpButton";
             this.SignUpButton.Size = new System.Drawing.Size(168, 45);
             this.SignUpButton.TabIndex = 6;
@@ -296,7 +296,7 @@
             this.SignUpLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUpLabel.Location = new System.Drawing.Point(86, 152);
             this.SignUpLabel.Name = "SignUpLabel";
-            this.SignUpLabel.Size = new System.Drawing.Size(291, 39);
+            this.SignUpLabel.Size = new System.Drawing.Size(283, 38);
             this.SignUpLabel.TabIndex = 1;
             this.SignUpLabel.Text = "Đăng ký tài khoản Quýt";
             // 

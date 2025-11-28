@@ -116,9 +116,9 @@
             this.HaveAccountLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.HaveAccountLabel.BackColor = System.Drawing.Color.Transparent;
             this.HaveAccountLabel.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HaveAccountLabel.Location = new System.Drawing.Point(110, 471);
+            this.HaveAccountLabel.Location = new System.Drawing.Point(120, 471);
             this.HaveAccountLabel.Name = "HaveAccountLabel";
-            this.HaveAccountLabel.Size = new System.Drawing.Size(181, 25);
+            this.HaveAccountLabel.Size = new System.Drawing.Size(161, 23);
             this.HaveAccountLabel.TabIndex = 6;
             this.HaveAccountLabel.Text = "Bạn chưa có tài khoản?";
             // 
@@ -129,7 +129,7 @@
             this.ForgotPassword.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForgotPassword.Location = new System.Drawing.Point(254, 374);
             this.ForgotPassword.Name = "ForgotPassword";
-            this.ForgotPassword.Size = new System.Drawing.Size(135, 25);
+            this.ForgotPassword.Size = new System.Drawing.Size(121, 23);
             this.ForgotPassword.TabIndex = 5;
             this.ForgotPassword.Text = "Quên mật khẩu ?";
             this.ForgotPassword.MouseEnter += new System.EventHandler(this.ForgotPassword_MouseEnter);
@@ -211,7 +211,7 @@
             this.LogInLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogInLabel.Location = new System.Drawing.Point(91, 161);
             this.LogInLabel.Name = "LogInLabel";
-            this.LogInLabel.Size = new System.Drawing.Size(255, 39);
+            this.LogInLabel.Size = new System.Drawing.Size(248, 38);
             this.LogInLabel.TabIndex = 1;
             this.LogInLabel.Text = "Đăng nhập vào Quýt";
             // 

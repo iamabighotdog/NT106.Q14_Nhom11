@@ -89,5 +89,15 @@ namespace FormAppQuyt.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap istockphoto_1386740242_612x612 {
+            get {
+                object obj = ResourceManager.GetObject("istockphoto-1386740242-612x612", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
