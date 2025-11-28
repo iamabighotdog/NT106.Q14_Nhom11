@@ -31,6 +31,7 @@ namespace FormAppQuyt
         {
             this.GradientPanel = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.changeavatar = new Guna.UI2.WinForms.Guna2Button();
             this.fullNamebox = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.birthDate = new Guna.UI2.WinForms.Guna2TextBox();
@@ -38,7 +39,7 @@ namespace FormAppQuyt
             this.phoneNumber = new Guna.UI2.WinForms.Guna2TextBox();
             this.phoneNumberLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.logOut = new Guna.UI2.WinForms.Guna2Button();
-            this.email = new Guna.UI2.WinForms.Guna2TextBox();
+            this.emailBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.username = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -77,6 +78,7 @@ namespace FormAppQuyt
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.guna2Panel1.Controls.Add(this.changeavatar);
             this.guna2Panel1.Controls.Add(this.fullNamebox);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel4);
             this.guna2Panel1.Controls.Add(this.birthDate);
@@ -84,7 +86,7 @@ namespace FormAppQuyt
             this.guna2Panel1.Controls.Add(this.phoneNumber);
             this.guna2Panel1.Controls.Add(this.phoneNumberLabel);
             this.guna2Panel1.Controls.Add(this.logOut);
-            this.guna2Panel1.Controls.Add(this.email);
+            this.guna2Panel1.Controls.Add(this.emailBox);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel2);
             this.guna2Panel1.Controls.Add(this.username);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
@@ -94,6 +96,23 @@ namespace FormAppQuyt
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(522, 717);
             this.guna2Panel1.TabIndex = 2;
+            // 
+            // changeavatar
+            // 
+            this.changeavatar.AutoRoundedCorners = true;
+            this.changeavatar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.changeavatar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.changeavatar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.changeavatar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.changeavatar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.changeavatar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changeavatar.ForeColor = System.Drawing.Color.White;
+            this.changeavatar.Location = new System.Drawing.Point(161, 186);
+            this.changeavatar.Name = "changeavatar";
+            this.changeavatar.Size = new System.Drawing.Size(205, 45);
+            this.changeavatar.TabIndex = 14;
+            this.changeavatar.Text = "Đổi avatar";
+            this.changeavatar.Click += new System.EventHandler(this.changeavatar_Click);
             // 
             // fullNamebox
             // 
@@ -144,7 +163,7 @@ namespace FormAppQuyt
             this.birthDate.Name = "birthDate";
             this.birthDate.PlaceholderText = "";
             this.birthDate.SelectedText = "";
-            this.birthDate.Size = new System.Drawing.Size(496, 32);
+            this.birthDate.Size = new System.Drawing.Size(502, 32);
             this.birthDate.TabIndex = 11;
             // 
             // guna2HtmlLabel3
@@ -155,9 +174,9 @@ namespace FormAppQuyt
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(21, 576);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
             this.guna2HtmlLabel3.Padding = new System.Windows.Forms.Padding(3);
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(156, 30);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(429, 30);
             this.guna2HtmlLabel3.TabIndex = 10;
-            this.guna2HtmlLabel3.Text = "Ngày sinh";
+            this.guna2HtmlLabel3.Text = "Ngày sinh(dd-MM-yyyy)";
             this.guna2HtmlLabel3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // phoneNumber
@@ -177,7 +196,7 @@ namespace FormAppQuyt
             this.phoneNumber.Name = "phoneNumber";
             this.phoneNumber.PlaceholderText = "";
             this.phoneNumber.SelectedText = "";
-            this.phoneNumber.Size = new System.Drawing.Size(496, 32);
+            this.phoneNumber.Size = new System.Drawing.Size(502, 32);
             this.phoneNumber.TabIndex = 9;
             // 
             // phoneNumberLabel
@@ -203,32 +222,32 @@ namespace FormAppQuyt
             this.logOut.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.logOut.Font = new System.Drawing.Font("Segoe UI Semibold", 11.26957F, System.Drawing.FontStyle.Bold);
             this.logOut.ForeColor = System.Drawing.Color.White;
-            this.logOut.Location = new System.Drawing.Point(159, 663);
+            this.logOut.Location = new System.Drawing.Point(282, 663);
             this.logOut.Name = "logOut";
-            this.logOut.Size = new System.Drawing.Size(180, 45);
+            this.logOut.Size = new System.Drawing.Size(205, 45);
             this.logOut.TabIndex = 7;
             this.logOut.Text = "Đăng xuất";
             this.logOut.Click += new System.EventHandler(this.logOut_Click);
             // 
-            // email
+            // emailBox
             // 
-            this.email.AutoRoundedCorners = true;
-            this.email.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.email.DefaultText = "";
-            this.email.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.email.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.email.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.email.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.email.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.email.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.email.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.email.Location = new System.Drawing.Point(4, 461);
-            this.email.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.email.Name = "email";
-            this.email.PlaceholderText = "";
-            this.email.SelectedText = "";
-            this.email.Size = new System.Drawing.Size(496, 32);
-            this.email.TabIndex = 6;
+            this.emailBox.AutoRoundedCorners = true;
+            this.emailBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.emailBox.DefaultText = "";
+            this.emailBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.emailBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.emailBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.emailBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.emailBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.emailBox.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.emailBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.emailBox.Location = new System.Drawing.Point(4, 461);
+            this.emailBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.emailBox.Name = "emailBox";
+            this.emailBox.PlaceholderText = "";
+            this.emailBox.SelectedText = "";
+            this.emailBox.Size = new System.Drawing.Size(502, 32);
+            this.emailBox.TabIndex = 6;
             // 
             // guna2HtmlLabel2
             // 
@@ -285,11 +304,12 @@ namespace FormAppQuyt
             this.changeInfo.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.changeInfo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.changeInfo.ForeColor = System.Drawing.Color.White;
-            this.changeInfo.Location = new System.Drawing.Point(130, 195);
+            this.changeInfo.Location = new System.Drawing.Point(37, 663);
             this.changeInfo.Name = "changeInfo";
-            this.changeInfo.Size = new System.Drawing.Size(260, 56);
+            this.changeInfo.Size = new System.Drawing.Size(205, 45);
             this.changeInfo.TabIndex = 3;
             this.changeInfo.Text = "Thay đổi thông tin";
+            this.changeInfo.Click += new System.EventHandler(this.changeInfo_Click);
             // 
             // pic_Avatar
             // 
@@ -482,7 +502,7 @@ namespace FormAppQuyt
         private Guna.UI2.WinForms.Guna2Button changeInfo;
         private Guna.UI2.WinForms.Guna2TextBox username;
         private Guna.UI2.WinForms.Guna2Button logOut;
-        private Guna.UI2.WinForms.Guna2TextBox email;
+        private Guna.UI2.WinForms.Guna2TextBox emailBox;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2TextBox phoneNumber;
         private Guna.UI2.WinForms.Guna2HtmlLabel phoneNumberLabel;
@@ -497,5 +517,6 @@ namespace FormAppQuyt
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2Button myQuiz;
         private Guna.UI2.WinForms.Guna2Button createRoom;
+        private Guna.UI2.WinForms.Guna2Button changeavatar;
     }
 }

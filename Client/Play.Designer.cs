@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.playBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ID = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.back = new Guna.UI2.WinForms.Guna2Button();
@@ -40,9 +43,6 @@
             this.question = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.answerA = new Guna.UI2.WinForms.Guna2Button();
             this.close = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.playBtn = new Guna.UI2.WinForms.Guna2Button();
             this.guna2GradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.SuspendLayout();
@@ -71,13 +71,46 @@
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
             // 
+            // playBtn
+            // 
+            this.playBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.playBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.playBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.playBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.playBtn.FillColor = System.Drawing.Color.Green;
+            this.playBtn.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.playBtn.ForeColor = System.Drawing.Color.White;
+            this.playBtn.Location = new System.Drawing.Point(774, 606);
+            this.playBtn.Name = "playBtn";
+            this.playBtn.Size = new System.Drawing.Size(180, 45);
+            this.playBtn.TabIndex = 16;
+            this.playBtn.Text = "Chơi";
+            // 
+            // players
+            // 
+            this.players.BackColor = System.Drawing.Color.Transparent;
+            this.players.Location = new System.Drawing.Point(239, 636);
+            this.players.Name = "players";
+            this.players.Size = new System.Drawing.Size(10, 18);
+            this.players.TabIndex = 15;
+            this.players.Text = "0";
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(181, 636);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(52, 18);
+            this.guna2HtmlLabel2.TabIndex = 14;
+            this.guna2HtmlLabel2.Text = "Players: ";
+            // 
             // ID
             // 
             this.ID.BackColor = System.Drawing.Color.Transparent;
             this.ID.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ID.Location = new System.Drawing.Point(85, 631);
             this.ID.Name = "ID";
-            this.ID.Size = new System.Drawing.Size(45, 23);
+            this.ID.Size = new System.Drawing.Size(51, 25);
             this.ID.TabIndex = 13;
             this.ID.Text = "xxxxxx";
             // 
@@ -87,7 +120,7 @@
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(12, 631);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(67, 23);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(74, 25);
             this.guna2HtmlLabel1.TabIndex = 12;
             this.guna2HtmlLabel1.Text = "Room ID: ";
             // 
@@ -182,9 +215,9 @@
             // 
             this.question.BackColor = System.Drawing.Color.Transparent;
             this.question.Font = new System.Drawing.Font("Segoe UI", 13.77391F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.question.Location = new System.Drawing.Point(12, 24);
+            this.question.Location = new System.Drawing.Point(12, 12);
             this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(90, 32);
+            this.question.Size = new System.Drawing.Size(95, 33);
             this.question.TabIndex = 5;
             this.question.Text = "Question";
             // 
@@ -214,47 +247,14 @@
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
             // 
-            // guna2HtmlLabel2
-            // 
-            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(181, 636);
-            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(52, 18);
-            this.guna2HtmlLabel2.TabIndex = 14;
-            this.guna2HtmlLabel2.Text = "Players: ";
-            // 
-            // players
-            // 
-            this.players.BackColor = System.Drawing.Color.Transparent;
-            this.players.Location = new System.Drawing.Point(239, 636);
-            this.players.Name = "players";
-            this.players.Size = new System.Drawing.Size(10, 18);
-            this.players.TabIndex = 15;
-            this.players.Text = "0";
-            // 
-            // playBtn
-            // 
-            this.playBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.playBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.playBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.playBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.playBtn.FillColor = System.Drawing.Color.Green;
-            this.playBtn.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.playBtn.ForeColor = System.Drawing.Color.White;
-            this.playBtn.Location = new System.Drawing.Point(774, 606);
-            this.playBtn.Name = "playBtn";
-            this.playBtn.Size = new System.Drawing.Size(180, 45);
-            this.playBtn.TabIndex = 16;
-            this.playBtn.Text = "Chơi";
-            // 
-            // hostForm
+            // play
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 675);
             this.Controls.Add(this.guna2GradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "hostForm";
+            this.Name = "play";
             this.Text = "Play";
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();

@@ -165,7 +165,7 @@ namespace FormAppQuyt
                     valid
                 );
 
-                var res = JsonSerializer.Deserialize<BasicResponse>(resp);
+                var res = JsonSerializer.Deserialize<ClientResponse>(resp);
 
                 if (res.ok)
                 {
@@ -246,4 +246,10 @@ namespace FormAppQuyt
         public string TenBo { get; set; }
         public List<QuizQuestion> Questions { get; set; }
     }
+    public class ClientResponse
+    {
+        public bool ok { get; set; }
+        public string message { get; set; }
+    }
+
 }

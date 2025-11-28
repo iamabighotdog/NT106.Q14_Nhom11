@@ -112,14 +112,44 @@ internal class TcpServer
         if (action == "profile") return HandleProfile(data);
         if (action == "get_my_quiz") return HandleGetMyQuiz(data);
         if (action == "delete_quiz") return HandleDeleteQuiz(data);
+        if (action == "update_profile") return HandleUpdateProfile(data);
         if (action == "logout") return JsonSerializer.Serialize(new { ok = true, message = "Đăng xuất" });
+        if (action == "update_avatar") return HandleUpdateAvatar(data);
 
         if (action == "create_exam")
             return HandleCreateExam(rawJson);
 
         return JsonSerializer.Serialize(new { ok = false, message = "Action không hợp lệ" });
     }
+    private string HandleUpdateAvatar(Dictionary<string, object> d)
+    {
+        string userId = d.TryGetValue("userId", out var u) ? u.ToString() : "";
+        string avatar = d.TryGetValue("avatar", out var a) ? a?.ToString() : "";
 
+        if (string.IsNullOrWhiteSpace(userId))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu userId" });
+
+        try
+        {
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(
+                "UPDATE Users SET AvatarBase64=@A WHERE UserId=@ID", conn))
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("@ID", userId);
+                cmd.Parameters.AddWithValue("@A",
+                    string.IsNullOrWhiteSpace(avatar) ? (object)DBNull.Value : avatar);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            return JsonSerializer.Serialize(new { ok = true, message = "Avatar đã cập nhật" });
+        }
+        catch (Exception ex)
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
+        }
+    }
 
     private string HandleRegister(Dictionary<string, object> d)
     {
@@ -231,8 +261,6 @@ internal class TcpServer
             return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
         }
     }
-
-
     private string HandleProfile(Dictionary<string, object> d)
     {
         string id = d.TryGetValue("identifier", out var v) ? v?.ToString() : "";
@@ -242,26 +270,41 @@ internal class TcpServer
         try
         {
             using (var conn = new SqlConnection(connectionString))
-            using (var cmd = new SqlCommand(
-                "SELECT TOP 1 Username, Email, Phone FROM dbo.Users WHERE Username=@k OR Email=@k OR Phone=@k", conn))
+            using (var cmd = new SqlCommand(@"
+            SELECT TOP 1 
+                Username,
+                Email,
+                Phone,
+                FullName,
+                Birthday,
+                AvatarBase64
+            FROM dbo.Users
+            WHERE Username=@k OR Email=@k OR Phone=@k", conn))
             {
                 conn.Open();
                 cmd.Parameters.AddWithValue("@k", id);
 
                 using (var rd = cmd.ExecuteReader())
                 {
-                    if (rd.Read())
+                    if (!rd.Read())
+                        return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy người dùng" });
+
+                    var resp = new
                     {
-                        return JsonSerializer.Serialize(new
-                        {
-                            ok = true,
-                            message = "OK",
-                            username = rd["Username"]?.ToString() ?? "",
-                            email = rd["Email"]?.ToString() ?? "",
-                            phone = rd["Phone"]?.ToString() ?? ""
-                        });
-                    }
-                    return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy người dùng" });
+                        ok = true,
+                        message = "OK",
+                        username = rd["Username"]?.ToString() ?? "",
+                        email = rd["Email"]?.ToString() ?? "",
+                        phone = rd["Phone"]?.ToString() ?? "",
+                        fullname = rd["FullName"]?.ToString() ?? "",
+                        dob = rd["Birthday"] == DBNull.Value
+                                ? ""
+                                : ((DateTime)rd["Birthday"]).ToString("yyyy-MM-dd"),
+                        avatar = rd["AvatarBase64"] == DBNull.Value
+                                ? ""
+                                : rd["AvatarBase64"].ToString()
+                    };
+                    return JsonSerializer.Serialize(resp);
                 }
             }
         }
@@ -271,6 +314,72 @@ internal class TcpServer
             return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
         }
     }
+
+
+
+    private string HandleUpdateProfile(Dictionary<string, object> d)
+    {
+        string userId = d.TryGetValue("UserId", out var u) ? u?.ToString() : "";
+        if (string.IsNullOrWhiteSpace(userId))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu userId" });
+
+        string fullName = d.TryGetValue("FullName", out var fn) ? fn?.ToString() : "";
+        string email = d.TryGetValue("Email", out var em) ? em?.ToString() : "";
+        string phone = d.TryGetValue("Phone", out var ph) ? ph?.ToString() : "";
+        string dob = d.TryGetValue("Dob", out var bd) ? bd?.ToString() : "";
+
+        try
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                if (!string.IsNullOrWhiteSpace(email))
+                {
+                    using (var c = new SqlCommand(
+                        "SELECT COUNT(*) FROM Users WHERE Email=@e AND UserId<>@id", conn))
+                    {
+                        c.Parameters.AddWithValue("@e", email);
+                        c.Parameters.AddWithValue("@id", userId);
+                        if ((int)c.ExecuteScalar() > 0)
+                            return JsonSerializer.Serialize(new { ok = false, message = "Email đã tồn tại" });
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(phone))
+                {
+                    using (var c = new SqlCommand(
+                        "SELECT COUNT(*) FROM Users WHERE Phone=@p AND UserId<>@id", conn))
+                    {
+                        c.Parameters.AddWithValue("@p", phone);
+                        c.Parameters.AddWithValue("@id", userId);
+                        if ((int)c.ExecuteScalar() > 0)
+                            return JsonSerializer.Serialize(new { ok = false, message = "Số điện thoại đã tồn tại" });
+                    }
+                }
+
+                string sql;
+                sql = @"UPDATE Users SET FullName=@FN, Email=@E, Phone=@P,
+                     Birthday=@BD WHERE UserId=@ID";
+
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@FN", string.IsNullOrWhiteSpace(fullName) ? (object)DBNull.Value : fullName);
+                    cmd.Parameters.AddWithValue("@E", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email);
+                    cmd.Parameters.AddWithValue("@P", string.IsNullOrWhiteSpace(phone) ? (object)DBNull.Value : phone);
+                    cmd.Parameters.AddWithValue("@BD", string.IsNullOrWhiteSpace(dob) ? (object)DBNull.Value : dob);
+                    cmd.Parameters.AddWithValue("@ID", userId);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                return JsonSerializer.Serialize(new { ok = true, message = "Cập nhật thành công" });
+            }
+        }
+        catch (Exception ex)
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
+        }
+    }
+
     private string HandleCreateExam(string rawJson)
     {
         QuizPackage pkg;
@@ -465,6 +574,7 @@ internal class TcpServer
                         Phone NVARCHAR(20) NULL UNIQUE,
                         Password NVARCHAR(64) NOT NULL,           
                         FullName NVARCHAR(150) NULL,
+                        AvatarBase64 NVARCHAR(MAX) NULL,
                         Birthday DATE NULL
                     );
                 END;

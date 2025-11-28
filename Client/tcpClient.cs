@@ -1,6 +1,7 @@
 ﻿using FormAppQuyt;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
@@ -21,17 +22,33 @@ internal class tcpClient
                 string jsonData = JsonSerializer.Serialize(data) + "\n";
                 byte[] bytes = Encoding.UTF8.GetBytes(jsonData);
                 stream.Write(bytes, 0, bytes.Length);
-
-                byte[] buffer = new byte[1024];
-                int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                return Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                return ReadResponse(stream);
             }
         }
         catch (Exception ex)
         {
-            return "ERROR: " + ex.Message;
+            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
         }
     }
+    private string ReadResponse(NetworkStream stream)
+    {
+        using (var ms = new MemoryStream())
+        {
+            var buffer = new byte[4096];
+            int read;
+
+            while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                ms.Write(buffer, 0, read);
+
+                if (!stream.DataAvailable)
+                    break;
+            }
+
+            return Encoding.UTF8.GetString(ms.ToArray());
+        }
+    }
+
 
     public string SendRegisterData(string username, string email, string phone, string hashedPassword)
     {
@@ -94,4 +111,28 @@ internal class tcpClient
         };
         return SendToServer(data);
     }
+    public string SendUpdateProfile(int userId, string fullName, string email, string phone, string dob)
+    {
+        var data = new
+        {
+            action = "update_profile",
+            UserId = userId,
+            FullName = fullName,
+            Email = email,
+            Phone = phone,
+            Dob = dob,
+        };
+        return SendToServer(data);
+    }
+    public string SendUpdateAvatar(int userId, string avatarBase64)
+    {
+        var data = new
+        {
+            action = "update_avatar",
+            userId = userId,
+            avatar = avatarBase64
+        };
+        return SendToServer(data);
+    }
+
 }

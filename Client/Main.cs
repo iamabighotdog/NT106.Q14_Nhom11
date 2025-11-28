@@ -10,7 +10,7 @@ namespace FormAppQuyt
     {
         private readonly string userInput;
         private byte[] selectedImage = null;
-
+        private string avatarBase64 = null;
         public Main(string input)
         {
             InitializeComponent();
@@ -20,10 +20,14 @@ namespace FormAppQuyt
         {
             public bool ok { get; set; }
             public string message { get; set; }
+            public string fullname { get; set; }
+            public string dob { get; set; }
             public string username { get; set; }
             public string email { get; set; }
             public string phone { get; set; }
+            public string avatar { get; set; }
         }
+
         private void Main_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(userInput))
@@ -36,19 +40,38 @@ namespace FormAppQuyt
             {
                 tcpClient client = new tcpClient();
                 string response = client.SendProfileData(userInput);
-                ProfileReply reply = JsonSerializer.Deserialize<ProfileReply>(response);
+
+                var reply = JsonSerializer.Deserialize<ProfileReply>(response);
+
                 if (reply != null && reply.ok)
                 {
+                    fullNamebox.Text = reply.fullname ?? "";
                     username.Text = reply.username ?? "";
-                    email.Text = reply.email ?? "";
+                    emailBox.Text = reply.email ?? "";
                     phoneNumber.Text = reply.phone ?? "";
+                    if (!string.IsNullOrEmpty(reply.dob))
+                    {
+                        if (DateTime.TryParse(reply.dob, out var d))
+                            birthDate.Text = d.ToString("dd-MM-yyyy");
+                    }
+                    if (!string.IsNullOrEmpty(reply.avatar))
+                    {
+                        byte[] bytes = Convert.FromBase64String(reply.avatar);
+                        using (var ms = new MemoryStream(bytes))
+                        {
+                            pic_Avatar.Image = Image.FromStream(ms);
+                        }
+                    }
                 }
+                else
+                    MessageBox.Show(reply?.message ?? "Không thể tải profile!");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
+
 
         private void logOut_Click(object sender, EventArgs e)
         {
@@ -104,12 +127,110 @@ namespace FormAppQuyt
                 }
             }
         }
-
         private void myQuiz_Click(object sender, EventArgs e)
         {
             var f = new myQuiz(Global.UserId);
             f.StartPosition = FormStartPosition.CenterScreen;
             f.Show();
         }
+
+        private void changeInfo_Click(object sender, EventArgs e)
+        {
+            string fullname = fullNamebox.Text.Trim();
+            string email = emailBox.Text.Trim();
+            string phone = phoneNumber.Text.Trim();
+            string dobRaw = birthDate.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                MessageBox.Show("Email không được để trống.");
+                return;
+            }
+            if (!email.Contains("@"))
+            {
+                MessageBox.Show("Email không hợp lệ!");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(phone) && phone.Length < 9)
+            {
+                MessageBox.Show("Số điện thoại không hợp lệ!");
+                return;
+            }
+
+            DateTime dob;
+            if (!DateTime.TryParseExact(dobRaw, "dd-MM-yyyy",
+                System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.None, out dob))
+            {
+                MessageBox.Show("Ngày sinh phải theo định dạng dd-MM-yyyy!");
+                return;
+            }
+            string dobSend = dob.ToString("yyyy-MM-dd");
+            try
+            {
+                tcpClient client = new tcpClient();
+                string resp = client.SendUpdateProfile(
+                    Global.UserId,
+                    fullname,
+                    email,
+                    phone,
+                    dobSend
+                );
+
+                var data = JsonSerializer.Deserialize<HomeResponse>(resp);
+
+                if (data != null && data.ok)
+                {
+                    MessageBox.Show("Cập nhật thành công!");
+                }
+                else
+                {
+                    MessageBox.Show(data?.message ?? "Cập nhật thất bại.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void changeavatar_Click(object sender, EventArgs e)
+        {
+            if (selectedImage == null)
+            {
+                MessageBox.Show("Không có avatar mới!");
+                return;
+            }
+
+            string avatarBase64 = Convert.ToBase64String(selectedImage);
+
+            try
+            {
+                tcpClient client = new tcpClient();
+                string resp = client.SendUpdateAvatar(Global.UserId, avatarBase64);
+                var res = JsonSerializer.Deserialize<HomeResponse>(resp);
+
+                if (res.ok)
+                {
+                    MessageBox.Show("Avatar đã cập nhật!");
+                    selectedImage = null;
+                }
+                else
+                {
+                    MessageBox.Show(res.message);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
     }
+    public class HomeResponse
+    {
+        public bool ok { get; set; }
+        public string message { get; set; }
+    }
+
 }
