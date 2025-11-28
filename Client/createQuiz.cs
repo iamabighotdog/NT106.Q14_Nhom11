@@ -156,26 +156,32 @@ namespace FormAppQuyt
                 Questions = valid
             };
 
-            string json = JsonSerializer.Serialize(pkg);
-
             try
             {
-                using (TcpClient client = new TcpClient("127.0.0.1", 3636))
-                {
-                    using (NetworkStream stream = client.GetStream())
-                    {
-                        byte[] buf = Encoding.UTF8.GetBytes(json + "\n");
-                        stream.Write(buf, 0, buf.Length);
-                    }
-                }
+                tcpClient client = new tcpClient();
+                string resp = client.SendCreateQuiz(
+                    Global.UserId,
+                    quizBox.Text.Trim(),
+                    valid
+                );
 
-                MessageBox.Show("Đã lưu bộ câu hỏi!");
-                this.Close();
+                var res = JsonSerializer.Deserialize<BasicResponse>(resp);
+
+                if (res.ok)
+                {
+                    MessageBox.Show("Đã lưu bộ câu hỏi!");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(res.message);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi: {ex.Message}");
             }
+
 
         }
 

@@ -110,6 +110,8 @@ internal class TcpServer
         if (action == "register") return HandleRegister(data);
         if (action == "login") return HandleLogin(data);
         if (action == "profile") return HandleProfile(data);
+        if (action == "get_my_quiz") return HandleGetMyQuiz(data);
+        if (action == "delete_quiz") return HandleDeleteQuiz(data);
         if (action == "logout") return JsonSerializer.Serialize(new { ok = true, message = "Đăng xuất" });
 
         if (action == "create_exam")
@@ -338,6 +340,74 @@ internal class TcpServer
                     tran.Commit();
                     return JsonSerializer.Serialize(new { ok = true, idDeThi, message = "Tạo đề thành công" });
                 }
+            }
+        }
+        catch (Exception ex)
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
+        }
+    }
+    private string HandleGetMyQuiz(Dictionary<string, object> d)
+    {
+        string id = d.TryGetValue("userId", out var v) ? v?.ToString() : "";
+        if (string.IsNullOrWhiteSpace(id))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu userId" });
+
+        try
+        {
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(
+                @"SELECT IdDeThi, TenDeThi, SoCau, NgayTao 
+              FROM dbo.DeThi 
+              WHERE UserId = @u
+              ORDER BY IdDeThi DESC", conn))
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("@u", id);
+
+                var list = new List<object>();
+
+                using (var rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        list.Add(new
+                        {
+                            id = rd.GetInt32(0),
+                            name = rd.GetString(1),
+                            total = rd.GetInt32(2),
+                            date = rd.GetDateTime(3).ToString("yyyy-MM-dd HH:mm")
+                        });
+                    }
+                }
+                return JsonSerializer.Serialize(new { ok = true, data = list });
+            }
+        }
+        catch (Exception ex)
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
+        }
+    }
+    private string HandleDeleteQuiz(Dictionary<string, object> d)
+    {
+        string id = d.TryGetValue("idDeThi", out var v) ? v?.ToString() : "";
+        if (string.IsNullOrWhiteSpace(id))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu idDeThi" });
+
+        try
+        {
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand(
+                @"DELETE FROM dbo.DeThi WHERE IdDeThi=@id", conn))
+            {
+                conn.Open();
+                cmd.Parameters.AddWithValue("@id", id);
+
+                int n = cmd.ExecuteNonQuery();
+                if (n == 0)
+                    return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy bộ đề" });
+
+                return JsonSerializer.Serialize(new { ok = true, message = "Đã xóa" });
             }
         }
         catch (Exception ex)

@@ -1,6 +1,8 @@
-﻿using System.Net.Sockets;
-using System.Text;
+﻿using FormAppQuyt;
 using System;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Text;
 using System.Text.Json;
 
 
@@ -60,6 +62,35 @@ internal class tcpClient
         {
             action = "profile",
             identifier = identifier
+        };
+        return SendToServer(data);
+    }
+    public string SendGetMyQuiz(int userId)
+    {
+        var data = new
+        {
+            action = "get_my_quiz",
+            userId = userId
+        };
+        return SendToServer(data);
+    }
+    public string SendDeleteQuiz(int idDeThi)
+    {
+        var data = new
+        {
+            action = "delete_quiz",
+            idDeThi = idDeThi
+        };
+        return SendToServer(data);
+    }
+    public string SendCreateQuiz(int userId, string tenBo, List<QuizQuestion> questions)
+    {
+        var data = new
+        {
+            action = "create_exam",
+            UserId = userId,
+            TenBo = tenBo,
+            Questions = questions
         };
         return SendToServer(data);
     }

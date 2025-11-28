@@ -46,13 +46,13 @@ namespace FormAppQuyt
             this.pic_Avatar = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.Close = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.createRoom = new Guna.UI2.WinForms.Guna2Button();
             this.myQuiz = new Guna.UI2.WinForms.Guna2Button();
             this.exit = new Guna.UI2.WinForms.Guna2Button();
             this.createQuiz = new Guna.UI2.WinForms.Guna2Button();
             this.leaderboard = new Guna.UI2.WinForms.Guna2Button();
             this.play = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.createRoom = new Guna.UI2.WinForms.Guna2Button();
             this.GradientPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Avatar)).BeginInit();
@@ -340,6 +340,22 @@ namespace FormAppQuyt
             this.guna2GradientPanel1.Size = new System.Drawing.Size(332, 720);
             this.guna2GradientPanel1.TabIndex = 10;
             // 
+            // createRoom
+            // 
+            this.createRoom.BorderColor = System.Drawing.Color.Transparent;
+            this.createRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.createRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.createRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.createRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.createRoom.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.createRoom.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
+            this.createRoom.ForeColor = System.Drawing.Color.Black;
+            this.createRoom.Location = new System.Drawing.Point(0, 447);
+            this.createRoom.Name = "createRoom";
+            this.createRoom.Size = new System.Drawing.Size(329, 45);
+            this.createRoom.TabIndex = 7;
+            this.createRoom.Text = "Tạo phòng";
+            // 
             // myQuiz
             // 
             this.myQuiz.BorderColor = System.Drawing.Color.Transparent;
@@ -355,6 +371,7 @@ namespace FormAppQuyt
             this.myQuiz.Size = new System.Drawing.Size(329, 45);
             this.myQuiz.TabIndex = 6;
             this.myQuiz.Text = "Bộ quiz của tôi";
+            this.myQuiz.Click += new System.EventHandler(this.myQuiz_Click);
             // 
             // exit
             // 
@@ -433,22 +450,6 @@ namespace FormAppQuyt
             this.guna2PictureBox1.TabIndex = 1;
             this.guna2PictureBox1.TabStop = false;
             this.guna2PictureBox1.UseTransparentBackground = true;
-            // 
-            // createRoom
-            // 
-            this.createRoom.BorderColor = System.Drawing.Color.Transparent;
-            this.createRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.createRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.createRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.createRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.createRoom.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.createRoom.Font = new System.Drawing.Font("Segoe UI", 11.26957F);
-            this.createRoom.ForeColor = System.Drawing.Color.Black;
-            this.createRoom.Location = new System.Drawing.Point(0, 447);
-            this.createRoom.Name = "createRoom";
-            this.createRoom.Size = new System.Drawing.Size(329, 45);
-            this.createRoom.TabIndex = 7;
-            this.createRoom.Text = "Tạo phòng";
             // 
             // Main
             // 

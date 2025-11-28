@@ -104,5 +104,12 @@ namespace FormAppQuyt
                 }
             }
         }
+
+        private void myQuiz_Click(object sender, EventArgs e)
+        {
+            var f = new myQuiz(Global.UserId);
+            f.StartPosition = FormStartPosition.CenterScreen;
+            f.Show();
+        }
     }
 }
