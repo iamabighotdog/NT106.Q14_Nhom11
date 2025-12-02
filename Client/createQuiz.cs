@@ -197,7 +197,6 @@ namespace FormAppQuyt
 
             _maxQuestions = newCount;
 
-            // Resize list
             _questions = _questions.Take(newCount).ToList();
             while (_questions.Count < newCount)
                 _questions.Add(new QuizQuestion());
