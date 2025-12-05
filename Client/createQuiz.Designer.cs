@@ -116,7 +116,7 @@
             this.lblQuestionCount.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblQuestionCount.Location = new System.Drawing.Point(4, 90);
             this.lblQuestionCount.Name = "lblQuestionCount";
-            this.lblQuestionCount.Size = new System.Drawing.Size(75, 22);
+            this.lblQuestionCount.Size = new System.Drawing.Size(69, 21);
             this.lblQuestionCount.TabIndex = 5;
             this.lblQuestionCount.Text = "Số câu hỏi:";
             // 
@@ -133,7 +133,7 @@
             this.quizBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.quizBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
             this.quizBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.quizBox.Location = new System.Drawing.Point(4, 58);
+            this.quizBox.Location = new System.Drawing.Point(4, 49);
             this.quizBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.quizBox.Name = "quizBox";
             this.quizBox.PlaceholderText = "";
@@ -178,7 +178,7 @@
             this.num.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num.Location = new System.Drawing.Point(845, 558);
             this.num.Name = "num";
-            this.num.Size = new System.Drawing.Size(14, 30);
+            this.num.Size = new System.Drawing.Size(13, 27);
             this.num.TabIndex = 10;
             this.num.Text = "1";
             // 

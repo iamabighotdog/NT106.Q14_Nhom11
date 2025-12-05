@@ -125,11 +125,17 @@
     <Compile Include="myQuiz.Designer.cs">
       <DependentUpon>myQuiz.cs</DependentUpon>
     </Compile>
-    <Compile Include="play.cs">
+    <Compile Include="playClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="play.Designer.cs">
-      <DependentUpon>play.cs</DependentUpon>
+    <Compile Include="playClient.Designer.cs">
+      <DependentUpon>playClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="playHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="playHost.Designer.cs">
+      <DependentUpon>playHost.cs</DependentUpon>
     </Compile>
     <Compile Include="players.cs">
       <SubType>Form</SubType>
@@ -175,11 +181,14 @@
     <EmbeddedResource Include="myQuiz.resx">
       <DependentUpon>myQuiz.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="playClient.resx">
+      <DependentUpon>playClient.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="players.resx">
       <DependentUpon>players.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="play.resx">
-      <DependentUpon>play.cs</DependentUpon>
+    <EmbeddedResource Include="playHost.resx">
+      <DependentUpon>playHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="resultForm.resx">
       <DependentUpon>resultForm.cs</DependentUpon>

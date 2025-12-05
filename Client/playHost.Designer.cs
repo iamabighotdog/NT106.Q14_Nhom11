@@ -110,7 +110,7 @@
             this.ID.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ID.Location = new System.Drawing.Point(85, 631);
             this.ID.Name = "ID";
-            this.ID.Size = new System.Drawing.Size(51, 25);
+            this.ID.Size = new System.Drawing.Size(45, 23);
             this.ID.TabIndex = 13;
             this.ID.Text = "xxxxxx";
             // 
@@ -120,7 +120,7 @@
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(12, 631);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(74, 25);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(67, 23);
             this.guna2HtmlLabel1.TabIndex = 12;
             this.guna2HtmlLabel1.Text = "Room ID: ";
             // 
@@ -217,7 +217,7 @@
             this.question.Font = new System.Drawing.Font("Segoe UI", 13.77391F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.question.Location = new System.Drawing.Point(12, 12);
             this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(95, 33);
+            this.question.Size = new System.Drawing.Size(90, 32);
             this.question.TabIndex = 5;
             this.question.Text = "Question";
             // 
@@ -247,14 +247,14 @@
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
             // 
-            // play
+            // playHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 675);
             this.Controls.Add(this.guna2GradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "play";
+            this.Name = "playHost";
             this.Text = "Play";
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();
