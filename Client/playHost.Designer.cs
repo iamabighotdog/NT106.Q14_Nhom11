@@ -1,6 +1,6 @@
 ﻿namespace FormAppQuyt
 {
-    partial class play
+    partial class playHost
     {
         /// <summary>
         /// Required designer variable.

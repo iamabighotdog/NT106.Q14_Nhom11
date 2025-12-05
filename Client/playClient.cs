@@ -10,13 +10,11 @@ using System.Windows.Forms;
 
 namespace FormAppQuyt
 {
-    public partial class play : Form
+    public partial class playClient : Form
     {
-        public play()
+        public playClient()
         {
             InitializeComponent();
         }
-
-       
     }
 }
