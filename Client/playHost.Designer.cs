@@ -85,6 +85,7 @@
             this.playBtn.Size = new System.Drawing.Size(180, 45);
             this.playBtn.TabIndex = 16;
             this.playBtn.Text = "Chơi";
+            this.playBtn.Click += new System.EventHandler(this.playBtn_Click);
             // 
             // players
             // 
@@ -110,7 +111,7 @@
             this.ID.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ID.Location = new System.Drawing.Point(85, 631);
             this.ID.Name = "ID";
-            this.ID.Size = new System.Drawing.Size(45, 23);
+            this.ID.Size = new System.Drawing.Size(51, 25);
             this.ID.TabIndex = 13;
             this.ID.Text = "xxxxxx";
             // 
@@ -120,7 +121,7 @@
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(12, 631);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(67, 23);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(74, 25);
             this.guna2HtmlLabel1.TabIndex = 12;
             this.guna2HtmlLabel1.Text = "Room ID: ";
             // 
@@ -138,6 +139,7 @@
             this.back.Size = new System.Drawing.Size(180, 45);
             this.back.TabIndex = 11;
             this.back.Text = "Quay lại";
+            this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // next
             // 
@@ -153,6 +155,7 @@
             this.next.Size = new System.Drawing.Size(180, 45);
             this.next.TabIndex = 10;
             this.next.Text = "Tiếp theo";
+            this.next.Click += new System.EventHandler(this.next_Click);
             // 
             // answerD
             // 
@@ -168,6 +171,7 @@
             this.answerD.Size = new System.Drawing.Size(322, 75);
             this.answerD.TabIndex = 9;
             this.answerD.Text = "D";
+            this.answerD.Click += new System.EventHandler(this.AnswerButton_Click);
             // 
             // answerC
             // 
@@ -183,6 +187,7 @@
             this.answerC.Size = new System.Drawing.Size(322, 75);
             this.answerC.TabIndex = 8;
             this.answerC.Text = "C";
+            this.answerC.Click += new System.EventHandler(this.AnswerButton_Click);
             // 
             // answerB
             // 
@@ -198,6 +203,7 @@
             this.answerB.Size = new System.Drawing.Size(322, 75);
             this.answerB.TabIndex = 7;
             this.answerB.Text = "B";
+            this.answerB.Click += new System.EventHandler(this.AnswerButton_Click);
             // 
             // pic
             // 
@@ -217,7 +223,7 @@
             this.question.Font = new System.Drawing.Font("Segoe UI", 13.77391F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.question.Location = new System.Drawing.Point(12, 12);
             this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(90, 32);
+            this.question.Size = new System.Drawing.Size(95, 33);
             this.question.TabIndex = 5;
             this.question.Text = "Question";
             // 
@@ -235,6 +241,7 @@
             this.answerA.Size = new System.Drawing.Size(322, 75);
             this.answerA.TabIndex = 1;
             this.answerA.Text = "A";
+            this.answerA.Click += new System.EventHandler(this.AnswerButton_Click);
             // 
             // close
             // 

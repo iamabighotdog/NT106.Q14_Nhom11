@@ -116,8 +116,10 @@ internal class TcpServer
         if (action == "logout") return JsonSerializer.Serialize(new { ok = true, message = "Đăng xuất" });
         if (action == "update_avatar") return HandleUpdateAvatar(data);
 
-        if (action == "create_exam")
-            return HandleCreateExam(rawJson);
+        if (action == "create_exam") return HandleCreateExam(rawJson);
+
+        if (action == "get_quiz_details") return HandleGetQuizDetails(data);
+        if (action == "create_room") return HandleCreateRoom(data);
 
         return JsonSerializer.Serialize(new { ok = false, message = "Action không hợp lệ" });
     }
@@ -518,6 +520,97 @@ internal class TcpServer
 
                 return JsonSerializer.Serialize(new { ok = true, message = "Đã xóa" });
             }
+        }
+        catch (Exception ex)
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
+        }
+    }
+
+    private string HandleGetQuizDetails(Dictionary<string, object> d)
+    {
+        string quizIdStr = d.TryGetValue("quizId", out var v) ? v?.ToString() : "";
+        if (string.IsNullOrWhiteSpace(quizIdStr))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu quizId" });
+
+        try
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string sql = @"
+                SELECT q.Id, q.NoiDung, q.DapAnDung, q.DapAnSai1, q.DapAnSai2, q.DapAnSai3, q.ImageBase64
+                FROM dbo.Question q
+                INNER JOIN dbo.DeThi_CauHoi dc ON q.Id = dc.IdCauHoi
+                WHERE dc.IdDeThi = @quizId
+                ORDER BY dc.IdCauHoi";
+
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@quizId", quizIdStr);
+
+                    var questions = new List<object>();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            questions.Add(new
+                            {
+                                Id = reader.GetInt32(0),
+                                NoiDung = reader.GetString(1),
+                                DapAnDung = reader.GetString(2),
+                                DapAnSai1 = reader.GetString(3),
+                                DapAnSai2 = reader.GetString(4),
+                                DapAnSai3 = reader.GetString(5),
+                                ImageBase64 = reader.IsDBNull(6) ? null : reader.GetString(6)
+                            });
+                        }
+                    }
+
+                    if (questions.Count == 0)
+                    {
+                        return JsonSerializer.Serialize(new
+                        {
+                            ok = false,
+                            message = "Không tìm thấy câu hỏi cho bộ quiz này"
+                        });
+                    }
+
+                    return JsonSerializer.Serialize(new
+                    {
+                        ok = true,
+                        message = "OK",
+                        questions = questions
+                    });
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("[DB ERROR] " + ex);
+            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
+        }
+    }
+
+    private string HandleCreateRoom(Dictionary<string, object> d)
+    {
+        string userIdStr = d.TryGetValue("userId", out var u) ? u?.ToString() : "";
+        string quizIdStr = d.TryGetValue("quizId", out var q) ? q?.ToString() : "";
+        string roomId = d.TryGetValue("roomId", out var r) ? r?.ToString() : "";
+
+        if (string.IsNullOrWhiteSpace(userIdStr) || string.IsNullOrWhiteSpace(quizIdStr) || string.IsNullOrWhiteSpace(roomId))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu thông tin" });
+
+        try
+        {
+            return JsonSerializer.Serialize(new
+            {
+                ok = true,
+                message = "Tạo phòng thành công",
+                roomId = roomId
+            });
         }
         catch (Exception ex)
         {

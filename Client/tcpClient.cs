@@ -135,4 +135,25 @@ internal class tcpClient
         return SendToServer(data);
     }
 
+    public string SendGetQuizDetails(int quizId)
+    {
+        var data = new
+        {
+            action = "get_quiz_details",
+            quizId = quizId
+        };
+        return SendToServer(data);
+    }
+
+    public string SendCreateRoom(int userId, int quizId, string roomId)
+    {
+        var data = new
+        {
+            action = "create_room",
+            userId = userId,
+            quizId = quizId,
+            roomId = roomId
+        };
+        return SendToServer(data);
+    }
 }

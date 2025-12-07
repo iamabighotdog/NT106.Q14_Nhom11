@@ -36,6 +36,7 @@
             this.contribute = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.back = new Guna.UI2.WinForms.Guna2Button();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.dateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,12 +77,14 @@
             this.choose.Size = new System.Drawing.Size(180, 45);
             this.choose.TabIndex = 15;
             this.choose.Text = "Chọn";
+            this.choose.Click += new System.EventHandler(this.choose_Click);
             // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Question,
-            this.contribute});
+            this.contribute,
+            this.dateColumn});
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(261, 125);
             this.listView1.Name = "listView1";
@@ -113,6 +116,7 @@
             this.back.Size = new System.Drawing.Size(121, 41);
             this.back.TabIndex = 13;
             this.back.Text = "Quay lại";
+            this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // guna2ControlBox1
             // 
@@ -124,6 +128,11 @@
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
             this.guna2ControlBox1.TabIndex = 0;
+            // 
+            // dateColumn
+            // 
+            this.dateColumn.Text = "Ngày tạo";
+            this.dateColumn.Width = 180;
             // 
             // host
             // 
@@ -150,5 +159,6 @@
         private System.Windows.Forms.ColumnHeader contribute;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2Button choose;
+        private System.Windows.Forms.ColumnHeader dateColumn;
     }
 }

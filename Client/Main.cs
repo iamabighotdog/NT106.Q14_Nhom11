@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text.Json;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace FormAppQuyt
 {
@@ -226,6 +227,40 @@ namespace FormAppQuyt
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
+
+        private void createRoom_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tcpClient client = new tcpClient();
+                string response = client.SendGetMyQuiz(Global.UserId);
+
+                var result = JsonSerializer.Deserialize<QuizCheckResponse>(response);
+
+                if (result != null && result.ok && result.data != null)
+                {
+                    if (result.data.Count == 0)
+                    {
+                        MessageBox.Show("Bạn chưa có bộ câu hỏi nào. Vui lòng tạo bộ câu hỏi trước!",
+                                      "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    host hostForm = new host();
+                    hostForm.StartPosition = FormStartPosition.CenterScreen;
+                    hostForm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kiểm tra bộ câu hỏi. Vui lòng thử lại!",
+                                  "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
     public class HomeResponse
     {
@@ -233,4 +268,18 @@ namespace FormAppQuyt
         public string message { get; set; }
     }
 
+    public class QuizCheckResponse
+    {
+        public bool ok { get; set; }
+        public string message { get; set; }
+        public List<QuizItemData> data { get; set; }
+    }
+
+    public class QuizItemData
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public int total { get; set; }
+        public string date { get; set; }
+    }
 }

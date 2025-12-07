@@ -375,6 +375,7 @@ namespace FormAppQuyt
             this.createRoom.Size = new System.Drawing.Size(329, 45);
             this.createRoom.TabIndex = 7;
             this.createRoom.Text = "Tạo phòng";
+            this.createRoom.Click += new System.EventHandler(this.createRoom_Click);
             // 
             // myQuiz
             // 
