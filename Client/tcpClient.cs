@@ -91,15 +91,17 @@ internal class tcpClient
         };
         return SendToServer(data);
     }
-    public string SendDeleteQuiz(int idDeThi)
+    public string SendDeleteQuiz(int idDeThi, int userId)
     {
         var data = new
         {
             action = "delete_quiz",
-            idDeThi = idDeThi
+            idDeThi = idDeThi,
+            userId = userId
         };
         return SendToServer(data);
     }
+
     public string SendCreateQuiz(int userId, string tenBo, List<QuizQuestion> questions)
     {
         var data = new

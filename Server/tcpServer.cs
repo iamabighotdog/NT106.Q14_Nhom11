@@ -460,21 +460,24 @@ internal class TcpServer
     }
     private string HandleGetMyQuiz(Dictionary<string, object> d)
     {
-        string id = d.TryGetValue("userId", out var v) ? v?.ToString() : "";
-        if (string.IsNullOrWhiteSpace(id))
+        string currentUserId = d.TryGetValue("userId", out var v) ? v?.ToString() : "";
+        if (string.IsNullOrWhiteSpace(currentUserId))
             return JsonSerializer.Serialize(new { ok = false, message = "Thiếu userId" });
-
         try
         {
             using (var conn = new SqlConnection(connectionString))
-            using (var cmd = new SqlCommand(
-                @"SELECT IdDeThi, TenDeThi, SoCau, NgayTao 
-              FROM dbo.DeThi 
-              WHERE UserId = @u
-              ORDER BY IdDeThi DESC", conn))
+            using (var cmd = new SqlCommand(@"
+            SELECT d.IdDeThi,
+                   d.TenDeThi,
+                   d.SoCau,
+                   d.NgayTao,
+                   d.UserId,
+                   u.Username
+            FROM dbo.DeThi d
+            LEFT JOIN dbo.Users u ON d.UserId = u.UserId
+            ORDER BY d.IdDeThi DESC", conn))
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("@u", id);
 
                 var list = new List<object>();
 
@@ -487,10 +490,13 @@ internal class TcpServer
                             id = rd.GetInt32(0),
                             name = rd.GetString(1),
                             total = rd.GetInt32(2),
-                            date = rd.GetDateTime(3).ToString("yyyy-MM-dd HH:mm")
+                            date = rd.GetDateTime(3).ToString("yyyy-MM-dd HH:mm"),
+                            userId = rd.GetInt32(4),
+                            userName = rd.IsDBNull(5) ? "" : rd.GetString(5)
                         });
                     }
                 }
+
                 return JsonSerializer.Serialize(new { ok = true, data = list });
             }
         }
@@ -499,11 +505,20 @@ internal class TcpServer
             return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
         }
     }
+
     private string HandleDeleteQuiz(Dictionary<string, object> d)
     {
         string id = d.TryGetValue("idDeThi", out var v) ? v?.ToString() : "";
+        string userIdStr = d.TryGetValue("userId", out var u) ? u?.ToString() : "";
+
         if (string.IsNullOrWhiteSpace(id))
             return JsonSerializer.Serialize(new { ok = false, message = "Thiếu idDeThi" });
+
+        if (string.IsNullOrWhiteSpace(userIdStr))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu userId" });
+
+        if (!int.TryParse(userIdStr, out int userId))
+            return JsonSerializer.Serialize(new { ok = false, message = "userId không hợp lệ" });
 
         try
         {
@@ -514,6 +529,32 @@ internal class TcpServer
                 {
                     try
                     {
+                        int ownerId;
+
+                        using (var cmd = new SqlCommand(
+                            "SELECT UserId FROM dbo.DeThi WHERE IdDeThi = @id",
+                            conn, tran))
+                        {
+                            cmd.Parameters.AddWithValue("@id", id);
+                            var ownerObj = cmd.ExecuteScalar();
+
+                            if (ownerObj == null)
+                            {
+                                tran.Rollback();
+                                return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy bộ đề" });
+                            }
+
+                            ownerId = Convert.ToInt32(ownerObj);
+                        }
+                        if (ownerId != userId)
+                        {
+                            tran.Rollback();
+                            return JsonSerializer.Serialize(new
+                            {
+                                ok = false,
+                                message = "Bạn không có quyền xóa bộ đề này"
+                            });
+                        }
                         List<int> questionIds = new List<int>();
                         using (var cmd = new SqlCommand(
                             "SELECT IdCauHoi FROM dbo.DeThi_CauHoi WHERE IdDeThi=@id",
@@ -540,7 +581,6 @@ internal class TcpServer
                             tran.Rollback();
                             return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy bộ đề" });
                         }
-
                         if (questionIds.Count > 0)
                         {
                             string questionIdList = string.Join(",", questionIds);
@@ -568,6 +608,7 @@ internal class TcpServer
             return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
         }
     }
+
 
     private string HandleGetQuizDetails(Dictionary<string, object> d)
     {

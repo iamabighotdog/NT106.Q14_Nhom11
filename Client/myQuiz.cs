@@ -11,9 +11,20 @@ namespace FormAppQuyt
         {
             InitializeComponent();
             currentUserId = userId;
-
+            EnsureOwnerColumn();
             LoadQuiz();
             gridQuiz.CellDoubleClick += GridQuiz_CellDoubleClick;
+        }
+        private void EnsureOwnerColumn()
+        {
+            if (!gridQuiz.Columns.Contains("ownerId"))
+            {
+                var col = new DataGridViewTextBoxColumn();
+                col.Name = "ownerId";
+                col.HeaderText = "UserId";
+                col.Visible = false;
+                gridQuiz.Columns.Add(col);
+            }
         }
         private void LoadQuiz()
         {
@@ -36,7 +47,8 @@ namespace FormAppQuyt
                     q.name,
                     q.total,
                     q.date,
-                    q.id
+                    q.id,
+                    q.userId
                 );
             }
         }
@@ -49,6 +61,13 @@ namespace FormAppQuyt
             }
 
             var row = gridQuiz.SelectedRows[0];
+            int ownerId = Convert.ToInt32(row.Cells["ownerId"].Value);
+            if (ownerId != currentUserId)
+            {
+                MessageBox.Show("Bạn không có quyền xóa bộ câu hỏi của người khác!");
+                return;
+            }
+
             int id = Convert.ToInt32(row.Cells["id"].Value);
             string name = row.Cells["name"].Value.ToString();
 
@@ -57,7 +76,8 @@ namespace FormAppQuyt
                 return;
 
             tcpClient client = new tcpClient();
-            string raw = client.SendDeleteQuiz(id);
+            string raw = client.SendDeleteQuiz(id, currentUserId);
+
             var res = JsonSerializer.Deserialize<BasicResponse>(raw);
 
             if (res.ok)
@@ -70,12 +90,12 @@ namespace FormAppQuyt
                 MessageBox.Show(res.message);
             }
         }
+
         private void GridQuiz_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
                 gridQuiz.Rows[e.RowIndex].Selected = true;
         }
-
     }
 
     public class QuizItem
@@ -84,6 +104,8 @@ namespace FormAppQuyt
         public string name { get; set; }
         public int total { get; set; }
         public string date { get; set; }
+        public int userId { get; set; }
+        public string userName { get; set; }
     }
 
     public class GetQuizResponse
