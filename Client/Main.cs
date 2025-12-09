@@ -183,7 +183,26 @@ namespace FormAppQuyt
 
                 if (data != null && data.ok)
                 {
-                    MessageBox.Show("Cập nhật thành công!");
+                    if (selectedImage != null)
+                    {
+                        string avatarBase64 = Convert.ToBase64String(selectedImage);
+                        string respAvatar = client.SendUpdateAvatar(Global.UserId, avatarBase64);
+                        var resAvatar = JsonSerializer.Deserialize<HomeResponse>(respAvatar);
+
+                        if (resAvatar.ok)
+                        {
+                            MessageBox.Show("Cập nhật thông tin và avatar thành công!");
+                            selectedImage = null;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cập nhật thông tin thành công nhưng avatar thất bại: " + resAvatar.message);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật thông tin thành công!");
+                    }
                 }
                 else
                 {
