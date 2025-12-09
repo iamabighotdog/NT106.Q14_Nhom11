@@ -508,17 +508,59 @@ internal class TcpServer
         try
         {
             using (var conn = new SqlConnection(connectionString))
-            using (var cmd = new SqlCommand(
-                @"DELETE FROM dbo.DeThi WHERE IdDeThi=@id", conn))
             {
                 conn.Open();
-                cmd.Parameters.AddWithValue("@id", id);
+                using (SqlTransaction tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        List<int> questionIds = new List<int>();
+                        using (var cmd = new SqlCommand(
+                            "SELECT IdCauHoi FROM dbo.DeThi_CauHoi WHERE IdDeThi=@id",
+                            conn, tran))
+                        {
+                            cmd.Parameters.AddWithValue("@id", id);
+                            using (var reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                    questionIds.Add(reader.GetInt32(0));
+                            }
+                        }
+                        int rowsAffected;
+                        using (var cmd = new SqlCommand(
+                            "DELETE FROM dbo.DeThi WHERE IdDeThi=@id",
+                            conn, tran))
+                        {
+                            cmd.Parameters.AddWithValue("@id", id);
+                            rowsAffected = cmd.ExecuteNonQuery();
+                        }
 
-                int n = cmd.ExecuteNonQuery();
-                if (n == 0)
-                    return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy bộ đề" });
+                        if (rowsAffected == 0)
+                        {
+                            tran.Rollback();
+                            return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy bộ đề" });
+                        }
 
-                return JsonSerializer.Serialize(new { ok = true, message = "Đã xóa" });
+                        if (questionIds.Count > 0)
+                        {
+                            string questionIdList = string.Join(",", questionIds);
+                            using (var cmd = new SqlCommand(
+                                $"DELETE FROM dbo.Question WHERE Id IN ({questionIdList})",
+                                conn, tran))
+                            {
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        tran.Commit();
+                        return JsonSerializer.Serialize(new { ok = true, message = "Đã xóa hoàn toàn" });
+                    }
+                    catch
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                }
             }
         }
         catch (Exception ex)
