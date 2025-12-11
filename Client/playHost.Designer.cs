@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.playBtn = new Guna.UI2.WinForms.Guna2Button();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -49,6 +50,7 @@
             // 
             // guna2GradientPanel1
             // 
+            this.guna2GradientPanel1.Controls.Add(this.progressBar1);
             this.guna2GradientPanel1.Controls.Add(this.playBtn);
             this.guna2GradientPanel1.Controls.Add(this.players);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel2);
@@ -70,6 +72,13 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(511, 560);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(706, 24);
+            this.progressBar1.TabIndex = 17;
             // 
             // playBtn
             // 
@@ -210,7 +219,7 @@
             this.pic.BackColor = System.Drawing.Color.Transparent;
             this.pic.Image = global::FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
             this.pic.ImageRotate = 0F;
-            this.pic.Location = new System.Drawing.Point(511, 147);
+            this.pic.Location = new System.Drawing.Point(511, 111);
             this.pic.Name = "pic";
             this.pic.Size = new System.Drawing.Size(706, 443);
             this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -287,5 +296,6 @@
         private Guna.UI2.WinForms.Guna2Button playBtn;
         private Guna.UI2.WinForms.Guna2HtmlLabel players;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

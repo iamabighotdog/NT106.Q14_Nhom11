@@ -156,4 +156,36 @@ internal class tcpClient
         };
         return SendToServer(data);
     }
+    public string SendJoinRoom(string roomId)
+    {
+        var data = new
+        {
+            action = "join_room",
+            roomId = roomId,
+            userId = Global.UserId   
+        };
+        return SendToServer(data);
+    }
+    public string SendRoomStartQuestion(string roomId, int questionIndex, int durationSeconds)
+    {
+        var data = new
+        {
+            action = "room_start_question",
+            roomId = roomId,
+            questionIndex = questionIndex,
+            durationSeconds = durationSeconds
+        };
+        return SendToServer(data);
+    }
+
+    public string SendRoomGetState(string roomId)
+    {
+        var data = new
+        {
+            action = "room_get_state",
+            roomId = roomId
+        };
+        return SendToServer(data);
+    }
+
 }

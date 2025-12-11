@@ -458,6 +458,7 @@ namespace FormAppQuyt
             this.play.Size = new System.Drawing.Size(329, 45);
             this.play.TabIndex = 2;
             this.play.Text = "Chơi";
+            this.play.Click += new System.EventHandler(this.play_Click);
             // 
             // guna2PictureBox1
             // 

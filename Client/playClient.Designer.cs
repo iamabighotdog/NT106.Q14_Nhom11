@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.timeBar = new System.Windows.Forms.ProgressBar();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ID = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -48,6 +49,7 @@
             // 
             // guna2GradientPanel1
             // 
+            this.guna2GradientPanel1.Controls.Add(this.timeBar);
             this.guna2GradientPanel1.Controls.Add(this.players);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel2);
             this.guna2GradientPanel1.Controls.Add(this.ID);
@@ -68,6 +70,13 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
+            // 
+            // timeBar
+            // 
+            this.timeBar.Location = new System.Drawing.Point(511, 560);
+            this.timeBar.Name = "timeBar";
+            this.timeBar.Size = new System.Drawing.Size(706, 23);
+            this.timeBar.TabIndex = 16;
             // 
             // players
             // 
@@ -93,7 +102,7 @@
             this.ID.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ID.Location = new System.Drawing.Point(85, 631);
             this.ID.Name = "ID";
-            this.ID.Size = new System.Drawing.Size(45, 23);
+            this.ID.Size = new System.Drawing.Size(51, 25);
             this.ID.TabIndex = 13;
             this.ID.Text = "xxxxxx";
             // 
@@ -103,7 +112,7 @@
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(12, 631);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(67, 23);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(74, 25);
             this.guna2HtmlLabel1.TabIndex = 12;
             this.guna2HtmlLabel1.Text = "Room ID: ";
             // 
@@ -121,6 +130,7 @@
             this.back.Size = new System.Drawing.Size(180, 45);
             this.back.TabIndex = 11;
             this.back.Text = "Quay lại";
+            this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // next
             // 
@@ -187,7 +197,7 @@
             this.pic.BackColor = System.Drawing.Color.Transparent;
             this.pic.Image = global::FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
             this.pic.ImageRotate = 0F;
-            this.pic.Location = new System.Drawing.Point(511, 147);
+            this.pic.Location = new System.Drawing.Point(511, 111);
             this.pic.Name = "pic";
             this.pic.Size = new System.Drawing.Size(706, 443);
             this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -200,7 +210,7 @@
             this.question.Font = new System.Drawing.Font("Segoe UI", 13.77391F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.question.Location = new System.Drawing.Point(12, 12);
             this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(90, 32);
+            this.question.Size = new System.Drawing.Size(95, 33);
             this.question.TabIndex = 5;
             this.question.Text = "Question";
             // 
@@ -262,6 +272,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel ID;
         private Guna.UI2.WinForms.Guna2HtmlLabel players;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private System.Windows.Forms.ProgressBar timeBar;
     }
 
 }

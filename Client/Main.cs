@@ -261,25 +261,33 @@ namespace FormAppQuyt
                 MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-    }
-    public class HomeResponse
-    {
-        public bool ok { get; set; }
-        public string message { get; set; }
-    }
 
-    public class QuizCheckResponse
-    {
-        public bool ok { get; set; }
-        public string message { get; set; }
-        public List<QuizItemData> data { get; set; }
-    }
+        private void play_Click(object sender, EventArgs e)
+        {
+            players enterForm = new players();
+            enterForm.StartPosition = FormStartPosition.CenterScreen;
+            enterForm.Show();
+            this.Hide();
+        }
+        public class HomeResponse
+        {
+            public bool ok { get; set; }
+            public string message { get; set; }
+        }
 
-    public class QuizItemData
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public int total { get; set; }
-        public string date { get; set; }
+        public class QuizCheckResponse
+        {
+            public bool ok { get; set; }
+            public string message { get; set; }
+            public List<QuizItemData> data { get; set; }
+        }
+
+        public class QuizItemData
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+            public int total { get; set; }
+            public string date { get; set; }
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace FormAppQuyt
         private List<QuestionData> questions = new List<QuestionData>();
         private int currentQuestionIndex = 0;
         private bool gameStarted = false;
+        private Timer hostTimer;
+        private int timeLeft = 20;
         public playHost(int selectedQuizId, string selectedQuizName)
         {
             InitializeComponent();
@@ -28,9 +30,14 @@ namespace FormAppQuyt
 
             roomId = GenerateRoomId();
             ID.Text = roomId;
+            CreateRoomOnServer();     
+
 
             LoadQuizQuestions();
             InitializeWaitingRoom();
+            hostTimer = new Timer();
+            hostTimer.Interval = 1000;
+            hostTimer.Tick += HostTimer_Tick; 
         }
 
         private class QuestionData
@@ -50,6 +57,50 @@ namespace FormAppQuyt
             public string message { get; set; }
             public List<QuestionData> questions { get; set; }
         }
+        private class CreateRoomResponse
+        {
+            public bool ok { get; set; }
+            public string message { get; set; }
+            public string roomId { get; set; }
+            public int quizId { get; set; }
+        }
+
+        private void CreateRoomOnServer()
+        {
+            try
+            {
+                tcpClient client = new tcpClient();
+                string response = client.SendCreateRoom(Global.UserId, quizId, roomId);
+
+                var result = JsonSerializer.Deserialize<CreateRoomResponse>(response);
+
+                if (result == null || !result.ok)
+                {
+                    MessageBox.Show(result?.message ?? "Không thể tạo phòng!",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+        }
+        private void HostTimer_Tick(object sender, EventArgs e)
+        {
+            if (progressBar1.Value > 0)
+            {
+                progressBar1.Value--; 
+            }
+            else
+            {
+                hostTimer.Stop();
+                next.PerformClick();
+            }
+        }
+
 
         private string GenerateRoomId()
         {
@@ -124,6 +175,8 @@ namespace FormAppQuyt
             players.Visible = false;
 
             currentQuestionIndex = 0;
+            var client = new tcpClient();
+            client.SendRoomStartQuestion(roomId, currentQuestionIndex, 20);
             DisplayQuestion();
         }
 
@@ -136,6 +189,11 @@ namespace FormAppQuyt
                 this.Close();
                 return;
             }
+            timeLeft = 20; 
+            progressBar1.Maximum = timeLeft;
+            progressBar1.Value = timeLeft;
+
+            hostTimer.Start();
 
             var q = questions[currentQuestionIndex];
 
@@ -167,6 +225,7 @@ namespace FormAppQuyt
             answerD.Text = "D. " + answers[3].text;
             answerD.Tag = answers[3].isCorrect;
             answerD.FillColor = Color.Green;
+            ResetHostButtons();
 
             if (!string.IsNullOrEmpty(q.ImageBase64))
             {
@@ -202,45 +261,70 @@ namespace FormAppQuyt
 
         private void AnswerButton_Click(object sender, EventArgs e)
         {
-            if (!gameStarted) return;
-
             var btn = sender as Guna.UI2.WinForms.Guna2Button;
             if (btn == null) return;
 
-            bool isCorrect = (bool)btn.Tag;
+            bool isCorrect = (bool)(btn.Tag ?? false);
 
             if (isCorrect)
             {
-                btn.FillColor = Color.FromArgb(0, 192, 0);
-                MessageBox.Show("Đúng rồi!", "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btn.FillColor = Color.FromArgb(0, 192, 0); 
+                                                      
+                this.Text = "Host: Bạn đã chọn ĐÚNG!";
+                MessageBox.Show("Chính xác! Bạn giỏi quá.", "Kết quả",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 btn.FillColor = Color.Red;
                 HighlightCorrectAnswer();
-                MessageBox.Show("Sai rồi!", "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Text = "Host: Bạn đã chọn SAI!";
+                MessageBox.Show("Sai mất rồi!", "Kết quả",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
 
+
+            answerA.Enabled = false;
+            answerB.Enabled = false;
+            answerC.Enabled = false;
+            answerD.Enabled = false;
+        }
         private void HighlightCorrectAnswer()
         {
-            foreach (var btn in new[] { answerA, answerB, answerC, answerD })
+            foreach (var b in new[] { answerA, answerB, answerC, answerD })
             {
-                if ((bool)btn.Tag)
+                if ((bool)(b.Tag ?? false))
                 {
-                    btn.FillColor = Color.FromArgb(0, 192, 0);
+                    b.FillColor = Color.FromArgb(0, 192, 0);
                 }
             }
         }
 
+      
+
         private void next_Click(object sender, EventArgs e)
         {
+            hostTimer.Stop();
             currentQuestionIndex++;
+            if (currentQuestionIndex >= questions.Count)
+            {
+                hostTimer.Stop();
+                MessageBox.Show($"Đã hết câu hỏi! Tổng cộng {questions.Count} câu.",
+                                "Hoàn thành", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+                return;
+            }
+
+            var client = new tcpClient();
+            client.SendRoomStartQuestion(roomId, currentQuestionIndex, 20);
+
             DisplayQuestion();
         }
 
+
         private void back_Click(object sender, EventArgs e)
         {
+            
             if (gameStarted)
             {
                 var result = MessageBox.Show("Bạn có chắc muốn thoát? Trò chơi sẽ kết thúc.",
@@ -248,8 +332,22 @@ namespace FormAppQuyt
                 if (result == DialogResult.No)
                     return;
             }
-
+            hostTimer.Stop();
             this.Close();
+        }
+        private void ResetHostButtons()
+        {
+            answerA.Enabled = true;
+            answerB.Enabled = true;
+            answerC.Enabled = true;
+            answerD.Enabled = true;
+
+            answerA.FillColor = Color.Green;
+            answerB.FillColor = Color.Green;
+            answerC.FillColor = Color.Green;
+            answerD.FillColor = Color.Green;
+
+            this.Text = "Play"; 
         }
     }
 }

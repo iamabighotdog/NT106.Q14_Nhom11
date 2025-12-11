@@ -14,11 +14,26 @@ internal class TcpServer
     private readonly int port = 3636;
     private TcpListener listener;
     private bool running = false;
-
+    
     private readonly string connectionString =
         ConfigurationManager.ConnectionStrings["QuizDB"]?.ConnectionString
         ?? @"Server=.;Database=QuizDB;Integrated Security=True;TrustServerCertificate=True;";
 
+    private class RoomInfo
+    {
+        public int HostUserId { get; set; }
+        public int QuizId { get; set; }
+
+        public int CurrentQuestionIndex { get; set; } = -1;     
+        public DateTime? QuestionStartTime { get; set; }
+        public int QuestionDurationSeconds { get; set; } = 0;
+
+        public int PlayerCount { get; set; } = 0;
+    }
+
+    private readonly Dictionary<string, RoomInfo> rooms
+        = new Dictionary<string, RoomInfo>();
+    private readonly object roomsLock = new object();
 
     public void Start()
     {
@@ -120,6 +135,11 @@ internal class TcpServer
 
         if (action == "get_quiz_details") return HandleGetQuizDetails(data);
         if (action == "create_room") return HandleCreateRoom(data);
+        if (action == "join_room") return HandleJoinRoom(data);
+        if (action == "room_start_question") return HandleRoomStartQuestion(data);
+        if (action == "room_get_state") return HandleRoomGetState(data);
+
+
 
         return JsonSerializer.Serialize(new { ok = false, message = "Action không hợp lệ" });
     }
@@ -152,6 +172,50 @@ internal class TcpServer
             return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
         }
     }
+    private string HandleRoomStartQuestion(Dictionary<string, object> d)
+    {
+        string roomId = d.TryGetValue("roomId", out var r) ? r?.ToString() : "";
+        string idxStr = d.TryGetValue("questionIndex", out var qi) ? qi?.ToString() : "";
+        string durStr = d.TryGetValue("durationSeconds", out var du) ? du?.ToString() : "";
+
+        if (string.IsNullOrWhiteSpace(roomId) || string.IsNullOrWhiteSpace(idxStr))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu roomId/questionIndex" });
+
+        if (!int.TryParse(idxStr, out int qIndex))
+            return JsonSerializer.Serialize(new { ok = false, message = "questionIndex không hợp lệ" });
+
+        int duration = 20; 
+        if (!string.IsNullOrWhiteSpace(durStr))
+            int.TryParse(durStr, out duration);
+
+        lock (roomsLock)
+        {
+            if (!rooms.TryGetValue(roomId, out var info))
+            {
+                return JsonSerializer.Serialize(new { ok = false, message = "Phòng khônfg tồn tại" });
+            }
+
+            if (info.CurrentQuestionIndex >= info.QuizId) 
+            {
+                return JsonSerializer.Serialize(new { ok = false, message = "Đã hoàn thành tất cả các câu hỏi" });
+            }
+
+            info.CurrentQuestionIndex = qIndex;
+            info.QuestionStartTime = DateTime.UtcNow;
+            info.QuestionDurationSeconds = duration;
+
+            Console.WriteLine($"[DEBUG] Room {roomId} - Started question {qIndex}, Duration {duration}s");
+
+            return JsonSerializer.Serialize(new
+            {
+                ok = true,
+                message = "Đã cập nhật câu hỏi",
+                currentQuestionIndex = qIndex,
+                durationSeconds = duration
+            });
+        }
+    }
+
 
     private string HandleRegister(Dictionary<string, object> d)
     {
@@ -593,30 +657,100 @@ internal class TcpServer
             return JsonSerializer.Serialize(new { ok = false, message = "Lỗi: " + ex.Message });
         }
     }
-
     private string HandleCreateRoom(Dictionary<string, object> d)
     {
         string userIdStr = d.TryGetValue("userId", out var u) ? u?.ToString() : "";
         string quizIdStr = d.TryGetValue("quizId", out var q) ? q?.ToString() : "";
         string roomId = d.TryGetValue("roomId", out var r) ? r?.ToString() : "";
 
-        if (string.IsNullOrWhiteSpace(userIdStr) || string.IsNullOrWhiteSpace(quizIdStr) || string.IsNullOrWhiteSpace(roomId))
+        if (string.IsNullOrWhiteSpace(userIdStr) ||
+            string.IsNullOrWhiteSpace(quizIdStr) ||
+            string.IsNullOrWhiteSpace(roomId))
             return JsonSerializer.Serialize(new { ok = false, message = "Thiếu thông tin" });
 
-        try
+        if (!int.TryParse(userIdStr, out int userId) ||
+            !int.TryParse(quizIdStr, out int quizId))
+            return JsonSerializer.Serialize(new { ok = false, message = "userId/quizId không hợp lệ" });
+
+        lock (roomsLock)
         {
+            rooms[roomId] = new RoomInfo
+            {
+                HostUserId = userId,
+                QuizId = quizId,
+                CurrentQuestionIndex = -1, 
+                QuestionStartTime = null, 
+                QuestionDurationSeconds = 20  
+            };
+        }
+
+        return JsonSerializer.Serialize(new
+        {
+            ok = true,
+            message = "Tạo phòng thành công",
+            roomId = roomId,
+            quizId = quizId
+        });
+    }
+
+
+    private string HandleJoinRoom(Dictionary<string, object> d)
+    {
+        string roomId = d.TryGetValue("roomId", out var r) ? r?.ToString() : "";
+
+        if (string.IsNullOrWhiteSpace(roomId))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu roomId" });
+
+        lock (roomsLock)
+        {
+            if (!rooms.ContainsKey(roomId))
+                return JsonSerializer.Serialize(new { ok = false, message = "Phòng không tồn tại" });
+
+            rooms[roomId].PlayerCount++;
+
             return JsonSerializer.Serialize(new
             {
                 ok = true,
-                message = "Tạo phòng thành công",
-                roomId = roomId
+                message = "Vào phòng thành công",
+                quizId = rooms[roomId].QuizId
             });
         }
-        catch (Exception ex)
+    }
+
+    private string HandleRoomGetState(Dictionary<string, object> d)
+    {
+        string roomId = d.TryGetValue("roomId", out var r) ? r?.ToString() : "";
+        if (string.IsNullOrWhiteSpace(roomId))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu roomId" });
+
+        lock (roomsLock)
         {
-            return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
+            if (!rooms.TryGetValue(roomId, out var roomInfo))
+                return JsonSerializer.Serialize(new { ok = false, message = "Phòng không tồn tại" });
+
+            int timeLeft = 0;
+            if (roomInfo.QuestionStartTime.HasValue)
+            {
+                double elapsed = (DateTime.UtcNow - roomInfo.QuestionStartTime.Value).TotalSeconds;
+                timeLeft = roomInfo.QuestionDurationSeconds - (int)elapsed;
+            }
+            if (timeLeft < 0) timeLeft = 0;
+
+            return JsonSerializer.Serialize(new
+            {
+                ok = true,
+                currentQuestionIndex = roomInfo.CurrentQuestionIndex,
+                timeLeftSeconds = timeLeft,
+                durationSeconds = roomInfo.QuestionDurationSeconds,
+                playerCount = roomInfo.PlayerCount,
+                message = "Trạng thái phòng"
+            });
         }
     }
+
+
+
+
 
     private static string ReadLine(NetworkStream stream)
     {
@@ -721,6 +855,7 @@ internal class TcpServer
             Console.WriteLine("[SERVER] EnsureDb error: " + ex.Message);
         }
     }
+
     public class QuestionModel
     {
         public string NoiDung { get; set; }
