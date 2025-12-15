@@ -131,6 +131,12 @@
     <Compile Include="playClient.Designer.cs">
       <DependentUpon>playClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="playerBanner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="playerBanner.Designer.cs">
+      <DependentUpon>playerBanner.cs</DependentUpon>
+    </Compile>
     <Compile Include="playHost.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="playClient.resx">
       <DependentUpon>playClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="playerBanner.resx">
+      <DependentUpon>playerBanner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="players.resx">
       <DependentUpon>players.cs</DependentUpon>
