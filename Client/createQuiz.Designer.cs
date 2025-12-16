@@ -116,7 +116,7 @@
             this.lblQuestionCount.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblQuestionCount.Location = new System.Drawing.Point(4, 90);
             this.lblQuestionCount.Name = "lblQuestionCount";
-            this.lblQuestionCount.Size = new System.Drawing.Size(69, 21);
+            this.lblQuestionCount.Size = new System.Drawing.Size(75, 22);
             this.lblQuestionCount.TabIndex = 5;
             this.lblQuestionCount.Text = "Số câu hỏi:";
             // 
@@ -165,9 +165,9 @@
             this.save.FillColor = System.Drawing.Color.Green;
             this.save.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.save.ForeColor = System.Drawing.Color.White;
-            this.save.Location = new System.Drawing.Point(1070, 603);
+            this.save.Location = new System.Drawing.Point(1054, 603);
             this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(180, 60);
+            this.save.Size = new System.Drawing.Size(196, 60);
             this.save.TabIndex = 11;
             this.save.Text = "Lưu bộ câu hỏi và thoát";
             this.save.Click += new System.EventHandler(this.save_Click);
@@ -178,7 +178,7 @@
             this.num.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num.Location = new System.Drawing.Point(845, 558);
             this.num.Name = "num";
-            this.num.Size = new System.Drawing.Size(13, 27);
+            this.num.Size = new System.Drawing.Size(14, 30);
             this.num.TabIndex = 10;
             this.num.Text = "1";
             // 

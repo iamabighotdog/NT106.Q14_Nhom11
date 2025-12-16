@@ -33,6 +33,17 @@ namespace FormAppQuyt
             public int playerCount { get; set; }
         }
 
+        private class SubmitAnswerResponse
+        {
+            public bool ok { get; set; }
+            public bool correct { get; set; }
+            public int gained { get; set; }
+            public int score { get; set; }
+            public int timeLeft { get; set; }
+            public string message { get; set; }
+        }
+
+
         public playClient(string roomId) : this()
         {
             this.roomId = roomId;
@@ -263,30 +274,42 @@ namespace FormAppQuyt
             var btn = sender as Guna.UI2.WinForms.Guna2Button;
             if (btn == null) return;
 
-            bool isCorrect = (bool)(btn.Tag ?? false);
+            string chosen = btn.Text;
+            int dot = chosen.IndexOf(". ");
+            if (dot >= 0) chosen = chosen.Substring(dot + 2);
+            chosen = chosen.Trim();
 
-            if (isCorrect)
+            try
             {
-                btn.FillColor = Color.FromArgb(0, 192, 0);
-                this.Text = "Kết quả: ĐÚNG!";
-                MessageBox.Show("Chính xác! Bạn giỏi quá.", "Kết quả",
-                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tcpClient client = new tcpClient();
+                string resp = client.SendSubmitAnswer(roomId, Global.UserId, chosen);
+                var result = JsonSerializer.Deserialize<SubmitAnswerResponse>(resp);
+
+                if (result == null || !result.ok)
+                {
+                    MessageBox.Show(result?.message ?? "Submit lỗi", "Lỗi");
+                    return;
+                }
+
+                if (result.correct)
+                {
+                    btn.FillColor = Color.FromArgb(0, 192, 0);
+                    MessageBox.Show($"ĐÚNG +{result.gained} điểm\nTổng: {result.score}", "Kết quả");
+                }
+                else
+                {
+                    btn.FillColor = Color.Red;
+                    HighlightCorrectAnswer();
+                    MessageBox.Show($"SAI +0 điểm\nTổng: {result.score}", "Kết quả");
+                }
+
+                answerA.Enabled = answerB.Enabled = answerC.Enabled = answerD.Enabled = false;
             }
-            else
+            catch (Exception ex)
             {
-                btn.FillColor = Color.Red;
-                HighlightCorrectAnswer();
-                this.Text = "Kết quả: SAI!";
-                MessageBox.Show("Sai mất rồi!", "Kết quả",
-                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi submit: " + ex.Message);
             }
-            answerA.Enabled = false;
-            answerB.Enabled = false;
-            answerC.Enabled = false;
-            answerD.Enabled = false;
         }
-
-
 
         private void HighlightCorrectAnswer()
         {

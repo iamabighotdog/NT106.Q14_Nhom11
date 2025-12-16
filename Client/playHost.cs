@@ -87,6 +87,8 @@ namespace FormAppQuyt
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
+            MessageBox.Show($"Mã phòng của bạn là: {roomId}\nGửi mã này cho người chơi để vào phòng.",
+                "Tạo phòng thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void HostTimer_Tick(object sender, EventArgs e)
         {
