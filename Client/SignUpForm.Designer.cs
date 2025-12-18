@@ -159,7 +159,7 @@
             this.CheckAgreeTerms.ForeColor = System.Drawing.SystemColors.ControlText;
             this.CheckAgreeTerms.Location = new System.Drawing.Point(25, 479);
             this.CheckAgreeTerms.Name = "CheckAgreeTerms";
-            this.CheckAgreeTerms.Size = new System.Drawing.Size(155, 17);
+            this.CheckAgreeTerms.Size = new System.Drawing.Size(158, 17);
             this.CheckAgreeTerms.TabIndex = 9;
             this.CheckAgreeTerms.Text = "I agree to the Terms of Use";
             this.CheckAgreeTerms.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -191,7 +191,7 @@
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(126, 553);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(149, 23);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(168, 25);
             this.guna2HtmlLabel1.TabIndex = 7;
             this.guna2HtmlLabel1.Text = "Bạn đã có tài khoản ?";
             // 
@@ -236,6 +236,7 @@
             this.ConfirmPassword.Size = new System.Drawing.Size(350, 35);
             this.ConfirmPassword.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             this.ConfirmPassword.TabIndex = 5;
+            this.ConfirmPassword.UseSystemPasswordChar = true;
             // 
             // PasswordBox
             // 
@@ -262,6 +263,7 @@
             this.PasswordBox.Size = new System.Drawing.Size(350, 35);
             this.PasswordBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             this.PasswordBox.TabIndex = 4;
+            this.PasswordBox.UseSystemPasswordChar = true;
             // 
             // UsernameBox
             // 
@@ -296,7 +298,7 @@
             this.SignUpLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUpLabel.Location = new System.Drawing.Point(86, 152);
             this.SignUpLabel.Name = "SignUpLabel";
-            this.SignUpLabel.Size = new System.Drawing.Size(283, 38);
+            this.SignUpLabel.Size = new System.Drawing.Size(291, 39);
             this.SignUpLabel.TabIndex = 1;
             this.SignUpLabel.Text = "Đăng ký tài khoản Quýt";
             // 

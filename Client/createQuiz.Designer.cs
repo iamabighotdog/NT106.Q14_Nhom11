@@ -43,6 +43,8 @@
             this.delete = new Guna.UI2.WinForms.Guna2Button();
             this.pic = new Guna.UI2.WinForms.Guna2PictureBox();
             this.question = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.Time = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.timeBox = new System.Windows.Forms.ComboBox();
             this.addPic = new Guna.UI2.WinForms.Guna2Button();
             this.quesBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.correct = new Guna.UI2.WinForms.Guna2GroupBox();
@@ -53,8 +55,6 @@
             this.wrongBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
-            this.timeBox = new System.Windows.Forms.ComboBox();
-            this.Time = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel1.SuspendLayout();
             this.quizName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
@@ -118,7 +118,7 @@
             this.lblQuestionCount.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblQuestionCount.Location = new System.Drawing.Point(4, 90);
             this.lblQuestionCount.Name = "lblQuestionCount";
-            this.lblQuestionCount.Size = new System.Drawing.Size(69, 21);
+            this.lblQuestionCount.Size = new System.Drawing.Size(75, 22);
             this.lblQuestionCount.TabIndex = 5;
             this.lblQuestionCount.Text = "Số câu hỏi:";
             // 
@@ -157,6 +157,7 @@
             this.back.Size = new System.Drawing.Size(121, 41);
             this.back.TabIndex = 12;
             this.back.Text = "Quay lại";
+            this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // save
             // 
@@ -180,7 +181,7 @@
             this.num.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num.Location = new System.Drawing.Point(845, 558);
             this.num.Name = "num";
-            this.num.Size = new System.Drawing.Size(13, 27);
+            this.num.Size = new System.Drawing.Size(14, 30);
             this.num.TabIndex = 10;
             this.num.Text = "1";
             // 
@@ -267,6 +268,25 @@
             this.question.Size = new System.Drawing.Size(474, 136);
             this.question.TabIndex = 5;
             this.question.Text = "Câu hỏi";
+            // 
+            // Time
+            // 
+            this.Time.BackColor = System.Drawing.Color.Transparent;
+            this.Time.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Time.ForeColor = System.Drawing.Color.Black;
+            this.Time.Location = new System.Drawing.Point(14, 94);
+            this.Time.Name = "Time";
+            this.Time.Size = new System.Drawing.Size(84, 30);
+            this.Time.TabIndex = 6;
+            this.Time.Text = "Thời gian";
+            // 
+            // timeBox
+            // 
+            this.timeBox.FormattingEnabled = true;
+            this.timeBox.Location = new System.Drawing.Point(102, 94);
+            this.timeBox.Name = "timeBox";
+            this.timeBox.Size = new System.Drawing.Size(133, 28);
+            this.timeBox.TabIndex = 1;
             // 
             // addPic
             // 
@@ -428,25 +448,6 @@
             this.guna2BorderlessForm1.ContainerControl = this;
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
-            // 
-            // timeBox
-            // 
-            this.timeBox.FormattingEnabled = true;
-            this.timeBox.Location = new System.Drawing.Point(102, 94);
-            this.timeBox.Name = "timeBox";
-            this.timeBox.Size = new System.Drawing.Size(133, 27);
-            this.timeBox.TabIndex = 1;
-            // 
-            // Time
-            // 
-            this.Time.BackColor = System.Drawing.Color.Transparent;
-            this.Time.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Time.ForeColor = System.Drawing.Color.Black;
-            this.Time.Location = new System.Drawing.Point(14, 94);
-            this.Time.Name = "Time";
-            this.Time.Size = new System.Drawing.Size(82, 27);
-            this.Time.TabIndex = 6;
-            this.Time.Text = "Thời gian";
             // 
             // createQuiz
             // 

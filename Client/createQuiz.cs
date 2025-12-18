@@ -226,6 +226,11 @@ namespace FormAppQuyt
             if (string.IsNullOrWhiteSpace(wrongBox3.Text)) return false;
             return true;
         }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
     public class QuizQuestion

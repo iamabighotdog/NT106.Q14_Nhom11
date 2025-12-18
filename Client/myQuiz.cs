@@ -76,6 +76,10 @@ namespace FormAppQuyt
                 gridQuiz.Rows[e.RowIndex].Selected = true;
         }
 
+        private void back_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
     public class QuizItem

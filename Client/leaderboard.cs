@@ -146,5 +146,10 @@ namespace FormAppQuyt
             public string username { get; set; }
             public int score { get; set; }
         }
+
+        private void back_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
