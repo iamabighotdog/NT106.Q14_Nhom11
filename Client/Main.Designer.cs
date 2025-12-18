@@ -442,6 +442,7 @@ namespace FormAppQuyt
             this.leaderboard.Size = new System.Drawing.Size(329, 45);
             this.leaderboard.TabIndex = 3;
             this.leaderboard.Text = "Bảng xếp hạng";
+            this.leaderboard.Click += new System.EventHandler(this.leaderboard_Click);
             // 
             // play
             // 

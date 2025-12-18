@@ -289,5 +289,19 @@ namespace FormAppQuyt
             public int total { get; set; }
             public string date { get; set; }
         }
+
+        private void leaderboard_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Global.LastPlayedRoomId))
+            {
+                MessageBox.Show("Bạn chưa chơi phòng nào!\nHãy tham gia một trận chơi trước.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Mở leaderboard của phòng vừa chơi
+            leaderboard leaderboardForm = new leaderboard(Global.LastPlayedRoomId);
+            leaderboardForm.ShowDialog();
+        }
     }
 }

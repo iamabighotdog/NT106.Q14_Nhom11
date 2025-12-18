@@ -311,8 +311,11 @@ namespace FormAppQuyt
             if (currentQuestionIndex >= questions.Count)
             {
                 hostTimer.Stop();
+
+                Global.LastPlayedRoomId = roomId;
                 MessageBox.Show($"Đã hết câu hỏi! Tổng cộng {questions.Count} câu.",
                                 "Hoàn thành", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ShowLeaderboard();
                 this.Close();
                 return;
             }
@@ -350,6 +353,20 @@ namespace FormAppQuyt
             answerD.FillColor = Color.Green;
 
             this.Text = "Play"; 
+        }
+
+        private void ShowLeaderboard()
+        {
+            try
+            {
+                leaderboard leaderboardForm = new leaderboard(roomId);
+                leaderboardForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Không thể hiển thị bảng xếp hạng: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

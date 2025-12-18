@@ -10,5 +10,16 @@ namespace FormAppQuyt
     {
         public static int UserId = -1;
         public static string Username = "";
+
+        // Thêm biến lưu roomId vừa chơi
+        public static string LastPlayedRoomId = "";
+
+        // Method reset khi logout (optional)
+        public static void Reset()
+        {
+            UserId = -1;
+            Username = "";
+            LastPlayedRoomId = "";
+        }
     }
 }

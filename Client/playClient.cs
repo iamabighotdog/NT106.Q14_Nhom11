@@ -137,6 +137,23 @@ namespace FormAppQuyt
                         answerC.Enabled = false; answerD.Enabled = false;
                     }
                 }
+
+                if (currentQuestionIndex >= questions.Count - 1 && timeLeftSeconds <= 0)
+                {
+                    roomTimer.Stop();
+
+                    // LƯU ROOMID
+                    Global.LastPlayedRoomId = roomId;
+
+                    // Delay một chút để người chơi thấy câu cuối
+                    System.Threading.Thread.Sleep(1000);
+
+                    // HIỂN THỊ LEADERBOARD
+                    ShowLeaderboard();
+
+                    MessageBox.Show("Chúc mừng bạn đã hoàn thành!", "Thông báo");
+                    Close();
+                }
             }
             catch { }
         }
@@ -346,6 +363,20 @@ namespace FormAppQuyt
             var pForm = Application.OpenForms["players"] as players;
             if (pForm != null)
                 pForm.Show();
+        }
+
+        private void ShowLeaderboard()
+        {
+            try
+            {
+                leaderboard leaderboardForm = new leaderboard(roomId);
+                leaderboardForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Không thể hiển thị bảng xếp hạng: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
