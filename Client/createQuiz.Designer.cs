@@ -53,6 +53,8 @@
             this.wrongBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
+            this.timeBox = new System.Windows.Forms.ComboBox();
+            this.Time = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel1.SuspendLayout();
             this.quizName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
@@ -116,7 +118,7 @@
             this.lblQuestionCount.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblQuestionCount.Location = new System.Drawing.Point(4, 90);
             this.lblQuestionCount.Name = "lblQuestionCount";
-            this.lblQuestionCount.Size = new System.Drawing.Size(75, 22);
+            this.lblQuestionCount.Size = new System.Drawing.Size(69, 21);
             this.lblQuestionCount.TabIndex = 5;
             this.lblQuestionCount.Text = "Số câu hỏi:";
             // 
@@ -178,7 +180,7 @@
             this.num.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.num.Location = new System.Drawing.Point(845, 558);
             this.num.Name = "num";
-            this.num.Size = new System.Drawing.Size(14, 30);
+            this.num.Size = new System.Drawing.Size(13, 27);
             this.num.TabIndex = 10;
             this.num.Text = "1";
             // 
@@ -254,6 +256,8 @@
             // 
             // question
             // 
+            this.question.Controls.Add(this.Time);
+            this.question.Controls.Add(this.timeBox);
             this.question.Controls.Add(this.addPic);
             this.question.Controls.Add(this.quesBox);
             this.question.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -274,7 +278,7 @@
             this.addPic.ForeColor = System.Drawing.Color.White;
             this.addPic.Location = new System.Drawing.Point(290, 94);
             this.addPic.Name = "addPic";
-            this.addPic.Size = new System.Drawing.Size(180, 32);
+            this.addPic.Size = new System.Drawing.Size(180, 27);
             this.addPic.TabIndex = 5;
             this.addPic.Text = "Thêm ảnh";
             this.addPic.Click += new System.EventHandler(this.addPic_Click);
@@ -425,6 +429,25 @@
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
+            // timeBox
+            // 
+            this.timeBox.FormattingEnabled = true;
+            this.timeBox.Location = new System.Drawing.Point(102, 94);
+            this.timeBox.Name = "timeBox";
+            this.timeBox.Size = new System.Drawing.Size(133, 27);
+            this.timeBox.TabIndex = 1;
+            // 
+            // Time
+            // 
+            this.Time.BackColor = System.Drawing.Color.Transparent;
+            this.Time.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Time.ForeColor = System.Drawing.Color.Black;
+            this.Time.Location = new System.Drawing.Point(14, 94);
+            this.Time.Name = "Time";
+            this.Time.Size = new System.Drawing.Size(82, 27);
+            this.Time.TabIndex = 6;
+            this.Time.Text = "Thời gian";
+            // 
             // createQuiz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -440,6 +463,7 @@
             this.quizName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).EndInit();
             this.question.ResumeLayout(false);
+            this.question.PerformLayout();
             this.correct.ResumeLayout(false);
             this.wrong.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -472,5 +496,7 @@
         private Guna.UI2.WinForms.Guna2TextBox quizBox;
         private Guna.UI2.WinForms.Guna2TextBox questionCountBox;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblQuestionCount;
+        private Guna.UI2.WinForms.Guna2HtmlLabel Time;
+        private System.Windows.Forms.ComboBox timeBox;
     }
 }
