@@ -184,4 +184,23 @@ internal class tcpClient
         var data = new { action = "room_get_leaderboard", roomId };
         return SendToServer(data);
     }
+
+    public string SendForgotPasswordSendOtp(string identifier)
+    {
+        var data = new { action = "forgot_password_send_otp", identifier };
+        return SendToServer(data);
+    }
+
+    public string SendForgotPasswordVerifyOtp(string identifier, string otp)
+    {
+        var data = new { action = "forgot_password_verify_otp", identifier, otp };
+        return SendToServer(data);
+    }
+
+    public string SendResetPassword(string resetToken, string newPasswordHash)
+    {
+        var data = new { action = "reset_password", resetToken, newPassword = newPasswordHash };
+        return SendToServer(data);
+    }
+
 }

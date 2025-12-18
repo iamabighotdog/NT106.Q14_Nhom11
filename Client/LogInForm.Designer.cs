@@ -132,6 +132,7 @@
             this.ForgotPassword.Size = new System.Drawing.Size(121, 23);
             this.ForgotPassword.TabIndex = 5;
             this.ForgotPassword.Text = "Quên mật khẩu ?";
+            this.ForgotPassword.Click += new System.EventHandler(this.ForgotPassword_Click);
             this.ForgotPassword.MouseEnter += new System.EventHandler(this.ForgotPassword_MouseEnter);
             this.ForgotPassword.MouseLeave += new System.EventHandler(this.ForgotPassword_MouseLeave);
             // 

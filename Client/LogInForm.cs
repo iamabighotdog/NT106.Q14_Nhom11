@@ -122,5 +122,12 @@ namespace FormAppQuyt
             }
         }
 
+        private void ForgotPassword_Click(object sender, EventArgs e)
+        {
+            var f = new otp();  // Mở form otp để nhập email
+            f.Show();
+            this.Hide(); // Ẩn form đăng nhập
+        }
+
     }
 }

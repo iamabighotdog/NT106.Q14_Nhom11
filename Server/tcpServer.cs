@@ -8,6 +8,11 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Windows.Forms;
+
+
 
 internal class TcpServer
 {
@@ -22,6 +27,24 @@ internal class TcpServer
 
     private readonly Dictionary<string, RoomInfo> rooms = new Dictionary<string, RoomInfo>();
     private readonly object roomsLock = new object();
+    private readonly object otpLock = new object();
+
+    private class OtpRecord
+    {
+        public int UserId { get; set; }
+        public string Email { get; set; } = "";
+        public string Otp { get; set; } = "";
+        public DateTime ExpireAtUtc { get; set; }
+    }
+
+    private class ResetTokenRecord
+    {
+        public int UserId { get; set; }
+        public DateTime ExpireAtUtc { get; set; }
+    }
+
+    private readonly Dictionary<string, OtpRecord> otpByKey = new Dictionary<string, OtpRecord>(); 
+    private readonly Dictionary<string, ResetTokenRecord> resetTokens = new Dictionary<string, ResetTokenRecord>(); 
 
     private class RoomInfo
     {
@@ -204,6 +227,9 @@ internal class TcpServer
         if (action == "room_get_state") return HandleRoomGetState(data);
         if (action == "submit_answer") return HandleSubmitAnswer(data);
         if (action == "room_get_leaderboard") return HandleRoomGetLeaderboard(data);
+        if (action == "forgot_password_send_otp") return HandleForgotPasswordSendOtp(data);
+        if (action == "forgot_password_verify_otp") return HandleForgotPasswordVerifyOtp(data);
+        if (action == "reset_password") return HandleResetPassword(data);
 
         return JsonSerializer.Serialize(new { ok = false, message = "Action không hợp lệ" });
     }
@@ -867,6 +893,209 @@ internal class TcpServer
             return JsonSerializer.Serialize(new { ok = true, leaderboard = leaderboard });
         }
     }
+
+    private static string NormalizeKey(string s)
+    => (s ?? "").Trim().ToLowerInvariant();
+
+    private (int userId, string email) FindUserByIdentifier(string identifier)
+    {
+        identifier = (identifier ?? "").Trim();
+        if (string.IsNullOrWhiteSpace(identifier)) return (-1, "");
+
+        using (var conn = new SqlConnection(connectionString))
+        using (var cmd = new SqlCommand(@"
+        SELECT TOP 1 UserId, Email
+        FROM dbo.Users
+        WHERE Username=@k OR Email=@k OR Phone=@k
+    ", conn))
+        {
+            conn.Open();
+            cmd.Parameters.AddWithValue("@k", identifier);
+            using (var rd = cmd.ExecuteReader())
+            {
+                if (!rd.Read()) return (-1, "");
+                int uid = Convert.ToInt32(rd["UserId"]);
+                string email = rd["Email"] == DBNull.Value ? "" : rd["Email"].ToString();
+                return (uid, email);
+            }
+        }
+    }
+
+    private static string GenOtp6()
+    {
+        var random = new Random();
+        int v = random.Next(0, 1000000);
+        return v.ToString("D6"); // Tạo OTP 6 chữ số
+    }
+
+    private void SendOtpEmail(string toEmail, string otp)
+    {
+        string fromEmail = "testchill26@gmail.com"; // Địa chỉ Gmail của bạn
+        string appPassword = "lgdu asbj rjak cobp";  // Mật khẩu ứng dụng bạn tạo
+
+        var msg = new MailMessage(fromEmail, toEmail)
+        {
+            Subject = "OTP đặt lại mật khẩu",
+            Body = $@"Mã OTP của bạn là: {otp}
+
+OTP có hiệu lực trong 1 phút.
+Nếu bạn không yêu cầu, hãy bỏ qua email này."
+        };
+
+        using (var smtp = new SmtpClient("smtp.gmail.com", 587))
+        {
+            smtp.EnableSsl = true;
+            smtp.Credentials = new System.Net.NetworkCredential(fromEmail, appPassword); // App password
+            try
+            {
+                smtp.Send(msg); // Gửi email
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi gửi email: {ex.Message}");
+            }
+        }
+
+
+    }
+
+    private string HandleForgotPasswordSendOtp(Dictionary<string, object> d)
+    {
+        string identifier = d.TryGetValue("identifier", out var id) ? (id?.ToString() ?? "") : "";
+        identifier = identifier.Trim();
+        if (string.IsNullOrWhiteSpace(identifier))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu identifier" });
+
+        try
+        {
+            var (userId, email) = FindUserByIdentifier(identifier);
+            if (userId <= 0)
+                return JsonSerializer.Serialize(new { ok = false, message = "Tài khoản không tồn tại" });
+
+            if (string.IsNullOrWhiteSpace(email))
+                return JsonSerializer.Serialize(new { ok = false, message = "Tài khoản này chưa có Email để nhận OTP" });
+
+            string otp = GenOtp6();
+            var exp = DateTime.UtcNow.AddMinutes(2);
+
+            lock (otpLock)
+            {
+                otpByKey[NormalizeKey(identifier)] = new OtpRecord
+                {
+                    UserId = userId,
+                    Email = email,
+                    Otp = otp,
+                    ExpireAtUtc = exp
+                };
+            }
+
+            SendOtpEmail(email, otp);
+
+            return JsonSerializer.Serialize(new
+            {
+                ok = true,
+                message = "Đã gửi OTP về email. OTP có hiệu lực 1 phút."
+            });
+        }
+        catch (Exception ex)
+        {
+            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi gửi OTP: " + ex.Message });
+        }
+    }
+
+    private string HandleForgotPasswordVerifyOtp(Dictionary<string, object> d)
+    {
+        string identifier = d.TryGetValue("identifier", out var id) ? (id?.ToString() ?? "") : "";
+        string otp = d.TryGetValue("otp", out var o) ? (o?.ToString() ?? "") : "";
+
+        identifier = identifier.Trim();
+        otp = otp.Trim();
+
+        if (string.IsNullOrWhiteSpace(identifier) || string.IsNullOrWhiteSpace(otp))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu identifier/otp" });
+
+        lock (otpLock)
+        {
+            string key = NormalizeKey(identifier);
+            if (!otpByKey.TryGetValue(key, out var rec))
+                return JsonSerializer.Serialize(new { ok = false, message = "Chưa gửi OTP hoặc OTP đã bị xoá" });
+
+            if (DateTime.UtcNow > rec.ExpireAtUtc)
+            {
+                otpByKey.Remove(key);
+                return JsonSerializer.Serialize(new { ok = false, message = "OTP đã hết hạn (2 phút)" });
+            }
+
+            if (!string.Equals(rec.Otp, otp, StringComparison.Ordinal))
+                return JsonSerializer.Serialize(new { ok = false, message = "OTP không đúng" });
+
+            // OTP đúng → tạo resetToken (hạn ngắn, ví dụ 5 phút)
+            string token = Guid.NewGuid().ToString("N");
+            resetTokens[token] = new ResetTokenRecord
+            {
+                UserId = rec.UserId,
+                ExpireAtUtc = DateTime.UtcNow.AddMinutes(5)
+            };
+
+            // dùng xong OTP thì xoá
+            otpByKey.Remove(key);
+
+            return JsonSerializer.Serialize(new
+            {
+                ok = true,
+                message = "Xác nhận OTP thành công",
+                resetToken = token
+            });
+        }
+    }
+
+    private string HandleResetPassword(Dictionary<string, object> d)
+    {
+        string token = d.TryGetValue("resetToken", out var t) ? (t?.ToString() ?? "") : "";
+        string newPasswordHash = d.TryGetValue("newPassword", out var pw) ? (pw?.ToString() ?? "") : "";
+
+        token = token.Trim();
+        newPasswordHash = newPasswordHash.Trim();
+
+        if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(newPasswordHash))
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu resetToken/newPassword" });
+
+        lock (otpLock)
+        {
+            if (!resetTokens.TryGetValue(token, out var rec))
+                return JsonSerializer.Serialize(new { ok = false, message = "resetToken không hợp lệ" });
+
+            if (DateTime.UtcNow > rec.ExpireAtUtc)
+            {
+                resetTokens.Remove(token);
+                return JsonSerializer.Serialize(new { ok = false, message = "resetToken đã hết hạn" });
+            }
+
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                using (var cmd = new SqlCommand("UPDATE dbo.Users SET Password=@pw WHERE UserId=@id", conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@pw", newPasswordHash);
+                    cmd.Parameters.AddWithValue("@id", rec.UserId);
+                    int n = cmd.ExecuteNonQuery();
+                    if (n <= 0)
+                        return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy user để cập nhật" });
+                }
+
+                // đổi xong thì xoá token
+                resetTokens.Remove(token);
+
+                return JsonSerializer.Serialize(new { ok = true, message = "Đổi mật khẩu thành công" });
+            }
+            catch (Exception ex)
+            {
+                return JsonSerializer.Serialize(new { ok = false, message = ex.Message });
+            }
+        }
+    }
+
 
     private void EnsureDb()
     {

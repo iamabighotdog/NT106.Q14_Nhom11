@@ -125,6 +125,12 @@
     <Compile Include="myQuiz.Designer.cs">
       <DependentUpon>myQuiz.cs</DependentUpon>
     </Compile>
+    <Compile Include="otp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="otp.Designer.cs">
+      <DependentUpon>otp.cs</DependentUpon>
+    </Compile>
     <Compile Include="playClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,12 @@
     </Compile>
     <Compile Include="players.Designer.cs">
       <DependentUpon>players.cs</DependentUpon>
+    </Compile>
+    <Compile Include="resetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="resetPassword.Designer.cs">
+      <DependentUpon>resetPassword.cs</DependentUpon>
     </Compile>
     <Compile Include="resultForm.cs">
       <SubType>Form</SubType>
@@ -187,6 +199,9 @@
     <EmbeddedResource Include="myQuiz.resx">
       <DependentUpon>myQuiz.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="otp.resx">
+      <DependentUpon>otp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="playClient.resx">
       <DependentUpon>playClient.cs</DependentUpon>
     </EmbeddedResource>
@@ -198,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="playHost.resx">
       <DependentUpon>playHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resetPassword.resx">
+      <DependentUpon>resetPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="resultForm.resx">
       <DependentUpon>resultForm.cs</DependentUpon>
