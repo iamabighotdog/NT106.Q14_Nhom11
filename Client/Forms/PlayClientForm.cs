@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FormAppQuyt.Utils;
 using FormAppQuyt.Models;
 
 namespace FormAppQuyt
@@ -16,7 +15,7 @@ namespace FormAppQuyt
     public partial class PlayClientForm : Form
     {
         private bool isLocked = false;
-        private Guna.UI2.WinForms.Guna2Button currentSelectedBtn = null; 
+        private Guna.UI2.WinForms.Guna2Button currentSelectedBtn = null;
         private int quizId;
         private string roomId;
         private List<QuestionData> questions = new List<QuestionData>();
@@ -26,9 +25,27 @@ namespace FormAppQuyt
         private int currentQuestionIndex = -1;
 
         private TcpSessionClient _session;
+
+        private Guna.UI2.WinForms.Guna2HtmlLabel[] scoreLabels;
+
         public PlayClientForm(int quizId, string roomId)
         {
             InitializeComponent();
+
+            InitScoreLabels();
+
+            if (myRankPopup != null)
+            {
+                myRankPopup.BringToFront();
+                myRankPopup.Visible = false;
+                if (guna2GradientPanel1 != null)
+                {
+                    myRankPopup.Location = new Point(
+                        (guna2GradientPanel1.Width - myRankPopup.Width) / 2,
+                        (guna2GradientPanel1.Height - myRankPopup.Height) / 2
+                    );
+                }
+            }
 
             if (answerA != null) { answerA.Click -= AnswerButton_Click; answerA.Click += AnswerButton_Click; }
             if (answerB != null) { answerB.Click -= AnswerButton_Click; answerB.Click += AnswerButton_Click; }
@@ -46,6 +63,68 @@ namespace FormAppQuyt
             uiTimer.Tick += UiTimer_Tick;
 
             PrepareGameData();
+        }
+
+        private void InitScoreLabels()
+        {
+            scoreLabels = new Guna.UI2.WinForms.Guna2HtmlLabel[4];
+            Guna.UI2.WinForms.Guna2Button[] btns = { answerA, answerB, answerC, answerD };
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (btns[i] == null) continue;
+
+                scoreLabels[i] = new Guna.UI2.WinForms.Guna2HtmlLabel();
+                scoreLabels[i].BackColor = Color.Transparent;
+                scoreLabels[i].Font = new Font("Segoe UI", 14, FontStyle.Bold | FontStyle.Italic);
+                scoreLabels[i].ForeColor = Color.Yellow;
+                scoreLabels[i].AutoSize = true;
+                scoreLabels[i].Text = "";
+                scoreLabels[i].Visible = false;
+
+                scoreLabels[i].Location = new Point(btns[i].Location.X + 45, btns[i].Location.Y + (btns[i].Height - 30) / 2);
+
+                this.Controls.Add(scoreLabels[i]);
+                scoreLabels[i].BringToFront();
+            }
+        }
+
+        private async void ShowScoreEffect(Guna.UI2.WinForms.Guna2Button btn, int gained, bool correct)
+        {
+            if (btn == null) return;
+            int index = -1;
+            if (btn == answerA) index = 0;
+            else if (btn == answerB) index = 1;
+            else if (btn == answerC) index = 2;
+            else if (btn == answerD) index = 3;
+
+            if (index != -1 && scoreLabels[index] != null)
+            {
+                var lbl = scoreLabels[index];
+
+                lbl.BackColor = btn.FillColor;
+                lbl.Text = correct ? $"+{gained}" : "+0";
+                lbl.ForeColor = correct ? Color.Yellow : Color.Orange;
+
+                lbl.Visible = true;
+                lbl.BringToFront();
+
+                for (int i = 0; i < 3; i++)
+                {
+                    lbl.Visible = !lbl.Visible;
+                    await Task.Delay(150);
+                }
+                lbl.Visible = true;
+            }
+        }
+
+        private void ResetScoreLabels()
+        {
+            if (scoreLabels == null) return;
+            foreach (var lbl in scoreLabels)
+            {
+                if (lbl != null) lbl.Visible = false;
+            }
         }
 
         private void PrepareGameData()
@@ -121,7 +200,6 @@ namespace FormAppQuyt
                     using (JsonDocument doc = JsonDocument.Parse(json))
                     {
                         JsonElement root = doc.RootElement;
-
                         string action = JsonHelper.GetString(root, "action");
                         if (string.IsNullOrEmpty(action)) return;
 
@@ -138,6 +216,7 @@ namespace FormAppQuyt
                                     }
                                 }
                                 break;
+
                             case "end_game":
                                 if (uiTimer != null) uiTimer.Stop();
                                 this.Hide();
@@ -156,6 +235,9 @@ namespace FormAppQuyt
                                 break;
 
                             case "next_question":
+                                ResetScoreLabels();
+                                if (myRankPopup != null) myRankPopup.Visible = false;
+
                                 int idx = JsonHelper.GetInt(root, "questionIndex", -1);
                                 int dur = JsonHelper.GetInt(root, "duration", 20);
 
@@ -177,15 +259,18 @@ namespace FormAppQuyt
 
                             case "submit_result":
                                 bool correct = JsonHelper.GetBool(root, "correct", false);
-                                int score = JsonHelper.GetInt(root, "score", 0);
                                 int gained = JsonHelper.GetInt(root, "gained", 0);
+                                int rank = JsonHelper.GetInt(root, "rank", 0); 
 
                                 HighlightResult(correct);
-                                await Task.Delay(200);
 
-                                MessageBox.Show(correct
-                                    ? $"CHÍNH XÁC!\n+{gained} điểm\nTổng: {score}"
-                                    : $"SAI RỒI!\n+0 điểm\nTổng: {score}");
+                                ShowScoreEffect(currentSelectedBtn, gained, correct);
+
+                                if (myRankPopup != null)
+                                {
+                                    await Task.Delay(500);
+                                    await myRankPopup.ShowAnimation(rank, gained, correct);
+                                }
                                 break;
 
                             case "player_joined":
@@ -195,13 +280,9 @@ namespace FormAppQuyt
                         }
                     }
                 }
-                catch
-                {
-
-                }
+                catch { }
             }));
         }
-
 
         private void SetWaitingMode()
         {
@@ -274,7 +355,7 @@ namespace FormAppQuyt
                 if (correct)
                     currentSelectedBtn.FillColor = Color.FromArgb(0, 192, 0);
                 else
-                    currentSelectedBtn.FillColor = Color.Red; // Đỏ
+                    currentSelectedBtn.FillColor = Color.Red;
             }
 
             Guna.UI2.WinForms.Guna2Button[] buttons = { answerA, answerB, answerC, answerD };
@@ -355,14 +436,9 @@ namespace FormAppQuyt
             }
         }
 
-        private void next_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Đợi chủ phòng chuyển câu hỏi!");
-        }
-
         private void back_Click(object sender, EventArgs e)
         {
-            _session?.Dispose(); 
+            _session?.Dispose();
             Close();
             var pForm = Application.OpenForms["players"] as PlayersForm;
             if (pForm != null) pForm.Show();
@@ -384,6 +460,5 @@ namespace FormAppQuyt
             _session?.Dispose();
             base.OnFormClosing(e);
         }
-
     }
 }

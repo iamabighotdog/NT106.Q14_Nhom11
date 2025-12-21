@@ -975,34 +975,43 @@ internal class TcpServer
 
             double elapsed = (DateTime.UtcNow - room.QuestionStartTime.Value).TotalSeconds;
             int timeLeft = room.QuestionDurationSeconds - (int)elapsed;
-            if (timeLeft < 0) timeLeft = 0; 
-            if (timeLeft <= 0)
-            {
-                player.LastAnsweredQuestionIndex = room.CurrentQuestionIndex;
-                return JsonSerializer.Serialize(new
-                {
-                    ok = true,
-                    action = "submit_result",
-                    correct = false,
-                    gained = 0,
-                    score = player.Score
-                });
-            }
+            if (timeLeft < 0) timeLeft = 0;
 
             string correctAns = GetCorrectAnswerByIndex(room.QuizId, room.CurrentQuestionIndex);
             bool correct = string.Equals((answer ?? "").Trim(), (correctAns ?? "").Trim(), StringComparison.OrdinalIgnoreCase);
 
             int gained = 0;
-            if (correct)
+            if (correct && timeLeft > 0)
             {
                 double ratio = (double)timeLeft / room.QuestionDurationSeconds;
                 int timeBonus = (int)Math.Round(500 * ratio);
-
                 gained = 500 + timeBonus;
                 player.Score += gained;
             }
 
             player.LastAnsweredQuestionIndex = room.CurrentQuestionIndex;
+
+            var sortedPlayers = room.Players.Values.OrderByDescending(p => p.Score).ToList();
+
+            int myRank = sortedPlayers.FindIndex(p => p.UserId == userId) + 1;
+
+            var neighbors = new List<object>();
+            int myIndex = myRank - 1;
+
+            if (myIndex > 0)
+            {
+                var pAbove = sortedPlayers[myIndex - 1];
+                neighbors.Add(new { rank = myRank - 1, name = pAbove.Username, score = pAbove.Score, isMe = false });
+            }
+
+            neighbors.Add(new { rank = myRank, name = player.Username, score = player.Score, isMe = true });
+
+            if (myIndex < sortedPlayers.Count - 1)
+            {
+                var pBelow = sortedPlayers[myIndex + 1];
+                neighbors.Add(new { rank = myRank + 1, name = pBelow.Username, score = pBelow.Score, isMe = false });
+            }
+           
 
             bool allDone = true;
             foreach (var p in room.Players.Values)
@@ -1018,13 +1027,16 @@ internal class TcpServer
             {
                 BroadcastToRoom(roomId, new { action = "all_answered" });
             }
+
             return JsonSerializer.Serialize(new
             {
                 ok = true,
                 action = "submit_result",
                 correct = correct,
-                gained = gained, 
-                score = player.Score 
+                gained = gained,
+                score = player.Score,
+                rank = myRank,            
+                neighbors = neighbors      
             });
         }
     }

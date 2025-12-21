@@ -14,6 +14,7 @@ namespace FormAppQuyt
 {
     public partial class PlayHostForm : Form
     {
+        private Guna.UI2.WinForms.Guna2HtmlLabel[] scoreLabels;
         private bool isTransitioning = false;
         private DateTime lastQuestionTime = DateTime.MinValue;
         private bool isLocked = false;
@@ -33,7 +34,7 @@ namespace FormAppQuyt
         public PlayHostForm(int selectedQuizId, string selectedQuizName)
         {
             InitializeComponent();
-
+            InitScoreLabels();
             if (playBtn != null) { playBtn.Click -= playBtn_Click; playBtn.Click += playBtn_Click; }
 
             if (answerA != null) { answerA.Click -= AnswerButton_Click; answerA.Click += AnswerButton_Click; }
@@ -58,7 +59,56 @@ namespace FormAppQuyt
                 InitNetwork();
             }
         }
+        private void InitScoreLabels()
+        {
+            scoreLabels = new Guna.UI2.WinForms.Guna2HtmlLabel[4];
+            Guna.UI2.WinForms.Guna2Button[] btns = { answerA, answerB, answerC, answerD };
 
+            for (int i = 0; i < 4; i++)
+            {
+                if (btns[i] == null) continue;
+
+                scoreLabels[i] = new Guna.UI2.WinForms.Guna2HtmlLabel();
+                scoreLabels[i].BackColor = Color.Transparent;
+                scoreLabels[i].Font = new Font("Segoe UI", 14, FontStyle.Bold | FontStyle.Italic);
+                scoreLabels[i].ForeColor = Color.Yellow;
+                scoreLabels[i].AutoSize = true;
+                scoreLabels[i].Text = "";
+                scoreLabels[i].Visible = false;
+
+                scoreLabels[i].Location = new Point(btns[i].Location.X + 45, btns[i].Location.Y + (btns[i].Height - 30) / 2);
+
+                this.Controls.Add(scoreLabels[i]);
+                scoreLabels[i].BringToFront();
+            }
+        }
+        private async void ShowScoreEffect(Guna.UI2.WinForms.Guna2Button btn, int gained, bool correct)
+        {
+            if (btn == null) return;
+            int index = -1;
+            if (btn == answerA) index = 0;
+            else if (btn == answerB) index = 1;
+            else if (btn == answerC) index = 2;
+            else if (btn == answerD) index = 3;
+
+            if (index != -1 && scoreLabels[index] != null)
+            {
+                var lbl = scoreLabels[index];
+                lbl.BackColor = btn.FillColor; 
+                lbl.Text = correct ? $"+{gained}" : "+0";
+                lbl.ForeColor = correct ? Color.Yellow : Color.Orange;
+
+                lbl.Visible = true;
+                lbl.BringToFront();
+
+                for (int i = 0; i < 3; i++)
+                {
+                    lbl.Visible = !lbl.Visible;
+                    await Task.Delay(150);
+                }
+                lbl.Visible = true;
+            }
+        }
         private async void InitNetwork()
         {
             try
@@ -245,16 +295,15 @@ namespace FormAppQuyt
                             int gained = data.ContainsKey("gained") ? int.Parse(data["gained"].ToString()) : 0;
 
                             HighlightResult(correct);
+                            if (currentSelectedBtn != null)
+                            {
+                                ShowScoreEffect(currentSelectedBtn, gained, correct);
+                            }
 
                             this.Refresh();
                             Application.DoEvents();
 
-                            await Task.Delay(500);
 
-                            if (correct)
-                                MessageBox.Show($"CHỦ PHÒNG ĐÚNG!\n+{gained} điểm\nTổng: {score}");
-                            else
-                                MessageBox.Show($"SAI RỒI!\n+0 điểm\nTổng: {score}");
                             break;
                     }
                 }
@@ -274,13 +323,14 @@ namespace FormAppQuyt
                     currentSelectedBtn.FillColor = Color.FromArgb(0, 192, 0);
                 else
                     currentSelectedBtn.FillColor = Color.Red;
+
+                ShowScoreEffect(currentSelectedBtn, 1000, correct);
             }
 
             Guna.UI2.WinForms.Guna2Button[] buttons = { answerA, answerB, answerC, answerD };
             foreach (var btn in buttons)
             {
                 if (btn == null) continue;
-
                 string btnText = btn.Text.Trim();
                 int dotIndex = btnText.IndexOf('.');
                 if (dotIndex >= 0 && dotIndex < 4)
@@ -296,6 +346,10 @@ namespace FormAppQuyt
         private void DisplayQuestion()
         {
             if (questions.Count == 0 || currentQuestionIndex < 0) return;
+            if (scoreLabels != null)
+            {
+                foreach (var lbl in scoreLabels) if (lbl != null) lbl.Visible = false;
+            }
             var q = questions[currentQuestionIndex];
 
             if (question != null) question.Text = $"Câu {currentQuestionIndex + 1}: {q.NoiDung}";

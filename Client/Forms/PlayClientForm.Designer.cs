@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.myRankPopup = new FormAppQuyt.RankPopup();
             this.timeBar = new Guna.UI2.WinForms.Guna2ProgressBar();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -49,6 +50,7 @@
             // 
             // guna2GradientPanel1
             // 
+            this.guna2GradientPanel1.Controls.Add(this.myRankPopup);
             this.guna2GradientPanel1.Controls.Add(this.timeBar);
             this.guna2GradientPanel1.Controls.Add(this.players);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel2);
@@ -70,6 +72,14 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
+            // 
+            // myRankPopup
+            // 
+            this.myRankPopup.Location = new System.Drawing.Point(511, 184);
+            this.myRankPopup.Name = "myRankPopup";
+            this.myRankPopup.Size = new System.Drawing.Size(403, 302);
+            this.myRankPopup.TabIndex = 17;
+            this.myRankPopup.Visible = false;
             // 
             // timeBar
             // 
@@ -248,14 +258,14 @@
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
             // 
-            // playClient
+            // PlayClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 675);
             this.Controls.Add(this.guna2GradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "playClient";
+            this.Name = "PlayClientForm";
             this.Text = "Play";
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();
@@ -281,6 +291,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel players;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2ProgressBar timeBar;
+        private RankPopup myRankPopup;
     }
 
 }
