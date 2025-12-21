@@ -305,10 +305,17 @@ internal class TcpServer
         if (action == "forgot_password_send_otp") return HandleForgotPasswordSendOtp(data);
         if (action == "forgot_password_verify_otp") return HandleForgotPasswordVerifyOtp(data);
         if (action == "reset_password") return HandleResetPassword(data);
-
+        if (action == "end_game") return HandleEndGame(data);
         return JsonSerializer.Serialize(new { ok = false, message = "Action không hợp lệ" });
     }
+    private string HandleEndGame(Dictionary<string, object> d)
+    {
+        string roomId = d.TryGetValue("roomId", out var r) ? (r?.ToString() ?? "") : "";
+        if (string.IsNullOrWhiteSpace(roomId)) return JsonSerializer.Serialize(new { ok = false });
 
+        BroadcastToRoom(roomId, new { action = "end_game" });
+        return JsonSerializer.Serialize(new { ok = true });
+    }
     private string HandleRegister(Dictionary<string, object> d)
     {
         string username = d.TryGetValue("username", out var u) ? (u == null ? "" : u.ToString()) : "";

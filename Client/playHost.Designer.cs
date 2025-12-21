@@ -36,7 +36,6 @@
             this.ID = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.back = new Guna.UI2.WinForms.Guna2Button();
-            this.next = new Guna.UI2.WinForms.Guna2Button();
             this.answerD = new Guna.UI2.WinForms.Guna2Button();
             this.answerC = new Guna.UI2.WinForms.Guna2Button();
             this.answerB = new Guna.UI2.WinForms.Guna2Button();
@@ -57,7 +56,6 @@
             this.guna2GradientPanel1.Controls.Add(this.ID);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2GradientPanel1.Controls.Add(this.back);
-            this.guna2GradientPanel1.Controls.Add(this.next);
             this.guna2GradientPanel1.Controls.Add(this.answerD);
             this.guna2GradientPanel1.Controls.Add(this.answerC);
             this.guna2GradientPanel1.Controls.Add(this.answerB);
@@ -82,7 +80,7 @@
             this.ProgressBar1.ProgressColor = System.Drawing.Color.Lime;
             this.ProgressBar1.ProgressColor2 = System.Drawing.Color.Green;
             this.ProgressBar1.ShowText = true;
-            this.ProgressBar1.Size = new System.Drawing.Size(706, 21);
+            this.ProgressBar1.Size = new System.Drawing.Size(706, 31);
             this.ProgressBar1.TabIndex = 18;
             this.ProgressBar1.Text = "1000";
             this.ProgressBar1.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
@@ -97,9 +95,9 @@
             this.playBtn.FillColor = System.Drawing.Color.Green;
             this.playBtn.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.playBtn.ForeColor = System.Drawing.Color.White;
-            this.playBtn.Location = new System.Drawing.Point(774, 606);
+            this.playBtn.Location = new System.Drawing.Point(895, 597);
             this.playBtn.Name = "playBtn";
-            this.playBtn.Size = new System.Drawing.Size(180, 45);
+            this.playBtn.Size = new System.Drawing.Size(322, 75);
             this.playBtn.TabIndex = 16;
             this.playBtn.Text = "Chơi";
             this.playBtn.Click += new System.EventHandler(this.playBtn_Click);
@@ -151,28 +149,12 @@
             this.back.FillColor = System.Drawing.Color.Green;
             this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.back.ForeColor = System.Drawing.Color.White;
-            this.back.Location = new System.Drawing.Point(511, 606);
+            this.back.Location = new System.Drawing.Point(511, 597);
             this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(180, 45);
+            this.back.Size = new System.Drawing.Size(322, 75);
             this.back.TabIndex = 11;
             this.back.Text = "Quay lại";
             this.back.Click += new System.EventHandler(this.back_Click);
-            // 
-            // next
-            // 
-            this.next.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.next.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.next.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.next.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.next.FillColor = System.Drawing.Color.Green;
-            this.next.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.next.ForeColor = System.Drawing.Color.White;
-            this.next.Location = new System.Drawing.Point(1037, 606);
-            this.next.Name = "next";
-            this.next.Size = new System.Drawing.Size(180, 45);
-            this.next.TabIndex = 10;
-            this.next.Text = "Tiếp theo";
-            this.next.Click += new System.EventHandler(this.playBtn_Click);
             // 
             // answerD
             // 
@@ -297,7 +279,6 @@
         private Guna.UI2.WinForms.Guna2Button answerD;
         private Guna.UI2.WinForms.Guna2Button answerC;
         private Guna.UI2.WinForms.Guna2Button answerB;
-        private Guna.UI2.WinForms.Guna2Button next;
         private Guna.UI2.WinForms.Guna2Button back;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel ID;

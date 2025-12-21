@@ -12,8 +12,10 @@ namespace FormAppQuyt
 {
     public partial class playHost : Form
     {
+        private bool isTransitioning = false;
+        private DateTime lastQuestionTime = DateTime.MinValue;
         private bool isLocked = false;
-        private Guna.UI2.WinForms.Guna2Button currentSelectedBtn = null; // Lưu nút vừa bấm
+        private Guna.UI2.WinForms.Guna2Button currentSelectedBtn = null; 
         private int quizId;
         private string quizName;
         private string roomId;
@@ -35,7 +37,7 @@ namespace FormAppQuyt
             public string DapAnSai2 { get; set; }
             public string DapAnSai3 { get; set; }
             public string ImageBase64 { get; set; }
-            public int TimeLimit { get; set; } 
+            public int TimeLimit { get; set; }
         }
 
         private class QuizDetailResponse
@@ -131,12 +133,17 @@ namespace FormAppQuyt
             else
             {
                 autoNextTimer.Stop();
-                PerformNextQuestion();
+                if (!isTransitioning)
+                {
+                    PerformNextQuestion();
+                }
             }
         }
 
         private void PerformNextQuestion()
         {
+            if ((DateTime.Now - lastQuestionTime).TotalSeconds < 2) return;
+            lastQuestionTime = DateTime.Now;
             if (_session == null || !_session.IsConnected) InitNetwork();
 
             autoNextTimer.Stop();
@@ -154,11 +161,10 @@ namespace FormAppQuyt
                     action = "room_start_question",
                     roomId = roomId,
                     questionIndex = currentQuestionIndex,
-                    durationSeconds = duration 
+                    durationSeconds = duration
                 });
 
-                if (playBtn != null) playBtn.Text = "Next";
-
+                if (playBtn != null) playBtn.Enabled = false;
 
 
                 timeLeft = duration;
@@ -167,11 +173,17 @@ namespace FormAppQuyt
                     ProgressBar1.Maximum = duration;
                     ProgressBar1.Value = duration;
                     ProgressBar1.Text = "1000";
+                    ProgressBar1.ShowText = true;
                 }
                 autoNextTimer.Start();
+                isTransitioning = false; 
             }
             else
             {
+                if (_session != null && _session.IsConnected)
+                {
+                    _session.Send(new { action = "end_game", roomId = roomId });
+                }
                 autoNextTimer.Stop();
                 MessageBox.Show("Đã hết câu hỏi! Kết thúc game.");
                 Global.LastPlayedRoomId = roomId;
@@ -182,6 +194,9 @@ namespace FormAppQuyt
 
         private void playBtn_Click(object sender, EventArgs e)
         {
+            if (currentQuestionIndex >= 0) return;
+            if (isTransitioning) return;
+
             PerformNextQuestion();
         }
 
@@ -205,6 +220,8 @@ namespace FormAppQuyt
                                 players.Text = data["playerCount"].ToString();
                             break;
                         case "all_answered":
+                            if (isTransitioning) return;
+                            isTransitioning = true;
                             if (autoNextTimer != null) autoNextTimer.Stop();
 
                             if (ProgressBar1 != null)
@@ -212,9 +229,13 @@ namespace FormAppQuyt
                                 ProgressBar1.ShowText = true;
                                 ProgressBar1.Text = "Sang câu tiếp theo trong 3...2...1";
                             }
+                            int indexBeforeWait = currentQuestionIndex;
                             await Task.Delay(3000);
-
-                            // 4. Chuyển câu
+                            if (indexBeforeWait != currentQuestionIndex)
+                            {
+                                isTransitioning = false;
+                                return;
+                            }
                             PerformNextQuestion();
                             break;
 
@@ -250,9 +271,9 @@ namespace FormAppQuyt
             if (currentSelectedBtn != null)
             {
                 if (correct)
-                    currentSelectedBtn.FillColor = Color.FromArgb(0, 192, 0); 
+                    currentSelectedBtn.FillColor = Color.FromArgb(0, 192, 0);
                 else
-                    currentSelectedBtn.FillColor = Color.Red; 
+                    currentSelectedBtn.FillColor = Color.Red;
             }
 
             Guna.UI2.WinForms.Guna2Button[] buttons = { answerA, answerB, answerC, answerD };
@@ -261,12 +282,10 @@ namespace FormAppQuyt
                 if (btn == null) continue;
 
                 string btnText = btn.Text.Trim();
-                // Cắt chuỗi thông minh (Lấy phần sau dấu chấm)
                 int dotIndex = btnText.IndexOf('.');
                 if (dotIndex >= 0 && dotIndex < 4)
                     btnText = btnText.Substring(dotIndex + 1).Trim();
 
-                // So sánh
                 if (string.Equals(btnText, correctText, StringComparison.OrdinalIgnoreCase))
                 {
                     btn.FillColor = Color.FromArgb(0, 192, 0);
@@ -290,13 +309,12 @@ namespace FormAppQuyt
             answerC.Text = "C. " + answers[2];
             answerD.Text = "D. " + answers[3];
 
-            // Reset màu về mặc định
             Color defaultColor = Color.Green;
             answerA.FillColor = defaultColor;
             answerB.FillColor = defaultColor;
             answerC.FillColor = defaultColor;
             answerD.FillColor = defaultColor;
-            isLocked = false;     
+            isLocked = false;
             currentSelectedBtn = null;
 
             if (!string.IsNullOrEmpty(q.ImageBase64))

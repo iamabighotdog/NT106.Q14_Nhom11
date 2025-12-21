@@ -140,6 +140,23 @@ namespace FormAppQuyt
 
                     switch (action)
                     {
+                        case "end_game":
+                            if (uiTimer != null) uiTimer.Stop();
+
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                this.Hide();
+
+                                try
+                                {
+                                    leaderboard lb = new leaderboard(roomId);
+                                    lb.ShowDialog(); 
+                                }
+                                catch { }
+
+                                this.Close();
+                            });
+                            break;
                         case "all_answered":
                             if (uiTimer != null) uiTimer.Stop();
 
@@ -333,9 +350,13 @@ namespace FormAppQuyt
                         timeBar.ShowText = true;
                         timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
                         timeBar.Text = potentialScore.ToString();
+                        if (timeLeftSeconds < 5)
+                            timeBar.ForeColor = Color.Red;
+                        else
+                            timeBar.ForeColor = Color.Black;
                     }
-
-                    if (timeLeftSeconds < 5) timeBar.ForeColor = Color.Red;
+                    else
+                        timeBar.ForeColor = Color.Black;
                 }
             }
             else
