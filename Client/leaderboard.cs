@@ -3,62 +3,70 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text.Json;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace FormAppQuyt
 {
     public partial class leaderboard : Form
     {
-        private tcpClient client;
+        private TcpSessionClient _session;
         private string currentRoomId;
         private Timer refreshTimer;
         private bool autoRefresh = true;
+        private bool _loading = false;
 
-        // Constructor nhận roomId
         public leaderboard(string roomId)
         {
             InitializeComponent();
-            client = new tcpClient();
+            _session = new TcpSessionClient();
+            _session.Connect();
             currentRoomId = roomId;
 
-            // Setup timer để tự động refresh
+
             refreshTimer = new Timer();
-            refreshTimer.Interval = 3000; // Refresh mỗi 3 giây
+            refreshTimer.Interval = 3000;
             refreshTimer.Tick += RefreshTimer_Tick;
 
-            // Load dữ liệu lần đầu
-            LoadLeaderboard();
+            _ = LoadLeaderboardAsync();
 
-            // Bắt đầu auto refresh
             if (autoRefresh)
             {
                 refreshTimer.Start();
             }
 
-            // Setup event handlers
-            back.Click += Back_Click;
             this.FormClosing += Leaderboard_FormClosing;
         }
 
-        private void RefreshTimer_Tick(object sender, EventArgs e)
+        private async void RefreshTimer_Tick(object sender, EventArgs e)
         {
-            LoadLeaderboard();
+            if (_loading) return;
+            _loading = true;
+            try
+            {
+                await LoadLeaderboardAsync();
+            }
+            finally
+            {
+                _loading = false;
+            }
         }
 
-        private void LoadLeaderboard()
+
+
+        private async Task LoadLeaderboardAsync()
         {
             try
             {
-                string response = client.SendRoomGetLeaderboard(currentRoomId);
+                string response = await _session.SendRoomGetLeaderboardAsync(currentRoomId);
                 var result = JsonSerializer.Deserialize<LeaderboardResponse>(response);
 
-                if (result.ok)
+                if (result != null && result.ok)
                 {
                     DisplayLeaderboard(result.leaderboard);
                 }
                 else
                 {
-                    // Nếu lỗi, có thể dừng timer
-                    MessageBox.Show($"Lỗi: {result.message}", "Thông báo",
+                    MessageBox.Show($"Lỗi: {result?.message}", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     refreshTimer?.Stop();
                 }
@@ -71,9 +79,9 @@ namespace FormAppQuyt
             }
         }
 
+
         private void DisplayLeaderboard(List<PlayerScore> players)
         {
-            // Clear flowLayoutPanel trước
             flowLayoutPanel1.Controls.Clear();
 
             if (players == null || players.Count == 0)
@@ -90,49 +98,39 @@ namespace FormAppQuyt
                 return;
             }
 
-            // Hiển thị từng người chơi
             for (int i = 0; i < players.Count; i++)
             {
                 var player = players[i];
                 var banner = new playerBanner();
 
-                // Set dữ liệu (không có avatar vì chưa có API lấy avatar riêng)
                 banner.SetPlayerData(
                     ranking: i + 1,
                     playerName: player.username,
                     score: player.score,
-                    avatarBase64: null // Tạm thời null, có thể thêm sau
+                    avatarBase64: null 
                 );
 
-                // Highlight nếu là người chơi hiện tại
                 if (player.userId == Global.UserId)
                 {
                     banner.HighlightCurrentPlayer();
                 }
 
-                // Thêm margin
                 banner.Margin = new Padding(0, 5, 0, 5);
 
                 flowLayoutPanel1.Controls.Add(banner);
             }
         }
-
-        private void Back_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void Leaderboard_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Dừng timer khi đóng form
             if (refreshTimer != null)
             {
                 refreshTimer.Stop();
                 refreshTimer.Dispose();
             }
+            _session?.Dispose();
+
         }
 
-        // Classes để deserialize response từ server
         private class LeaderboardResponse
         {
             public bool ok { get; set; }

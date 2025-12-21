@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Text.Json;
+using System.Windows.Forms;
 namespace FormAppQuyt
 {
     public partial class players : Form
@@ -28,41 +29,37 @@ namespace FormAppQuyt
             public int quizId { get; set; }
         }
 
+
         private void enterRoom_Click(object sender, EventArgs e)
         {
             string code = roomID.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(code))
-            {
-                MessageBox.Show("Vui lòng nhập ID phòng!",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (string.IsNullOrWhiteSpace(code)) { MessageBox.Show("Nhập ID đi bạn ơi!"); return; }
 
             try
             {
                 tcpClient client = new tcpClient();
-                string resp = client.SendJoinRoom(code);
+                string resp = client.SendRoomGetState(code);
+                var data = JsonSerializer.Deserialize<Dictionary<string, object>>(resp);
 
-                var data = JsonSerializer.Deserialize<JoinRoomResponse>(resp);
-
-                if (data != null && data.ok)
+                if (data.ContainsKey("ok") && data["ok"].ToString().ToLower() == "true")
                 {
-                    var playForm = new playClient(data.quizId, code);
+                    int qId = 0;
+                    if (data.ContainsKey("quizId"))
+                        int.TryParse(data["quizId"].ToString(), out qId);
+
+                    var playForm = new playClient(qId, code);
                     playForm.StartPosition = FormStartPosition.CenterScreen;
                     playForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    MessageBox.Show(data?.message ?? "Không thể vào phòng!",
-                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Phòng không tồn tại hoặc đã đóng.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message,
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
     }

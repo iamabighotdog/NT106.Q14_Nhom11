@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
-using System.Net.Mail;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 
@@ -25,6 +27,7 @@ internal class TcpServer
             ? ConfigurationManager.ConnectionStrings["QuizDB"].ConnectionString
             : @"Server=.;Database=QuizDB;Integrated Security=True;TrustServerCertificate=True;";
 
+    private static ConcurrentDictionary<int, StreamWriter> _activeClients = new ConcurrentDictionary<int, StreamWriter>();
     private readonly Dictionary<string, RoomInfo> rooms = new Dictionary<string, RoomInfo>();
     private readonly object roomsLock = new object();
     private readonly object otpLock = new object();
@@ -76,6 +79,8 @@ internal class TcpServer
         public string Sai2 { get; set; }
         public string Sai3 { get; set; }
         public string ImageBase64 { get; set; }
+
+        public int TimeLimit { get; set; } = 20; // Mặc định 20s
     }
 
     public class QuizPackage
@@ -151,28 +156,98 @@ internal class TcpServer
 
     private void HandleClient(TcpClient client)
     {
-        using (client)
-        using (NetworkStream stream = client.GetStream())
+        int currentUserId = -1;
+        NetworkStream stream = null;
+        StreamReader reader = null;
+        StreamWriter writer = null;
+
+        try
         {
-            try
+            stream = client.GetStream();
+            reader = new StreamReader(stream, Encoding.UTF8);
+            writer = new StreamWriter(stream, new UTF8Encoding(false)) { AutoFlush = true };
+            while (client.Connected)
             {
-                string rawJson = ReadLine(stream);
-                Console.WriteLine("[SERVER] Received: " + rawJson);
+                string rawJson = reader.ReadLine();
+                if (rawJson == null) break;
 
-                var data = JsonSerializer.Deserialize<Dictionary<string, object>>(rawJson);
-                string response = ProcessRequest(rawJson, data);
+                rawJson = rawJson.Trim();
+                if (string.IsNullOrWhiteSpace(rawJson)) continue;
 
-                WriteLine(stream, response);
-                Console.WriteLine("[SERVER] Sent: " + response);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[SERVER] Error: " + ex);
-                WriteLine(stream, JsonSerializer.Serialize(new { ok = false, message = ex.Message }));
+
+                Dictionary<string, object> data = null;
+                try
+                {
+                    data = JsonSerializer.Deserialize<Dictionary<string, object>>(rawJson);
+                }
+                catch
+                {
+                    writer.WriteLine(JsonSerializer.Serialize(new { ok = false, message = "Server: Lỗi định dạng JSON" }));
+                    continue;
+                }
+
+                if (data != null)
+                {
+                    if (data.ContainsKey("userId") || data.ContainsKey("UserId"))
+                    {
+                        string uidStr = data.ContainsKey("userId") ? data["userId"]?.ToString() : data["UserId"]?.ToString();
+                        if (int.TryParse(uidStr, out int uid))
+                        {
+                            currentUserId = uid;
+                            _activeClients[uid] = writer;
+                        }
+                    }
+
+                    string response = ProcessRequest(rawJson, data);
+
+                    if (!string.IsNullOrEmpty(response))
+                    {
+                        writer.WriteLine(response);
+                        Console.WriteLine("[SENT]: " + response); 
+                    }
+                }
             }
         }
-        Console.WriteLine("[SERVER] Client disconnected.");
+        catch (Exception ex)
+        {
+            Console.WriteLine("Client Error: " + ex.Message);
+        }
+        finally
+        {
+            if (currentUserId != -1)
+            {
+                _activeClients.TryRemove(currentUserId, out _);
+            }
+            try { client.Close(); } catch { }
+        }
     }
+    private void BroadcastToRoom(string roomId, object payload)
+    {
+        lock (roomsLock)
+        {
+            if (rooms.TryGetValue(roomId, out var room))
+            {
+                string json = JsonSerializer.Serialize(payload);
+
+                if (_activeClients.TryGetValue(room.HostUserId, out var hostWriter))
+                {
+                    try { hostWriter.WriteLine(json); } catch { }
+                }
+
+                foreach (var playerId in room.Players.Keys)
+                {
+                    if (_activeClients.TryGetValue(playerId, out var writer))
+                    {
+                        try { writer.WriteLine(json); } catch { }
+                    }
+                }
+                Console.WriteLine($"[BROADCAST] Room {roomId}: {json}");
+            }
+        }
+    }
+
+
+
 
     private static string ReadLine(NetworkStream stream)
     {
@@ -527,8 +602,8 @@ internal class TcpServer
                         int idQ;
                         using (var cmd = new SqlCommand(@"
                             INSERT INTO dbo.Question
-                            (NoiDung, DapAnDung, DapAnSai1, DapAnSai2, DapAnSai3, ImageBase64, UserId)
-                            VALUES (@n, @d, @s1, @s2, @s3, @img, @u);
+                            (NoiDung, DapAnDung, DapAnSai1, DapAnSai2, DapAnSai3, ImageBase64, UserId, TimeLimit) -- Thêm TimeLimit
+                            VALUES (@n, @d, @s1, @s2, @s3, @img, @u, @time); -- Thêm @time
                             SELECT SCOPE_IDENTITY();", conn, tran))
                         {
                             cmd.Parameters.AddWithValue("@n", q.NoiDung);
@@ -538,6 +613,7 @@ internal class TcpServer
                             cmd.Parameters.AddWithValue("@s3", q.Sai3);
                             cmd.Parameters.AddWithValue("@img", (object)q.ImageBase64 ?? DBNull.Value);
                             cmd.Parameters.AddWithValue("@u", pkg.UserId);
+                            cmd.Parameters.AddWithValue("@time", q.TimeLimit > 0 ? q.TimeLimit : 20);
 
                             idQ = Convert.ToInt32(cmd.ExecuteScalar());
                         }
@@ -645,7 +721,7 @@ internal class TcpServer
                 conn.Open();
 
                 string sql = @"
-                    SELECT q.Id, q.NoiDung, q.DapAnDung, q.DapAnSai1, q.DapAnSai2, q.DapAnSai3, q.ImageBase64
+                    SELECT q.Id, q.NoiDung, q.DapAnDung, q.DapAnSai1, q.DapAnSai2, q.DapAnSai3, q.ImageBase64, q.TimeLimit -- Thêm q.TimeLimit
                     FROM dbo.Question q
                     INNER JOIN dbo.DeThi_CauHoi dc ON q.Id = dc.IdCauHoi
                     WHERE dc.IdDeThi = @quizId
@@ -668,7 +744,8 @@ internal class TcpServer
                                 DapAnSai1 = reader.GetString(3),
                                 DapAnSai2 = reader.GetString(4),
                                 DapAnSai3 = reader.GetString(5),
-                                ImageBase64 = reader.IsDBNull(6) ? null : reader.GetString(6)
+                                ImageBase64 = reader.IsDBNull(6) ? null : reader.GetString(6),
+                                TimeLimit = reader.IsDBNull(7) ? 20 : reader.GetInt32(7)
                             });
                         }
                     }
@@ -743,10 +820,14 @@ internal class TcpServer
                     UserId = userId,
                     Username = GetUsername(userId),
                     Score = 0,
-                    LastAnsweredQuestionIndex = -1
                 };
-                room.PlayerCount = room.Players.Count;
             }
+            BroadcastToRoom(roomId, new
+            {
+                action = "player_joined",
+                playerCount = room.Players.Count,
+                newPlayer = room.Players[userId].Username
+            });
 
             return JsonSerializer.Serialize(new { ok = true, message = "Vào phòng thành công", quizId = room.QuizId, playerCount = room.PlayerCount });
         }
@@ -754,33 +835,30 @@ internal class TcpServer
 
     private string HandleRoomStartQuestion(Dictionary<string, object> d)
     {
-        string roomId = d.TryGetValue("roomId", out var r) ? (r == null ? "" : r.ToString()) : "";
-        string idxStr = d.TryGetValue("questionIndex", out var qi) ? (qi == null ? "" : qi.ToString()) : "";
-        string durStr = d.TryGetValue("durationSeconds", out var du) ? (du == null ? "" : du.ToString()) : "";
+        string roomId = d.TryGetValue("roomId", out var r) ? (r?.ToString() ?? "") : "";
+        string idxStr = d.TryGetValue("questionIndex", out var qi) ? (qi?.ToString() ?? "") : "";
+        string durStr = d.TryGetValue("durationSeconds", out var du) ? (du?.ToString() ?? "20") : "20"; // Lấy thời gian từ gói tin
 
-        if (string.IsNullOrWhiteSpace(roomId) || string.IsNullOrWhiteSpace(idxStr))
-            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu roomId/questionIndex" });
-
-        if (!int.TryParse(idxStr, out int qIndex))
-            return JsonSerializer.Serialize(new { ok = false, message = "questionIndex không hợp lệ" });
-
-        int duration = 20;
-        if (int.TryParse(durStr, out int tmp))
-            duration = Math.Max(1, tmp);
+        if (!int.TryParse(idxStr, out int qIndex)) return "";
+        if (!int.TryParse(durStr, out int duration)) duration = 20;
 
         lock (roomsLock)
         {
-            if (!rooms.TryGetValue(roomId, out var info))
-                return JsonSerializer.Serialize(new { ok = false, message = "Phòng không tồn tại" });
-
-            if (qIndex < 0 || qIndex >= info.TotalQuestions)
-                return JsonSerializer.Serialize(new { ok = false, message = "questionIndex out of range" });
+            if (!rooms.TryGetValue(roomId, out var info)) return "";
 
             info.CurrentQuestionIndex = qIndex;
-            info.QuestionStartTime = DateTime.UtcNow;
             info.QuestionDurationSeconds = duration;
 
-            return JsonSerializer.Serialize(new { ok = true, message = "Đã cập nhật câu hỏi", currentQuestionIndex = qIndex, durationSeconds = duration });
+            info.QuestionStartTime = DateTime.UtcNow;
+
+            BroadcastToRoom(roomId, new
+            {
+                action = "next_question",
+                questionIndex = qIndex,
+                duration = duration
+            });
+
+            return JsonSerializer.Serialize(new { ok = true });
         }
     }
 
@@ -806,6 +884,7 @@ internal class TcpServer
             return JsonSerializer.Serialize(new
             {
                 ok = true,
+                quizId = roomInfo.QuizId,
                 currentQuestionIndex = roomInfo.CurrentQuestionIndex,
                 timeLeftSeconds = timeLeft,
                 durationSeconds = roomInfo.QuestionDurationSeconds,
@@ -822,10 +901,10 @@ internal class TcpServer
         string answer = d.TryGetValue("answer", out var a) ? (a == null ? "" : a.ToString()) : "";
 
         if (string.IsNullOrWhiteSpace(roomId) || string.IsNullOrWhiteSpace(userIdStr))
-            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu roomId/userId" });
+            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu thông tin" });
 
         if (!int.TryParse(userIdStr, out int userId))
-            return JsonSerializer.Serialize(new { ok = false, message = "userId không hợp lệ" });
+            return JsonSerializer.Serialize(new { ok = false, message = "UserId lỗi" });
 
         lock (roomsLock)
         {
@@ -836,41 +915,64 @@ internal class TcpServer
                 return JsonSerializer.Serialize(new { ok = false, message = "Chưa bắt đầu câu hỏi" });
 
             if (!room.Players.TryGetValue(userId, out var player))
-                return JsonSerializer.Serialize(new { ok = false, message = "User chưa join phòng" });
+                return JsonSerializer.Serialize(new { ok = false, message = "User chưa join" });
 
             if (player.LastAnsweredQuestionIndex == room.CurrentQuestionIndex)
-                return JsonSerializer.Serialize(new { ok = false, message = "Bạn đã trả lời câu này rồi" });
+                return JsonSerializer.Serialize(new { ok = false, message = "Đã trả lời rồi" });
 
             double elapsed = (DateTime.UtcNow - room.QuestionStartTime.Value).TotalSeconds;
             int timeLeft = room.QuestionDurationSeconds - (int)elapsed;
-            if (timeLeft < 0) timeLeft = 0;
-
+            if (timeLeft < 0) timeLeft = 0; 
             if (timeLeft <= 0)
             {
                 player.LastAnsweredQuestionIndex = room.CurrentQuestionIndex;
-                return JsonSerializer.Serialize(new { ok = true, correct = false, gained = 0, score = player.Score, timeLeft = timeLeft });
+                return JsonSerializer.Serialize(new
+                {
+                    ok = true,
+                    action = "submit_result",
+                    correct = false,
+                    gained = 0,
+                    score = player.Score
+                });
             }
 
             string correctAns = GetCorrectAnswerByIndex(room.QuizId, room.CurrentQuestionIndex);
-
-            bool correct = string.Equals(
-                (answer ?? "").Trim(),
-                (correctAns ?? "").Trim(),
-                StringComparison.OrdinalIgnoreCase
-            );
+            bool correct = string.Equals((answer ?? "").Trim(), (correctAns ?? "").Trim(), StringComparison.OrdinalIgnoreCase);
 
             int gained = 0;
             if (correct)
             {
-                double ratio = room.QuestionDurationSeconds <= 0 ? 0 : (double)timeLeft / room.QuestionDurationSeconds;
-                int bonus = (int)Math.Round(1000 * ratio);
-                gained = 1000 + bonus;
+                double ratio = (double)timeLeft / room.QuestionDurationSeconds;
+                int timeBonus = (int)Math.Round(500 * ratio);
+
+                gained = 500 + timeBonus;
                 player.Score += gained;
             }
 
             player.LastAnsweredQuestionIndex = room.CurrentQuestionIndex;
 
-            return JsonSerializer.Serialize(new { ok = true, correct = correct, gained = gained, score = player.Score, timeLeft = timeLeft });
+            bool allDone = true;
+            foreach (var p in room.Players.Values)
+            {
+                if (p.LastAnsweredQuestionIndex != room.CurrentQuestionIndex)
+                {
+                    allDone = false;
+                    break;
+                }
+            }
+
+            if (allDone)
+            {
+                BroadcastToRoom(roomId, new { action = "all_answered" });
+            }
+            return JsonSerializer.Serialize(new
+            {
+                ok = true,
+                action = "submit_result",
+                correct = correct,
+                gained = gained, 
+                score = player.Score 
+            });
         }
     }
 
@@ -925,13 +1027,13 @@ internal class TcpServer
     {
         var random = new Random();
         int v = random.Next(0, 1000000);
-        return v.ToString("D6"); // Tạo OTP 6 chữ số
+        return v.ToString("D6"); 
     }
 
     private void SendOtpEmail(string toEmail, string otp)
     {
-        string fromEmail = "testchill26@gmail.com"; // Địa chỉ Gmail của bạn
-        string appPassword = "lgdu asbj rjak cobp";  // Mật khẩu ứng dụng bạn tạo
+        string fromEmail = "testchill26@gmail.com"; 
+        string appPassword = "lgdu asbj rjak cobp"; 
 
         var msg = new MailMessage(fromEmail, toEmail)
         {
@@ -945,10 +1047,10 @@ Nếu bạn không yêu cầu, hãy bỏ qua email này."
         using (var smtp = new SmtpClient("smtp.gmail.com", 587))
         {
             smtp.EnableSsl = true;
-            smtp.Credentials = new System.Net.NetworkCredential(fromEmail, appPassword); // App password
+            smtp.Credentials = new System.Net.NetworkCredential(fromEmail, appPassword);
             try
             {
-                smtp.Send(msg); // Gửi email
+                smtp.Send(msg); 
             }
             catch (Exception ex)
             {
@@ -1029,7 +1131,6 @@ Nếu bạn không yêu cầu, hãy bỏ qua email này."
             if (!string.Equals(rec.Otp, otp, StringComparison.Ordinal))
                 return JsonSerializer.Serialize(new { ok = false, message = "OTP không đúng" });
 
-            // OTP đúng → tạo resetToken (hạn ngắn, ví dụ 5 phút)
             string token = Guid.NewGuid().ToString("N");
             resetTokens[token] = new ResetTokenRecord
             {
@@ -1037,7 +1138,6 @@ Nếu bạn không yêu cầu, hãy bỏ qua email này."
                 ExpireAtUtc = DateTime.UtcNow.AddMinutes(5)
             };
 
-            // dùng xong OTP thì xoá
             otpByKey.Remove(key);
 
             return JsonSerializer.Serialize(new
@@ -1084,7 +1184,6 @@ Nếu bạn không yêu cầu, hãy bỏ qua email này."
                         return JsonSerializer.Serialize(new { ok = false, message = "Không tìm thấy user để cập nhật" });
                 }
 
-                // đổi xong thì xoá token
                 resetTokens.Remove(token);
 
                 return JsonSerializer.Serialize(new { ok = true, message = "Đổi mật khẩu thành công" });
@@ -1141,6 +1240,7 @@ Nếu bạn không yêu cầu, hãy bỏ qua email này."
                             DapAnSai3 NVARCHAR(200) NOT NULL,
                             ImageBase64 NVARCHAR(MAX) NULL,
                             UserId INT NOT NULL,
+                            TimeLimit INT DEFAULT 20,   
                             FOREIGN KEY (UserId) REFERENCES dbo.Users(UserId)
                         );
                     END;

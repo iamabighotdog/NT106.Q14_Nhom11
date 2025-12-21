@@ -5,165 +5,23 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace FormAppQuyt
 {
     public partial class playClient : Form
     {
+        private bool isLocked = false;
+        private Guna.UI2.WinForms.Guna2Button currentSelectedBtn = null; 
         private int quizId;
         private string roomId;
         private List<QuestionData> questions = new List<QuestionData>();
-        private System.Windows.Forms.Timer roomTimer;
-        private int currentQuestionIndex = -1;
-        private int durationSeconds = 0;
+
+        private System.Windows.Forms.Timer uiTimer;
         private int timeLeftSeconds = 0;
+        private int currentQuestionIndex = -1;
 
-        public playClient()
-        {
-            InitializeComponent();
-            WireEvents();
-        }
-        private class RoomStateResponse
-        {
-            public bool ok { get; set; }
-            public string message { get; set; }
-            public int currentQuestionIndex { get; set; }
-            public int durationSeconds { get; set; }
-            public int timeLeftSeconds { get; set; }
-            public int playerCount { get; set; }
-        }
-
-        private class SubmitAnswerResponse
-        {
-            public bool ok { get; set; }
-            public bool correct { get; set; }
-            public int gained { get; set; }
-            public int score { get; set; }
-            public int timeLeft { get; set; }
-            public string message { get; set; }
-        }
-
-
-        public playClient(string roomId) : this()
-        {
-            this.roomId = roomId;
-            ID.Text = roomId;
-
-        }
-
-        public playClient(int quizId, string roomId) : this()
-        {
-            this.quizId = quizId;
-            this.roomId = roomId;
-            ID.Text = roomId;
-
-            LoadQuizQuestions();
-            SetWaitingMode();
-            StartRoomTimer();
-        }
-        private void SetWaitingMode()
-        {
-            question.Text = "Đang chờ chủ phòng bắt đầu...";
-            question.Visible = true;
-
-            answerA.Visible = false;
-            answerB.Visible = false;
-            answerC.Visible = false;
-            answerD.Visible = false;
-
-            pic.Visible = false;
-            timeBar.Visible = false;
-            next.Visible = false;
-        }
-        private void WireEvents()
-        {
-            answerA.Click += AnswerButton_Click;
-            answerB.Click += AnswerButton_Click;
-            answerC.Click += AnswerButton_Click;
-            answerD.Click += AnswerButton_Click;
-
-            next.Click += next_Click;
-            back.Click += back_Click;
-        }
-        private void StartRoomTimer()
-        {
-            roomTimer = new Timer();
-            roomTimer.Interval = 1000; 
-            roomTimer.Tick += RoomTimer_Tick;
-            roomTimer.Start();
-        }
-
-        private void RoomTimer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                tcpClient client = new tcpClient();
-                string resp = client.SendRoomGetState(roomId);
-                var state = JsonSerializer.Deserialize<RoomStateResponse>(resp);
-
-                if (state == null || !state.ok) return;
-
-                if (players != null)
-                    players.Text = state.playerCount.ToString();
-                if (state.currentQuestionIndex == -1)
-                {
-                    SetWaitingMode(); 
-                    return; 
-                }
-
-                if (state.currentQuestionIndex != currentQuestionIndex)
-                {
-                    currentQuestionIndex = state.currentQuestionIndex;
-
-                    DisplayQuestion();
-                    answerA.Visible = true; answerA.Enabled = true; answerA.FillColor = Color.Green;
-                    answerB.Visible = true; answerB.Enabled = true; answerB.FillColor = Color.Green;
-                    answerC.Visible = true; answerC.Enabled = true; answerC.FillColor = Color.Green;
-                    answerD.Visible = true; answerD.Enabled = true; answerD.FillColor = Color.Green;
-                    pic.Visible = true;
-                    timeBar.Visible = true;
-                    timeBar.Maximum = state.durationSeconds;
-                    this.Text = "Play"; 
-                }
-
-                timeLeftSeconds = state.timeLeftSeconds;
-                if (timeBar.Maximum > 0)
-                    timeBar.Value = timeLeftSeconds > 0 ? timeLeftSeconds : 0;
-                if (timeLeftSeconds <= 0)
-                {
-                    if (answerA.Enabled)
-                    {
-                        answerA.Enabled = false; answerB.Enabled = false;
-                        answerC.Enabled = false; answerD.Enabled = false;
-                    }
-                }
-
-                if (currentQuestionIndex >= questions.Count - 1 && timeLeftSeconds <= 0)
-                {
-                    roomTimer.Stop();
-
-                    // LƯU ROOMID
-                    Global.LastPlayedRoomId = roomId;
-
-                    // Delay một chút để người chơi thấy câu cuối
-                    System.Threading.Thread.Sleep(1000);
-
-                    // HIỂN THỊ LEADERBOARD
-                    ShowLeaderboard();
-
-                    MessageBox.Show("Chúc mừng bạn đã hoàn thành!", "Thông báo");
-                    Close();
-                }
-            }
-            catch { }
-        }
-        private void ResetAnswerButtons()
-        {
-            answerA.Enabled = true; answerA.FillColor = Color.Green;
-            answerB.Enabled = true; answerB.FillColor = Color.Green;
-            answerC.Enabled = true; answerC.FillColor = Color.Green;
-            answerD.Enabled = true; answerD.FillColor = Color.Green;
-        }
+        private TcpSessionClient _session;
 
         private class QuestionData
         {
@@ -183,15 +41,49 @@ namespace FormAppQuyt
             public List<QuestionData> questions { get; set; }
         }
 
+        public playClient(int quizId, string roomId)
+        {
+            InitializeComponent();
+
+            if (answerA != null) { answerA.Click -= AnswerButton_Click; answerA.Click += AnswerButton_Click; }
+            if (answerB != null) { answerB.Click -= AnswerButton_Click; answerB.Click += AnswerButton_Click; }
+            if (answerC != null) { answerC.Click -= AnswerButton_Click; answerC.Click += AnswerButton_Click; }
+            if (answerD != null) { answerD.Click -= AnswerButton_Click; answerD.Click += AnswerButton_Click; }
+
+            this.quizId = quizId;
+            this.roomId = roomId;
+            ID.Text = roomId;
+
+            SetWaitingMode();
+
+            uiTimer = new System.Windows.Forms.Timer();
+            uiTimer.Interval = 1000;
+            uiTimer.Tick += UiTimer_Tick;
+
+            PrepareGameData();
+        }
+
+        private void PrepareGameData()
+        {
+            LoadQuizQuestions();
+
+            if (questions.Count == 0)
+            {
+                MessageBox.Show("Lỗi: Không tải được dữ liệu câu hỏi! (QuizId=" + quizId + ")");
+                return;
+            }
+
+            ConnectAndJoin();
+        }
+
         private void LoadQuizQuestions()
         {
-            if (quizId == 0) return;   
-
             try
             {
+                if (quizId == 0) return;
+
                 tcpClient client = new tcpClient();
                 string response = client.SendGetQuizDetails(quizId);
-
                 var result = JsonSerializer.Deserialize<QuizDetailResponse>(response);
 
                 if (result != null && result.ok && result.questions != null)
@@ -200,169 +92,271 @@ namespace FormAppQuyt
                 }
                 else
                 {
-                    MessageBox.Show(result?.message ?? "Không thể tải câu hỏi!",
-                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Close();
+                    MessageBox.Show("Không tải được câu hỏi từ Server.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message,
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
+                MessageBox.Show("Lỗi tải câu hỏi: " + ex.Message);
             }
+        }
+
+        private async void ConnectAndJoin()
+        {
+            try
+            {
+                _session = new TcpSessionClient();
+                _session.OnIncomingPacket += HandleServerMessage;
+                _session.Connect();
+                _session.StartListening();
+
+                await Task.Delay(200);
+
+                _session.Send(new
+                {
+                    action = "join_room",
+                    roomId = roomId,
+                    userId = Global.UserId
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối: " + ex.Message);
+            }
+        }
+
+        private void HandleServerMessage(string json)
+        {
+            if (this.IsDisposed || !this.IsHandleCreated) return;
+
+            this.Invoke((MethodInvoker)async delegate
+            {
+                try
+                {
+                    var data = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
+                    if (!data.ContainsKey("action")) return;
+
+                    string action = data["action"].ToString();
+
+                    switch (action)
+                    {
+                        case "all_answered":
+                            if (uiTimer != null) uiTimer.Stop();
+
+                            if (timeBar != null)
+                            {
+                                timeBar.ShowText = true;
+                                timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
+                                timeBar.Text = "Chuyển sang câu tiếp theo sau 3...2...1"; 
+                            }
+                            break;
+                        case "next_question": 
+                            int idx = int.Parse(data["questionIndex"].ToString());
+                            int dur = int.Parse(data["duration"].ToString());
+
+                            currentQuestionIndex = idx;
+                            DisplayQuestion(); 
+
+                            timeLeftSeconds = dur;
+                            if (timeBar != null)
+                            {
+                                timeBar.Maximum = dur;
+                                timeBar.Value = dur;
+                                timeBar.Visible = true;
+                                timeBar.Text = "1000";
+                            }
+                            uiTimer.Start();
+                            break;
+
+                        case "submit_result": 
+                            bool correct = bool.Parse(data["correct"].ToString());
+                            int score = int.Parse(data["score"].ToString());
+                            int gained = data.ContainsKey("gained") ? int.Parse(data["gained"].ToString()) : 0;
+
+                            HighlightResult(correct);
+
+                            this.Refresh();
+                            Application.DoEvents();
+
+                            await Task.Delay(500);
+
+                            if (correct)
+                                MessageBox.Show($"CHÍNH XÁC!\n+{gained} điểm\nTổng: {score}");
+                            else
+                                MessageBox.Show($"SAI RỒI!\n+0 điểm\nTổng: {score}");
+                            break;
+
+                        case "player_joined":
+                            if (players != null)
+                                players.Text = data["playerCount"].ToString();
+                            break;
+                    }
+                }
+                catch { }
+            });
+        }
+
+
+        private void SetWaitingMode()
+        {
+            if (question != null) question.Text = "Đang chờ chủ phòng bắt đầu...";
+            answerA.Visible = false;
+            answerB.Visible = false;
+            answerC.Visible = false;
+            answerD.Visible = false;
+            pic.Visible = false;
+            if (timeBar != null) timeBar.Visible = false;
+            if (next != null) next.Visible = false;
         }
 
         private void DisplayQuestion()
         {
-            if (questions.Count == 0)
-                return;
+            if (questions.Count == 0) return;
 
-            if (currentQuestionIndex < 0) return;
-
-            if (currentQuestionIndex >= questions.Count)
+            if (currentQuestionIndex < 0 || currentQuestionIndex >= questions.Count)
             {
-                roomTimer.Stop();
-                MessageBox.Show("Chúc mừng bạn đã hoàn thành", "Thông báo");
+                uiTimer.Stop();
+                MessageBox.Show("Đã hết câu hỏi!", "Hoàn thành");
+                ShowLeaderboard();
                 Close();
                 return;
             }
 
             var q = questions[currentQuestionIndex];
 
-            question.Text = $"Câu {currentQuestionIndex + 1}/{questions.Count}: {q.NoiDung}";
+            question.Text = $"Câu {currentQuestionIndex + 1}: {q.NoiDung}";
+            this.Text = "Đang chơi...";
 
-            var answers = new List<(string text, bool isCorrect)>
-            {
-                (q.DapAnDung, true),
-                (q.DapAnSai1, false),
-                (q.DapAnSai2, false),
-                (q.DapAnSai3, false)
-            };
-
+            var answers = new List<string> { q.DapAnDung, q.DapAnSai1, q.DapAnSai2, q.DapAnSai3 };
             Random rng = new Random();
             answers = answers.OrderBy(x => rng.Next()).ToList();
 
-            answerA.Text = "A. " + answers[0].text;
-            answerA.Tag = answers[0].isCorrect;
-            answerA.FillColor = Color.Green;
+            answerA.Text = "A. " + answers[0];
+            answerB.Text = "B. " + answers[1];
+            answerC.Text = "C. " + answers[2];
+            answerD.Text = "D. " + answers[3];
 
-            answerB.Text = "B. " + answers[1].text;
-            answerB.Tag = answers[1].isCorrect;
-            answerB.FillColor = Color.Green;
+            Color defaultColor = Color.Green;
+            answerA.FillColor = defaultColor; answerB.FillColor = defaultColor;
+            answerC.FillColor = defaultColor; answerD.FillColor = defaultColor;
 
-            answerC.Text = "C. " + answers[2].text;
-            answerC.Tag = answers[2].isCorrect;
-            answerC.FillColor = Color.Green;
+            isLocked = false;
+            currentSelectedBtn = null;
 
-            answerD.Text = "D. " + answers[3].text;
-            answerD.Tag = answers[3].isCorrect;
-            answerD.FillColor = Color.Green;
+            answerA.Visible = true; answerB.Visible = true;
+            answerC.Visible = true; answerD.Visible = true;
 
             if (!string.IsNullOrEmpty(q.ImageBase64))
             {
                 try
                 {
                     byte[] bytes = Convert.FromBase64String(q.ImageBase64);
-                    using (var ms = new MemoryStream(bytes))
-                    {
-                        pic.Image = Image.FromStream(ms);
-                    }
+                    using (var ms = new MemoryStream(bytes)) pic.Image = Image.FromStream(ms);
                     pic.Visible = true;
                 }
-                catch
-                {
-                    pic.Visible = false;
-                }
+                catch { pic.Visible = false; }
             }
-            else
+            else pic.Visible = false;
+        }
+
+        private void HighlightResult(bool correct)
+        {
+            var currentQ = questions[currentQuestionIndex];
+            string correctText = currentQ.DapAnDung.Trim();
+
+            if (currentSelectedBtn != null)
             {
-                pic.Image = null;
-                pic.Visible = false;
+                if (correct)
+                    currentSelectedBtn.FillColor = Color.FromArgb(0, 192, 0);
+                else
+                    currentSelectedBtn.FillColor = Color.Red; // Đỏ
             }
 
-            next.Text = (currentQuestionIndex == questions.Count - 1)
-                ? "Kết thúc"
-                : "Tiếp theo";
+            Guna.UI2.WinForms.Guna2Button[] buttons = { answerA, answerB, answerC, answerD };
+            foreach (var btn in buttons)
+            {
+                if (btn == null) continue;
+
+                string btnText = btn.Text.Trim();
+                int dotIndex = btnText.IndexOf('.');
+                if (dotIndex >= 0 && dotIndex < 4)
+                    btnText = btnText.Substring(dotIndex + 1).Trim();
+
+                if (string.Equals(btnText, correctText, StringComparison.OrdinalIgnoreCase))
+                {
+                    btn.FillColor = Color.FromArgb(0, 192, 0);
+                }
+            }
         }
 
         private void AnswerButton_Click(object sender, EventArgs e)
         {
+            if (isLocked) return;
+
             var btn = sender as Guna.UI2.WinForms.Guna2Button;
             if (btn == null) return;
+
+            isLocked = true;
+            currentSelectedBtn = btn;
 
             string chosen = btn.Text;
             int dot = chosen.IndexOf(". ");
             if (dot >= 0) chosen = chosen.Substring(dot + 2);
             chosen = chosen.Trim();
 
-            try
+            _session.Send(new
             {
-                tcpClient client = new tcpClient();
-                string resp = client.SendSubmitAnswer(roomId, Global.UserId, chosen);
-                var result = JsonSerializer.Deserialize<SubmitAnswerResponse>(resp);
+                action = "submit_answer",
+                roomId = roomId,
+                userId = Global.UserId,
+                answer = chosen
+            });
 
-                if (result == null || !result.ok)
-                {
-                    MessageBox.Show(result?.message ?? "Submit lỗi", "Lỗi");
-                    return;
-                }
-
-                if (result.correct)
-                {
-                    btn.FillColor = Color.FromArgb(0, 192, 0);
-                    MessageBox.Show($"ĐÚNG +{result.gained} điểm\nTổng: {result.score}", "Kết quả");
-                }
-                else
-                {
-                    btn.FillColor = Color.Red;
-                    HighlightCorrectAnswer();
-                    MessageBox.Show($"SAI +0 điểm\nTổng: {result.score}", "Kết quả");
-                }
-
-                answerA.Enabled = answerB.Enabled = answerC.Enabled = answerD.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi submit: " + ex.Message);
-            }
+            btn.FillColor = Color.Orange;
         }
 
-        private void HighlightCorrectAnswer()
+        private void UiTimer_Tick(object sender, EventArgs e)
         {
-            foreach (var b in new[] { answerA, answerB, answerC, answerD })
+            if (timeLeftSeconds > 0)
             {
-                if ((bool)(b.Tag ?? false))
+                timeLeftSeconds--;
+                if (timeBar != null && timeBar.Maximum > 0)
                 {
-                    b.FillColor = Color.FromArgb(0, 192, 0);
+                    timeBar.Value = timeLeftSeconds;
+
+                    if (!isLocked)
+                    {
+                        double maxTime = (double)timeBar.Maximum;
+                        double ratio = (double)timeLeftSeconds / maxTime;
+                        int potentialScore = 500 + (int)(500 * ratio);
+
+                        timeBar.ShowText = true;
+                        timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
+                        timeBar.Text = potentialScore.ToString();
+                    }
+
+                    if (timeLeftSeconds < 5) timeBar.ForeColor = Color.Red;
                 }
+            }
+            else
+            {
+                uiTimer.Stop();
+                isLocked = true;
+                if (timeBar != null) timeBar.Text = "0";
             }
         }
 
         private void next_Click(object sender, EventArgs e)
         {
-            currentQuestionIndex++;
-
-            if (currentQuestionIndex < questions.Count)
-            {
-                DisplayQuestion();
-            }
-            else
-            {
-                MessageBox.Show($"Đã hết câu hỏi! Tổng cộng {questions.Count} câu.",
-                    "Hoàn thành", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Close();
-            }
+            MessageBox.Show("Đợi chủ phòng chuyển câu hỏi!");
         }
-       
 
         private void back_Click(object sender, EventArgs e)
         {
+            _session?.Dispose(); 
             Close();
-
             var pForm = Application.OpenForms["players"] as players;
-            if (pForm != null)
-                pForm.Show();
+            if (pForm != null) pForm.Show();
         }
 
         private void ShowLeaderboard()
@@ -372,11 +366,7 @@ namespace FormAppQuyt
                 leaderboard leaderboardForm = new leaderboard(roomId);
                 leaderboardForm.ShowDialog();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Không thể hiển thị bảng xếp hạng: {ex.Message}",
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch { }
         }
     }
 }

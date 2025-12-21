@@ -92,6 +92,7 @@ namespace FormAppQuyt
             if (string.IsNullOrWhiteSpace(username))
             {
                 MessageBox.Show("Tên đăng nhập không được bỏ trống.");
+                return;
             }
 
             if (string.IsNullOrEmpty(password))

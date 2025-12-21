@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.ProgressBar1 = new Guna.UI2.WinForms.Guna2ProgressBar();
             this.playBtn = new Guna.UI2.WinForms.Guna2Button();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -50,7 +50,7 @@
             // 
             // guna2GradientPanel1
             // 
-            this.guna2GradientPanel1.Controls.Add(this.progressBar1);
+            this.guna2GradientPanel1.Controls.Add(this.ProgressBar1);
             this.guna2GradientPanel1.Controls.Add(this.playBtn);
             this.guna2GradientPanel1.Controls.Add(this.players);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel2);
@@ -67,18 +67,26 @@
             this.guna2GradientPanel1.Controls.Add(this.close);
             this.guna2GradientPanel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.guna2GradientPanel1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.guna2GradientPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2GradientPanel1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             this.guna2GradientPanel1.Location = new System.Drawing.Point(0, 0);
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
             // 
-            // progressBar1
+            // ProgressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(511, 560);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(706, 24);
-            this.progressBar1.TabIndex = 17;
+            this.ProgressBar1.Font = new System.Drawing.Font("Palatino Linotype", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProgressBar1.Location = new System.Drawing.Point(511, 560);
+            this.ProgressBar1.Name = "ProgressBar1";
+            this.ProgressBar1.ProgressColor = System.Drawing.Color.Lime;
+            this.ProgressBar1.ProgressColor2 = System.Drawing.Color.Green;
+            this.ProgressBar1.ShowText = true;
+            this.ProgressBar1.Size = new System.Drawing.Size(706, 21);
+            this.ProgressBar1.TabIndex = 18;
+            this.ProgressBar1.Text = "1000";
+            this.ProgressBar1.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
+            this.ProgressBar1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             // 
             // playBtn
             // 
@@ -164,7 +172,7 @@
             this.next.Size = new System.Drawing.Size(180, 45);
             this.next.TabIndex = 10;
             this.next.Text = "Tiếp theo";
-            this.next.Click += new System.EventHandler(this.next_Click);
+            this.next.Click += new System.EventHandler(this.playBtn_Click);
             // 
             // answerD
             // 
@@ -296,6 +304,6 @@
         private Guna.UI2.WinForms.Guna2Button playBtn;
         private Guna.UI2.WinForms.Guna2HtmlLabel players;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private Guna.UI2.WinForms.Guna2ProgressBar ProgressBar1;
     }
 }

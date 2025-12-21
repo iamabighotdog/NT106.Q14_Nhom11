@@ -20,6 +20,12 @@ namespace FormAppQuyt
         public createQuiz()
         {
             InitializeComponent();
+
+            if (timeBox != null)
+            {
+                timeBox.Items.AddRange(new object[] { "10", "15", "20", "30", "45", "60", "90", "120" });
+                timeBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            }
             _questions = Enumerable.Range(0, _maxQuestions)
                 .Select(x => new QuizQuestion())
                 .ToList();
@@ -39,6 +45,11 @@ namespace FormAppQuyt
             wrongBox2.Text = q.Sai2 ?? "";
             wrongBox3.Text = q.Sai3 ?? "";
 
+            if (timeBox != null)
+            {
+                if (q.TimeLimit <= 0) q.TimeLimit = 20;
+                timeBox.SelectedItem = q.TimeLimit.ToString();
+            }
             _imageBase64 = q.ImageBase64;
 
             if (!string.IsNullOrEmpty(q.ImageBase64))
@@ -56,6 +67,18 @@ namespace FormAppQuyt
             q.Sai2 = wrongBox2.Text.Trim();
             q.Sai3 = wrongBox3.Text.Trim();
             q.ImageBase64 = _imageBase64;
+
+            if (timeBox != null && timeBox.SelectedItem != null)
+            {
+                if (int.TryParse(timeBox.SelectedItem.ToString(), out int t))
+                    q.TimeLimit = t;
+                else
+                    q.TimeLimit = 20;
+            }
+            else
+            {
+                q.TimeLimit = 20;
+            }
         }
 
         private void UpdatePage()
@@ -241,6 +264,7 @@ namespace FormAppQuyt
         public string Sai2 { get; set; }
         public string Sai3 { get; set; }
         public string ImageBase64 { get; set; }
+        public int TimeLimit { get; set; } = 20;
     }
 
     public class QuizPackage

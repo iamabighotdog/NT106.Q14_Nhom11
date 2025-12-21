@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.timeBar = new System.Windows.Forms.ProgressBar();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ID = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -43,6 +42,7 @@
             this.question = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.answerA = new Guna.UI2.WinForms.Guna2Button();
             this.close = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.timeBar = new Guna.UI2.WinForms.Guna2ProgressBar();
             this.guna2GradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.SuspendLayout();
@@ -70,13 +70,6 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
-            // 
-            // timeBar
-            // 
-            this.timeBar.Location = new System.Drawing.Point(511, 560);
-            this.timeBar.Name = "timeBar";
-            this.timeBar.Size = new System.Drawing.Size(706, 23);
-            this.timeBar.TabIndex = 16;
             // 
             // players
             // 
@@ -240,6 +233,20 @@
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
             // 
+            // timeBar
+            // 
+            this.timeBar.Font = new System.Drawing.Font("Palatino Linotype", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeBar.Location = new System.Drawing.Point(511, 561);
+            this.timeBar.Name = "timeBar";
+            this.timeBar.ProgressColor = System.Drawing.Color.Lime;
+            this.timeBar.ProgressColor2 = System.Drawing.Color.Green;
+            this.timeBar.ShowText = true;
+            this.timeBar.Size = new System.Drawing.Size(706, 25);
+            this.timeBar.TabIndex = 16;
+            this.timeBar.Text = "1000";
+            this.timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
+            this.timeBar.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            // 
             // playClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -272,7 +279,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel ID;
         private Guna.UI2.WinForms.Guna2HtmlLabel players;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private System.Windows.Forms.ProgressBar timeBar;
+        private Guna.UI2.WinForms.Guna2ProgressBar timeBar;
     }
 
 }

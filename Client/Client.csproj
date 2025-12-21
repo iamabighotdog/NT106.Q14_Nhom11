@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TcpSessionClient.cs" />
     <Compile Include="createQuiz.cs">
       <SubType>Form</SubType>
     </Compile>
