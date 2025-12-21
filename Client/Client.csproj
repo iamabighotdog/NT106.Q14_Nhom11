@@ -267,7 +267,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\istockphoto-1386740242-612x612.jpg" />
-    <Content Include="Resources\Screenshot 2025-10-28 211339.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

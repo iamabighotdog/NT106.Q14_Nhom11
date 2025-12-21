@@ -32,6 +32,16 @@ namespace FormAppQuyt
 
         private void Main_Load(object sender, EventArgs e)
         {
+            if (pic_Avatar.Image == null)
+            {
+                var def = FormAppQuyt.Utils.AvatarCache.GetDefault();
+                byte[] b = Convert.FromBase64String(def);
+                using (var ms = new MemoryStream(b))
+                using (var img = Image.FromStream(ms))
+                    pic_Avatar.Image = new Bitmap(img);
+            }
+            FormAppQuyt.Utils.AvatarCache.SetDefaultFromImage(pic_Avatar.Image);
+
             if (string.IsNullOrWhiteSpace(userInput))
             {
                 MessageBox.Show("Không có thông tin người dùng để tra cứu.");
@@ -58,11 +68,19 @@ namespace FormAppQuyt
                     }
                     if (!string.IsNullOrEmpty(reply.avatar))
                     {
+                        avatarBase64 = reply.avatar;         
+                        FormAppQuyt.Utils.AvatarCache.Set(Global.UserId, avatarBase64); 
+
                         byte[] bytes = Convert.FromBase64String(reply.avatar);
                         using (var ms = new MemoryStream(bytes))
+                        using (var img = Image.FromStream(ms))
                         {
-                            pic_Avatar.Image = Image.FromStream(ms);
+                            pic_Avatar.Image = new Bitmap(img);     
                         }
+                    }
+                    else
+                    {
+                        pic_Avatar.SizeMode = PictureBoxSizeMode.Zoom;
                     }
                 }
                 else
@@ -205,22 +223,26 @@ namespace FormAppQuyt
                 return;
             }
 
-            string avatarBase64 = Convert.ToBase64String(selectedImage);
+            string newAvatarBase64 = Convert.ToBase64String(selectedImage);
 
             try
             {
                 TcpRequestClient client = new TcpRequestClient();
-                string resp = client.SendUpdateAvatar(Global.UserId, avatarBase64);
+                string resp = client.SendUpdateAvatar(Global.UserId, newAvatarBase64);
                 var res = JsonSerializer.Deserialize<HomeResponse>(resp);
 
-                if (res.ok)
+                if (res != null && res.ok)
                 {
                     MessageBox.Show("Avatar đã cập nhật!");
+
+                    avatarBase64 = newAvatarBase64; 
+                    FormAppQuyt.Utils.AvatarCache.Set(Global.UserId, avatarBase64); 
+
                     selectedImage = null;
                 }
                 else
                 {
-                    MessageBox.Show(res.message);
+                    MessageBox.Show(res?.message ?? "Update avatar fail");
                 }
             }
             catch (Exception ex)
