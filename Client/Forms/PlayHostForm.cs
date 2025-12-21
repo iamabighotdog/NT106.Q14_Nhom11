@@ -204,6 +204,17 @@ namespace FormAppQuyt
 
                     switch (action)
                     {
+                        case "player_left":
+                            if (players != null)
+                            {
+                                string currentText = players.Text.Trim();
+                                if (int.TryParse(currentText, out int count) && count > 0)
+                                {
+                                    count--;
+                                    players.Text = count.ToString();
+                                }
+                            }
+                            break;
                         case "player_joined":
                             if (players != null)
                                 players.Text = data["playerCount"].ToString();

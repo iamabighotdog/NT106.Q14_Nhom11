@@ -218,6 +218,39 @@ internal class TcpServer
             if (currentUserId != -1)
             {
                 _activeClients.TryRemove(currentUserId, out _);
+                Console.WriteLine($"Client {currentUserId} disconnected.");
+
+                lock (roomsLock)
+                {
+                    List<string> roomsToDelete = new List<string>();
+
+                    foreach (var kvp in rooms)
+                    {
+                        string rId = kvp.Key;       
+                        var room = kvp.Value;       
+
+                        if (room.Players.ContainsKey(currentUserId))
+                        {
+                            room.Players.Remove(currentUserId);
+                            BroadcastToRoom(rId, new
+                            {
+                                action = "player_left",
+                                userId = currentUserId
+                            });
+                        }
+
+                        if (room.HostUserId == currentUserId)
+                        {
+                            roomsToDelete.Add(rId); 
+                        }
+                    }
+
+                    foreach (var rId in roomsToDelete)
+                    {
+                        rooms.Remove(rId);
+                        Console.WriteLine($"[CleanUp] Đã giải tán phòng {rId} vì Host {currentUserId} thoát.");
+                    }
+                }
             }
             try { client.Close(); } catch { }
         }

@@ -127,6 +127,17 @@ namespace FormAppQuyt
 
                         switch (action)
                         {
+                            case "player_left":
+                                if (players != null)
+                                {
+                                    string currentText = players.Text.Trim();
+                                    if (int.TryParse(currentText, out int count) && count > 0)
+                                    {
+                                        count--;
+                                        players.Text = count.ToString();
+                                    }
+                                }
+                                break;
                             case "end_game":
                                 if (uiTimer != null) uiTimer.Stop();
                                 this.Hide();
