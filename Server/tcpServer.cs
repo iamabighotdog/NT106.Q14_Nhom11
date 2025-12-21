@@ -67,6 +67,7 @@ internal class TcpServer
     {
         public int UserId { get; set; }
         public string Username { get; set; } = "";
+        public string AvatarBase64 { get; set; } = "";  
         public int Score { get; set; }
         public int LastAnsweredQuestionIndex { get; set; } = -1;
     }
@@ -827,14 +828,18 @@ internal class TcpServer
                 {
                     UserId = userId,
                     Username = GetUsername(userId),
+                    AvatarBase64 = GetAvatarBase64(userId) ?? "", 
                     Score = 0,
                 };
+
             }
             BroadcastToRoom(roomId, new
             {
                 action = "player_joined",
                 playerCount = room.Players.Count,
-                newPlayer = room.Players[userId].Username
+                newPlayer = room.Players[userId].Username,
+                userId = userId,
+                avatar = room.Players[userId].AvatarBase64
             });
 
             return JsonSerializer.Serialize(new
@@ -1004,8 +1009,15 @@ internal class TcpServer
 
             var leaderboard = room.Players.Values
                 .OrderByDescending(p => p.Score)
-                .Select(p => new { userId = p.UserId, username = p.Username, score = p.Score })
+                .Select(p => new
+                {
+                    userId = p.UserId,
+                    username = p.Username,
+                    score = p.Score,
+                    avatar = p.AvatarBase64   
+                })
                 .ToList();
+
 
             return JsonSerializer.Serialize(new { ok = true, leaderboard = leaderboard });
         }
@@ -1318,6 +1330,20 @@ Nếu bạn không yêu cầu, hãy bỏ qua email này."
             return v == null ? "" : v.ToString();
         }
     }
+
+    private string GetAvatarBase64(int userId)
+    {
+        using (var conn = new SqlConnection(connectionString))
+        using (var cmd = new SqlCommand("SELECT AvatarBase64 FROM dbo.Users WHERE UserId=@id", conn))
+        {
+            conn.Open();
+            cmd.Parameters.AddWithValue("@id", userId);
+            var v = cmd.ExecuteScalar();
+            if (v == null || v == DBNull.Value) return null;
+            return v.ToString();
+        }
+    }
+
 
     private string GetCorrectAnswerByIndex(int quizId, int questionIndex)
     {

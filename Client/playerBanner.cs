@@ -66,9 +66,10 @@ namespace FormAppQuyt
                 if (!string.IsNullOrWhiteSpace(avatarBase64))
                 {
                     byte[] imageBytes = Convert.FromBase64String(avatarBase64);
-                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                    using (var ms = new MemoryStream(imageBytes))
+                    using (var img = Image.FromStream(ms))
                     {
-                        avatar.Image = Image.FromStream(ms);
+                        avatar.Image = new Bitmap(img); 
                         avatar.SizeMode = PictureBoxSizeMode.Zoom;
                     }
                 }

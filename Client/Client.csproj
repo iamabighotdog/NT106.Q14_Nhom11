@@ -170,6 +170,7 @@
       <DependentUpon>ResultForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Networking\TcpRequestClient.cs" />
+    <Compile Include="Utils\AvatarCache.cs" />
     <Compile Include="Utils\JsonHelper.cs" />
     <Compile Include="Utils\RandomProvider.cs" />
     <Compile Include="ValidationHelper.cs" />

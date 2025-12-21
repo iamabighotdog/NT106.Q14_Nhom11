@@ -1,10 +1,11 @@
-﻿using System;
+﻿using FormAppQuyt.Networking;
+using FormAppQuyt.Utils;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text.Json;
-using System.Windows.Forms;
 using System.Threading.Tasks;
-using FormAppQuyt.Networking;
+using System.Windows.Forms;
 
 namespace FormAppQuyt
 {
@@ -106,20 +107,25 @@ namespace FormAppQuyt
                 var player = players[i];
                 var banner = new playerBanner();
 
+                string avatar64 = player.avatar;
+
+                if (string.IsNullOrWhiteSpace(avatar64))
+                    avatar64 = FormAppQuyt.Utils.AvatarCache.Get(player.userId);
+
+                if (!string.IsNullOrWhiteSpace(avatar64))
+                    FormAppQuyt.Utils.AvatarCache.Set(player.userId, avatar64);
+
                 banner.SetPlayerData(
                     ranking: i + 1,
                     playerName: player.username,
                     score: player.score,
-                    avatarBase64: null 
+                    avatarBase64: avatar64
                 );
 
                 if (player.userId == Global.UserId)
-                {
                     banner.HighlightCurrentPlayer();
-                }
 
                 banner.Margin = new Padding(0, 5, 0, 5);
-
                 flowLayoutPanel1.Controls.Add(banner);
             }
         }
@@ -146,6 +152,7 @@ namespace FormAppQuyt
             public int userId { get; set; }
             public string username { get; set; }
             public int score { get; set; }
+            public string avatar { get; set; }
         }
 
         private void back_Click_1(object sender, EventArgs e)
