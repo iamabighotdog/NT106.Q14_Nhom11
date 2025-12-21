@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using FormAppQuyt.Networking;
 
 
 namespace FormAppQuyt
@@ -122,7 +123,7 @@ namespace FormAppQuyt
 
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string resp = client.SendRegisterData(username, email, phone, hashedPassword);
                 SimpleReply r = null;
                 try { r = JsonSerializer.Deserialize<SimpleReply>(resp); } catch { }

@@ -4,15 +4,16 @@ using System.Drawing;
 using System.IO;
 using System.Text.Json;
 using System.Windows.Forms;
+using FormAppQuyt.Networking;
 
 namespace FormAppQuyt
 {
-    public partial class Main : Form
+    public partial class MainForm : Form
     {
         private readonly string userInput;
         private byte[] selectedImage = null;
         private string avatarBase64 = null;
-        public Main(string input)
+        public MainForm(string input)
         {
             InitializeComponent();
             userInput = input?.Trim() ?? string.Empty;
@@ -39,7 +40,7 @@ namespace FormAppQuyt
 
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string response = client.SendProfileData(userInput);
 
                 var reply = JsonSerializer.Deserialize<ProfileReply>(response);
@@ -87,7 +88,7 @@ namespace FormAppQuyt
 
         private void createQuiz_Click(object sender, EventArgs e)
         {
-            createQuiz createQuiz = new createQuiz();
+            CreateQuizForm createQuiz = new CreateQuizForm();
             createQuiz.ShowDialog();
         }
 
@@ -130,7 +131,7 @@ namespace FormAppQuyt
         }
         private void myQuiz_Click(object sender, EventArgs e)
         {
-            var f = new myQuiz(Global.UserId);
+            var f = new MyQuizForm(Global.UserId);
             f.StartPosition = FormStartPosition.CenterScreen;
             f.Show();
         }
@@ -170,7 +171,7 @@ namespace FormAppQuyt
             string dobSend = dob.ToString("yyyy-MM-dd");
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string resp = client.SendUpdateProfile(
                     Global.UserId,
                     fullname,
@@ -208,7 +209,7 @@ namespace FormAppQuyt
 
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string resp = client.SendUpdateAvatar(Global.UserId, avatarBase64);
                 var res = JsonSerializer.Deserialize<HomeResponse>(resp);
 
@@ -232,7 +233,7 @@ namespace FormAppQuyt
         {
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string response = client.SendGetMyQuiz(Global.UserId);
 
                 var result = JsonSerializer.Deserialize<QuizCheckResponse>(response);
@@ -246,7 +247,7 @@ namespace FormAppQuyt
                         return;
                     }
 
-                    host hostForm = new host();
+                    HostForm hostForm = new HostForm();
                     hostForm.StartPosition = FormStartPosition.CenterScreen;
                     hostForm.ShowDialog();
                 }
@@ -264,7 +265,7 @@ namespace FormAppQuyt
 
         private void play_Click(object sender, EventArgs e)
         {
-            players enterForm = new players();
+            PlayersForm enterForm = new PlayersForm();
             enterForm.StartPosition = FormStartPosition.CenterScreen;
             enterForm.Show();
             this.Hide();
@@ -300,7 +301,7 @@ namespace FormAppQuyt
             }
 
             // Mở leaderboard của phòng vừa chơi
-            leaderboard leaderboardForm = new leaderboard(Global.LastPlayedRoomId);
+            LeaderBoardForm leaderboardForm = new LeaderBoardForm(Global.LastPlayedRoomId);
             leaderboardForm.ShowDialog();
         }
     }

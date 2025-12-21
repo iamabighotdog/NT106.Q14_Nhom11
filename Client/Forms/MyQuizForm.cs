@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Windows.Forms;
+using FormAppQuyt.Networking;
 namespace FormAppQuyt
 {
-    public partial class myQuiz : Form
+    public partial class MyQuizForm : Form
     {
         private int currentUserId;
-        public myQuiz(int userId)
+        public MyQuizForm(int userId)
         {
             InitializeComponent();
             currentUserId = userId;
@@ -19,7 +20,7 @@ namespace FormAppQuyt
         {
             gridQuiz.Rows.Clear();
 
-            tcpClient client = new tcpClient();
+            TcpRequestClient client = new TcpRequestClient();
             string raw = client.SendGetMyQuiz(currentUserId);
 
             var res = JsonSerializer.Deserialize<GetQuizResponse>(raw);
@@ -56,7 +57,7 @@ namespace FormAppQuyt
                 MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            tcpClient client = new tcpClient();
+            TcpRequestClient client = new TcpRequestClient();
             string raw = client.SendDeleteQuiz(id);
             var res = JsonSerializer.Deserialize<BasicResponse>(raw);
 

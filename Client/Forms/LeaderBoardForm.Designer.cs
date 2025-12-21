@@ -1,6 +1,6 @@
 ﻿namespace FormAppQuyt
 {
-    partial class leaderboard
+    partial class LeaderBoardForm
     {
         /// <summary>
         /// Required designer variable.

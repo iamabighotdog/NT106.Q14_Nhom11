@@ -223,27 +223,28 @@ internal class TcpServer
     }
     private void BroadcastToRoom(string roomId, object payload)
     {
+        List<int> targets;
+
         lock (roomsLock)
         {
-            if (rooms.TryGetValue(roomId, out var room))
+            if (!rooms.TryGetValue(roomId, out var room)) return;
+
+            var set = new HashSet<int>(room.Players.Keys);
+            set.Add(room.HostUserId);
+            targets = set.ToList();
+        }
+
+        string json = JsonSerializer.Serialize(payload);
+
+        foreach (var uid in targets)
+        {
+            if (_activeClients.TryGetValue(uid, out var w))
             {
-                string json = JsonSerializer.Serialize(payload);
-
-                if (_activeClients.TryGetValue(room.HostUserId, out var hostWriter))
-                {
-                    try { hostWriter.WriteLine(json); } catch { }
-                }
-
-                foreach (var playerId in room.Players.Keys)
-                {
-                    if (_activeClients.TryGetValue(playerId, out var writer))
-                    {
-                        try { writer.WriteLine(json); } catch { }
-                    }
-                }
-                Console.WriteLine($"[BROADCAST] Room {roomId}: {json}");
+                try { lock (w) w.WriteLine(json); } catch { }
             }
         }
+
+        Console.WriteLine($"[BROADCAST] Room {roomId}: {json}");
     }
 
 
@@ -836,7 +837,14 @@ internal class TcpServer
                 newPlayer = room.Players[userId].Username
             });
 
-            return JsonSerializer.Serialize(new { ok = true, message = "Vào phòng thành công", quizId = room.QuizId, playerCount = room.PlayerCount });
+            return JsonSerializer.Serialize(new
+            {
+                ok = true,
+                message = "Vào phòng thành công",
+                quizId = room.QuizId,
+                playerCount = room.Players.Count
+            });
+
         }
     }
 

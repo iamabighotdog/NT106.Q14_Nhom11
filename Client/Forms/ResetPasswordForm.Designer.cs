@@ -1,6 +1,6 @@
 ﻿namespace FormAppQuyt
 {
-    partial class resetPassword
+    partial class ResetPasswordForm
     {
         /// <summary>
         /// Required designer variable.

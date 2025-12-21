@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text.Json;
 using System.Windows.Forms;
-
+using FormAppQuyt.Networking;
 namespace FormAppQuyt
 {
-    public partial class resetPassword : Form
+    public partial class ResetPasswordForm : Form
     {
         private readonly string _resetToken;
 
@@ -14,7 +14,7 @@ namespace FormAppQuyt
             public string message { get; set; }
         }
 
-        public resetPassword(string resetToken)
+        public ResetPasswordForm(string resetToken)
         {
             InitializeComponent();
             _resetToken = resetToken;
@@ -48,7 +48,7 @@ namespace FormAppQuyt
                 // bạn đang dùng SHA256 khi login :contentReference[oaicite:9]{index=9}
                 string hashed = CryptoHelper.ComputeSha256Hash(pw1);
 
-                tcpClient cli = new tcpClient();
+                TcpRequestClient cli = new TcpRequestClient();
                 string resp = cli.SendResetPassword(_resetToken, hashed);
                 var r = JsonSerializer.Deserialize<ApiReply>(resp);
 

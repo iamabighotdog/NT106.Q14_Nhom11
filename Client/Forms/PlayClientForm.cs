@@ -1,15 +1,19 @@
-﻿using System;
+﻿using FormAppQuyt.Networking;
+using FormAppQuyt.Utils;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using FormAppQuyt.Utils;
+using FormAppQuyt.Models;
 
 namespace FormAppQuyt
 {
-    public partial class playClient : Form
+    public partial class PlayClientForm : Form
     {
         private bool isLocked = false;
         private Guna.UI2.WinForms.Guna2Button currentSelectedBtn = null; 
@@ -22,26 +26,7 @@ namespace FormAppQuyt
         private int currentQuestionIndex = -1;
 
         private TcpSessionClient _session;
-
-        private class QuestionData
-        {
-            public int Id { get; set; }
-            public string NoiDung { get; set; }
-            public string DapAnDung { get; set; }
-            public string DapAnSai1 { get; set; }
-            public string DapAnSai2 { get; set; }
-            public string DapAnSai3 { get; set; }
-            public string ImageBase64 { get; set; }
-        }
-
-        private class QuizDetailResponse
-        {
-            public bool ok { get; set; }
-            public string message { get; set; }
-            public List<QuestionData> questions { get; set; }
-        }
-
-        public playClient(int quizId, string roomId)
+        public PlayClientForm(int quizId, string roomId)
         {
             InitializeComponent();
 
@@ -82,7 +67,7 @@ namespace FormAppQuyt
             {
                 if (quizId == 0) return;
 
-                tcpClient client = new tcpClient();
+                var client = new FormAppQuyt.Networking.TcpRequestClient();
                 string response = client.SendGetQuizDetails(quizId);
                 var result = JsonSerializer.Deserialize<QuizDetailResponse>(response);
 
@@ -129,88 +114,81 @@ namespace FormAppQuyt
         {
             if (this.IsDisposed || !this.IsHandleCreated) return;
 
-            this.Invoke((MethodInvoker)async delegate
+            this.BeginInvoke(new Action(async () =>
             {
                 try
                 {
-                    var data = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
-                    if (!data.ContainsKey("action")) return;
-
-                    string action = data["action"].ToString();
-
-                    switch (action)
+                    using (JsonDocument doc = JsonDocument.Parse(json))
                     {
-                        case "end_game":
-                            if (uiTimer != null) uiTimer.Stop();
+                        JsonElement root = doc.RootElement;
 
-                            this.Invoke((MethodInvoker)delegate
-                            {
+                        string action = JsonHelper.GetString(root, "action");
+                        if (string.IsNullOrEmpty(action)) return;
+
+                        switch (action)
+                        {
+                            case "end_game":
+                                if (uiTimer != null) uiTimer.Stop();
                                 this.Hide();
-
-                                try
-                                {
-                                    leaderboard lb = new leaderboard(roomId);
-                                    lb.ShowDialog(); 
-                                }
-                                catch { }
-
+                                try { new LeaderBoardForm(roomId).ShowDialog(); } catch { }
                                 this.Close();
-                            });
-                            break;
-                        case "all_answered":
-                            if (uiTimer != null) uiTimer.Stop();
+                                break;
 
-                            if (timeBar != null)
-                            {
-                                timeBar.ShowText = true;
-                                timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
-                                timeBar.Text = "Chuyển sang câu tiếp theo sau 3...2...1"; 
-                            }
-                            break;
-                        case "next_question": 
-                            int idx = int.Parse(data["questionIndex"].ToString());
-                            int dur = int.Parse(data["duration"].ToString());
+                            case "all_answered":
+                                if (uiTimer != null) uiTimer.Stop();
+                                if (timeBar != null)
+                                {
+                                    timeBar.ShowText = true;
+                                    timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
+                                    timeBar.Text = "Chuyển sang câu tiếp theo sau 3...2...1";
+                                }
+                                break;
 
-                            currentQuestionIndex = idx;
-                            DisplayQuestion(); 
+                            case "next_question":
+                                int idx = JsonHelper.GetInt(root, "questionIndex", -1);
+                                int dur = JsonHelper.GetInt(root, "duration", 20);
 
-                            timeLeftSeconds = dur;
-                            if (timeBar != null)
-                            {
-                                timeBar.Maximum = dur;
-                                timeBar.Value = dur;
-                                timeBar.Visible = true;
-                                timeBar.Text = "1000";
-                            }
-                            uiTimer.Start();
-                            break;
+                                currentQuestionIndex = idx;
+                                DisplayQuestion();
 
-                        case "submit_result": 
-                            bool correct = bool.Parse(data["correct"].ToString());
-                            int score = int.Parse(data["score"].ToString());
-                            int gained = data.ContainsKey("gained") ? int.Parse(data["gained"].ToString()) : 0;
+                                timeLeftSeconds = dur;
+                                if (timeBar != null)
+                                {
+                                    timeBar.Maximum = dur;
+                                    timeBar.Value = dur;
+                                    timeBar.Visible = true;
+                                    timeBar.ShowText = true;
+                                    timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
+                                    timeBar.Text = "1000";
+                                }
+                                uiTimer.Start();
+                                break;
 
-                            HighlightResult(correct);
+                            case "submit_result":
+                                bool correct = JsonHelper.GetBool(root, "correct", false);
+                                int score = JsonHelper.GetInt(root, "score", 0);
+                                int gained = JsonHelper.GetInt(root, "gained", 0);
 
-                            this.Refresh();
-                            Application.DoEvents();
+                                HighlightResult(correct);
+                                await Task.Delay(200);
 
-                            await Task.Delay(500);
+                                MessageBox.Show(correct
+                                    ? $"CHÍNH XÁC!\n+{gained} điểm\nTổng: {score}"
+                                    : $"SAI RỒI!\n+0 điểm\nTổng: {score}");
+                                break;
 
-                            if (correct)
-                                MessageBox.Show($"CHÍNH XÁC!\n+{gained} điểm\nTổng: {score}");
-                            else
-                                MessageBox.Show($"SAI RỒI!\n+0 điểm\nTổng: {score}");
-                            break;
-
-                        case "player_joined":
-                            if (players != null)
-                                players.Text = data["playerCount"].ToString();
-                            break;
+                            case "player_joined":
+                                if (players != null)
+                                    players.Text = JsonHelper.GetInt(root, "playerCount", 0).ToString();
+                                break;
+                        }
                     }
                 }
-                catch { }
-            });
+                catch
+                {
+
+                }
+            }));
         }
 
 
@@ -245,8 +223,7 @@ namespace FormAppQuyt
             this.Text = "Đang chơi...";
 
             var answers = new List<string> { q.DapAnDung, q.DapAnSai1, q.DapAnSai2, q.DapAnSai3 };
-            Random rng = new Random();
-            answers = answers.OrderBy(x => rng.Next()).ToList();
+            answers = answers.OrderBy(_ => FormAppQuyt.Utils.RandomProvider.Shared.Next()).ToList();
 
             answerA.Text = "A. " + answers[0];
             answerB.Text = "B. " + answers[1];
@@ -376,7 +353,7 @@ namespace FormAppQuyt
         {
             _session?.Dispose(); 
             Close();
-            var pForm = Application.OpenForms["players"] as players;
+            var pForm = Application.OpenForms["players"] as PlayersForm;
             if (pForm != null) pForm.Show();
         }
 
@@ -384,10 +361,18 @@ namespace FormAppQuyt
         {
             try
             {
-                leaderboard leaderboardForm = new leaderboard(roomId);
+                LeaderBoardForm leaderboardForm = new LeaderBoardForm(roomId);
                 leaderboardForm.ShowDialog();
             }
             catch { }
         }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            uiTimer?.Stop();
+            _session?.Dispose();
+            base.OnFormClosing(e);
+        }
+
     }
 }

@@ -13,6 +13,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using FormAppQuyt.Networking;
 
 
 
@@ -82,7 +83,7 @@ namespace FormAppQuyt
             string hashed = CryptoHelper.ComputeSha256Hash(password);
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string resp = client.SendLoginData(identifier, hashed);
                 try
                 {
@@ -94,7 +95,7 @@ namespace FormAppQuyt
                             Global.UserId = r.userId;
                             Global.Username = identifier;
                             MessageBox.Show(r.message ?? "Đăng nhập thành công");
-                            Main mainForm = new Main(identifier);
+                            MainForm mainForm = new MainForm(identifier);
                             mainForm.Show();
                             this.Hide();
                             return;
@@ -124,7 +125,7 @@ namespace FormAppQuyt
 
         private void ForgotPassword_Click(object sender, EventArgs e)
         {
-            var f = new otp();  // Mở form otp để nhập email
+            var f = new OtpForm();  // Mở form otp để nhập email
             f.Show();
             this.Hide(); // Ẩn form đăng nhập
         }

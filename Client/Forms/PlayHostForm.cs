@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormAppQuyt.Networking;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -7,10 +8,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using FormAppQuyt.Models;
 
 namespace FormAppQuyt
 {
-    public partial class playHost : Form
+    public partial class PlayHostForm : Form
     {
         private bool isTransitioning = false;
         private DateTime lastQuestionTime = DateTime.MinValue;
@@ -28,26 +30,7 @@ namespace FormAppQuyt
 
         private TcpSessionClient _session;
 
-        private class QuestionData
-        {
-            public int Id { get; set; }
-            public string NoiDung { get; set; }
-            public string DapAnDung { get; set; }
-            public string DapAnSai1 { get; set; }
-            public string DapAnSai2 { get; set; }
-            public string DapAnSai3 { get; set; }
-            public string ImageBase64 { get; set; }
-            public int TimeLimit { get; set; }
-        }
-
-        private class QuizDetailResponse
-        {
-            public bool ok { get; set; }
-            public string message { get; set; }
-            public List<QuestionData> questions { get; set; }
-        }
-
-        public playHost(int selectedQuizId, string selectedQuizName)
+        public PlayHostForm(int selectedQuizId, string selectedQuizName)
         {
             InitializeComponent();
 
@@ -144,7 +127,13 @@ namespace FormAppQuyt
         {
             if ((DateTime.Now - lastQuestionTime).TotalSeconds < 2) return;
             lastQuestionTime = DateTime.Now;
-            if (_session == null || !_session.IsConnected) InitNetwork();
+            if (_session == null || !_session.IsConnected)
+            {
+                try { _session?.Dispose(); } catch { }
+                InitNetwork();
+                return;
+            }
+
 
             autoNextTimer.Stop();
             currentQuestionIndex++;
@@ -301,8 +290,8 @@ namespace FormAppQuyt
             if (question != null) question.Text = $"Câu {currentQuestionIndex + 1}: {q.NoiDung}";
 
             var answers = new List<string> { q.DapAnDung, q.DapAnSai1, q.DapAnSai2, q.DapAnSai3 };
-            Random rng = new Random();
-            answers = answers.OrderBy(x => rng.Next()).ToList();
+            answers = answers.OrderBy(_ => FormAppQuyt.Utils.RandomProvider.Shared.Next()).ToList();
+
 
             answerA.Text = "A. " + answers[0];
             answerB.Text = "B. " + answers[1];
@@ -364,7 +353,7 @@ namespace FormAppQuyt
         {
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string response = client.SendGetQuizDetails(quizId);
                 var result = JsonSerializer.Deserialize<QuizDetailResponse>(response);
 
@@ -395,7 +384,7 @@ namespace FormAppQuyt
         {
             try
             {
-                leaderboard leaderboardForm = new leaderboard(roomId);
+                LeaderBoardForm leaderboardForm = new LeaderBoardForm(roomId);
                 leaderboardForm.ShowDialog();
             }
             catch { }

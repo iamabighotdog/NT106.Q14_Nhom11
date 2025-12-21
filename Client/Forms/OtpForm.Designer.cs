@@ -1,6 +1,6 @@
 ﻿namespace FormAppQuyt
 {
-    partial class otp
+    partial class OtpForm
     {
         /// <summary>
         /// Required designer variable.

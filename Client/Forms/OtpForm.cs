@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Text.Json;
 using System.Windows.Forms;
+using FormAppQuyt.Networking;
 
 namespace FormAppQuyt
 {
-    public partial class otp : Form
+    public partial class OtpForm : Form
     {
         private Timer _timer;
         private int _secondsLeft;
@@ -16,7 +17,7 @@ namespace FormAppQuyt
             public string resetToken { get; set; }  // Thông tin token khi xác nhận OTP thành công
         }
 
-        public otp()
+        public OtpForm()
         {
             InitializeComponent();
 
@@ -53,7 +54,7 @@ namespace FormAppQuyt
 
             try
             {
-                tcpClient cli = new tcpClient();
+                TcpRequestClient cli = new TcpRequestClient();
                 string resp = cli.SendForgotPasswordSendOtp(emailValue); // Gửi OTP với email người dùng nhập
                 var r = JsonSerializer.Deserialize<ApiReply>(resp);
 
@@ -88,7 +89,7 @@ namespace FormAppQuyt
 
             try
             {
-                tcpClient cli = new tcpClient();
+                TcpRequestClient cli = new TcpRequestClient();
                 string resp = cli.SendForgotPasswordVerifyOtp(email.Text.Trim(), otpValue); // Xác nhận OTP với email người dùng nhập
                 var r = JsonSerializer.Deserialize<ApiReply>(resp);
 
@@ -97,7 +98,7 @@ namespace FormAppQuyt
                     MessageBox.Show(r.message ?? "OTP đúng");
 
                     // Mở form resetPassword và gửi resetToken
-                    var f = new resetPassword(r.resetToken);
+                    var f = new ResetPasswordForm(r.resetToken);
                     f.Show();
                     this.Hide();
                 }

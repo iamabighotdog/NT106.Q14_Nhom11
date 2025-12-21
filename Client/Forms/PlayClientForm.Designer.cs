@@ -1,6 +1,6 @@
 ﻿namespace FormAppQuyt
 {
-    partial class playHost
+    partial class PlayClientForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.ProgressBar1 = new Guna.UI2.WinForms.Guna2ProgressBar();
-            this.playBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.timeBar = new Guna.UI2.WinForms.Guna2ProgressBar();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ID = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.back = new Guna.UI2.WinForms.Guna2Button();
+            this.next = new Guna.UI2.WinForms.Guna2Button();
             this.answerD = new Guna.UI2.WinForms.Guna2Button();
             this.answerC = new Guna.UI2.WinForms.Guna2Button();
             this.answerB = new Guna.UI2.WinForms.Guna2Button();
@@ -49,13 +49,13 @@
             // 
             // guna2GradientPanel1
             // 
-            this.guna2GradientPanel1.Controls.Add(this.ProgressBar1);
-            this.guna2GradientPanel1.Controls.Add(this.playBtn);
+            this.guna2GradientPanel1.Controls.Add(this.timeBar);
             this.guna2GradientPanel1.Controls.Add(this.players);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel2);
             this.guna2GradientPanel1.Controls.Add(this.ID);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2GradientPanel1.Controls.Add(this.back);
+            this.guna2GradientPanel1.Controls.Add(this.next);
             this.guna2GradientPanel1.Controls.Add(this.answerD);
             this.guna2GradientPanel1.Controls.Add(this.answerC);
             this.guna2GradientPanel1.Controls.Add(this.answerB);
@@ -65,42 +65,26 @@
             this.guna2GradientPanel1.Controls.Add(this.close);
             this.guna2GradientPanel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.guna2GradientPanel1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.guna2GradientPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2GradientPanel1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             this.guna2GradientPanel1.Location = new System.Drawing.Point(0, 0);
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
             // 
-            // ProgressBar1
+            // timeBar
             // 
-            this.ProgressBar1.Font = new System.Drawing.Font("Palatino Linotype", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProgressBar1.Location = new System.Drawing.Point(511, 560);
-            this.ProgressBar1.Name = "ProgressBar1";
-            this.ProgressBar1.ProgressColor = System.Drawing.Color.Lime;
-            this.ProgressBar1.ProgressColor2 = System.Drawing.Color.Green;
-            this.ProgressBar1.ShowText = true;
-            this.ProgressBar1.Size = new System.Drawing.Size(706, 31);
-            this.ProgressBar1.TabIndex = 18;
-            this.ProgressBar1.Text = "1000";
-            this.ProgressBar1.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
-            this.ProgressBar1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            // 
-            // playBtn
-            // 
-            this.playBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.playBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.playBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.playBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.playBtn.FillColor = System.Drawing.Color.Green;
-            this.playBtn.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.playBtn.ForeColor = System.Drawing.Color.White;
-            this.playBtn.Location = new System.Drawing.Point(895, 597);
-            this.playBtn.Name = "playBtn";
-            this.playBtn.Size = new System.Drawing.Size(322, 75);
-            this.playBtn.TabIndex = 16;
-            this.playBtn.Text = "Chơi";
-            this.playBtn.Click += new System.EventHandler(this.playBtn_Click);
+            this.timeBar.Font = new System.Drawing.Font("Palatino Linotype", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeBar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.timeBar.Location = new System.Drawing.Point(511, 561);
+            this.timeBar.Name = "timeBar";
+            this.timeBar.ProgressColor = System.Drawing.Color.Lime;
+            this.timeBar.ProgressColor2 = System.Drawing.Color.Green;
+            this.timeBar.ShowText = true;
+            this.timeBar.Size = new System.Drawing.Size(706, 25);
+            this.timeBar.TabIndex = 16;
+            this.timeBar.Text = "1000";
+            this.timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
+            this.timeBar.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             // 
             // players
             // 
@@ -149,12 +133,27 @@
             this.back.FillColor = System.Drawing.Color.Green;
             this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.back.ForeColor = System.Drawing.Color.White;
-            this.back.Location = new System.Drawing.Point(511, 597);
+            this.back.Location = new System.Drawing.Point(511, 606);
             this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(322, 75);
+            this.back.Size = new System.Drawing.Size(180, 45);
             this.back.TabIndex = 11;
             this.back.Text = "Quay lại";
             this.back.Click += new System.EventHandler(this.back_Click);
+            // 
+            // next
+            // 
+            this.next.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.next.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.next.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.next.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.next.FillColor = System.Drawing.Color.Green;
+            this.next.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.next.ForeColor = System.Drawing.Color.White;
+            this.next.Location = new System.Drawing.Point(1037, 606);
+            this.next.Name = "next";
+            this.next.Size = new System.Drawing.Size(180, 45);
+            this.next.TabIndex = 10;
+            this.next.Text = "Tiếp theo";
             // 
             // answerD
             // 
@@ -170,7 +169,6 @@
             this.answerD.Size = new System.Drawing.Size(322, 75);
             this.answerD.TabIndex = 9;
             this.answerD.Text = "D";
-            this.answerD.Click += new System.EventHandler(this.AnswerButton_Click);
             // 
             // answerC
             // 
@@ -186,7 +184,6 @@
             this.answerC.Size = new System.Drawing.Size(322, 75);
             this.answerC.TabIndex = 8;
             this.answerC.Text = "C";
-            this.answerC.Click += new System.EventHandler(this.AnswerButton_Click);
             // 
             // answerB
             // 
@@ -202,7 +199,6 @@
             this.answerB.Size = new System.Drawing.Size(322, 75);
             this.answerB.TabIndex = 7;
             this.answerB.Text = "B";
-            this.answerB.Click += new System.EventHandler(this.AnswerButton_Click);
             // 
             // pic
             // 
@@ -240,7 +236,6 @@
             this.answerA.Size = new System.Drawing.Size(322, 75);
             this.answerA.TabIndex = 1;
             this.answerA.Text = "A";
-            this.answerA.Click += new System.EventHandler(this.AnswerButton_Click);
             // 
             // close
             // 
@@ -253,14 +248,14 @@
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
             // 
-            // playHost
+            // playClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 675);
             this.Controls.Add(this.guna2GradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "playHost";
+            this.Name = "playClient";
             this.Text = "Play";
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();
@@ -279,12 +274,13 @@
         private Guna.UI2.WinForms.Guna2Button answerD;
         private Guna.UI2.WinForms.Guna2Button answerC;
         private Guna.UI2.WinForms.Guna2Button answerB;
+        private Guna.UI2.WinForms.Guna2Button next;
         private Guna.UI2.WinForms.Guna2Button back;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel ID;
-        private Guna.UI2.WinForms.Guna2Button playBtn;
         private Guna.UI2.WinForms.Guna2HtmlLabel players;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2ProgressBar ProgressBar1;
+        private Guna.UI2.WinForms.Guna2ProgressBar timeBar;
     }
+
 }

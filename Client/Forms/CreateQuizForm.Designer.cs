@@ -1,6 +1,6 @@
 ﻿namespace FormAppQuyt
 {
-    partial class createQuiz
+    partial class CreateQuizForm
     {
         /// <summary>
         /// Required designer variable.

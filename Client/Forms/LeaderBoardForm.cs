@@ -4,10 +4,11 @@ using System.Drawing;
 using System.Text.Json;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using FormAppQuyt.Networking;
 
 namespace FormAppQuyt
 {
-    public partial class leaderboard : Form
+    public partial class LeaderBoardForm : Form
     {
         private TcpSessionClient _session;
         private string currentRoomId;
@@ -15,7 +16,7 @@ namespace FormAppQuyt
         private bool autoRefresh = true;
         private bool _loading = false;
 
-        public leaderboard(string roomId)
+        public LeaderBoardForm(string roomId)
         {
             InitializeComponent();
             _session = new TcpSessionClient();
@@ -57,7 +58,9 @@ namespace FormAppQuyt
         {
             try
             {
-                string response = await _session.SendRoomGetLeaderboardAsync(currentRoomId);
+                var client = new TcpRequestClient();
+                string response = client.SendRoomGetLeaderboard(currentRoomId);
+
                 var result = JsonSerializer.Deserialize<LeaderboardResponse>(response);
 
                 if (result != null && result.ok)

@@ -1,6 +1,6 @@
 ﻿namespace FormAppQuyt
 {
-    partial class resultForm
+    partial class ResultForm
     {
         /// <summary>
         /// Required designer variable.

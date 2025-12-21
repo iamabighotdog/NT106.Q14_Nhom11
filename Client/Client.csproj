@@ -94,49 +94,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TcpSessionClient.cs" />
-    <Compile Include="createQuiz.cs">
+    <Compile Include="Models\QuizModels.cs" />
+    <Compile Include="Networking\TcpSessionClient.cs" />
+    <Compile Include="Forms\CreateQuizForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="createQuiz.Designer.cs">
-      <DependentUpon>createQuiz.cs</DependentUpon>
+    <Compile Include="Forms\CreateQuizForm.Designer.cs">
+      <DependentUpon>CreateQuizForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
-    <Compile Include="leaderboard.cs">
+    <Compile Include="Forms\LeaderBoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="leaderboard.Designer.cs">
-      <DependentUpon>leaderboard.cs</DependentUpon>
+    <Compile Include="Forms\LeaderBoardForm.Designer.cs">
+      <DependentUpon>LeaderBoardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="host.cs">
+    <Compile Include="Forms\HostForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="host.Designer.cs">
-      <DependentUpon>host.cs</DependentUpon>
+    <Compile Include="Forms\HostForm.Designer.cs">
+      <DependentUpon>HostForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="myQuiz.cs">
+    <Compile Include="Forms\MyQuizForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="myQuiz.Designer.cs">
-      <DependentUpon>myQuiz.cs</DependentUpon>
+    <Compile Include="Forms\MyQuizForm.Designer.cs">
+      <DependentUpon>MyQuizForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="otp.cs">
+    <Compile Include="Forms\OtpForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="otp.Designer.cs">
-      <DependentUpon>otp.cs</DependentUpon>
+    <Compile Include="Forms\OtpForm.Designer.cs">
+      <DependentUpon>OtpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="playClient.cs">
+    <Compile Include="Forms\PlayClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="playClient.Designer.cs">
-      <DependentUpon>playClient.cs</DependentUpon>
+    <Compile Include="Forms\PlayClientForm.Designer.cs">
+      <DependentUpon>PlayClientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="playerBanner.cs">
       <SubType>UserControl</SubType>
@@ -144,87 +145,89 @@
     <Compile Include="playerBanner.Designer.cs">
       <DependentUpon>playerBanner.cs</DependentUpon>
     </Compile>
-    <Compile Include="playHost.cs">
+    <Compile Include="Forms\PlayHostForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="playHost.Designer.cs">
-      <DependentUpon>playHost.cs</DependentUpon>
+    <Compile Include="Forms\PlayHostForm.Designer.cs">
+      <DependentUpon>PlayHostForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="players.cs">
+    <Compile Include="Forms\PlayersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="players.Designer.cs">
-      <DependentUpon>players.cs</DependentUpon>
+    <Compile Include="Forms\PlayersForm.Designer.cs">
+      <DependentUpon>PlayersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="resetPassword.cs">
+    <Compile Include="Forms\ResetPasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="resetPassword.Designer.cs">
-      <DependentUpon>resetPassword.cs</DependentUpon>
+    <Compile Include="Forms\ResetPasswordForm.Designer.cs">
+      <DependentUpon>ResetPasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="resultForm.cs">
+    <Compile Include="Forms\ResultForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="resultForm.Designer.cs">
-      <DependentUpon>resultForm.cs</DependentUpon>
+    <Compile Include="Forms\ResultForm.Designer.cs">
+      <DependentUpon>ResultForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="tcpClient.cs" />
+    <Compile Include="Networking\TcpRequestClient.cs" />
+    <Compile Include="Utils\JsonHelper.cs" />
+    <Compile Include="Utils\RandomProvider.cs" />
     <Compile Include="ValidationHelper.cs" />
     <Compile Include="CryptoHelper.cs" />
-    <Compile Include="LogInForm.cs">
+    <Compile Include="Forms\LogInForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogInForm.Designer.cs">
+    <Compile Include="Forms\LogInForm.Designer.cs">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SignUpForm.cs">
+    <Compile Include="Forms\SignUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SignUpForm.Designer.cs">
+    <Compile Include="Forms\SignUpForm.Designer.cs">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="createQuiz.resx">
-      <DependentUpon>createQuiz.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CreateQuizForm.resx">
+      <DependentUpon>CreateQuizForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="leaderboard.resx">
-      <DependentUpon>leaderboard.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\LeaderBoardForm.resx">
+      <DependentUpon>LeaderBoardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="host.resx">
-      <DependentUpon>host.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\HostForm.resx">
+      <DependentUpon>HostForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="myQuiz.resx">
-      <DependentUpon>myQuiz.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MyQuizForm.resx">
+      <DependentUpon>MyQuizForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="otp.resx">
-      <DependentUpon>otp.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\OtpForm.resx">
+      <DependentUpon>OtpForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="playClient.resx">
-      <DependentUpon>playClient.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PlayClientForm.resx">
+      <DependentUpon>PlayClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="playerBanner.resx">
       <DependentUpon>playerBanner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="players.resx">
-      <DependentUpon>players.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PlayersForm.resx">
+      <DependentUpon>PlayersForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="playHost.resx">
-      <DependentUpon>playHost.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PlayHostForm.resx">
+      <DependentUpon>PlayHostForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="resetPassword.resx">
-      <DependentUpon>resetPassword.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ResetPasswordForm.resx">
+      <DependentUpon>ResetPasswordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="resultForm.resx">
-      <DependentUpon>resultForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ResultForm.resx">
+      <DependentUpon>ResultForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SignUpForm.resx">
+    <EmbeddedResource Include="Forms\SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogInForm.resx">
+    <EmbeddedResource Include="Forms\LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

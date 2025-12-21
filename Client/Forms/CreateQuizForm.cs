@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormAppQuyt.Networking;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -10,14 +11,14 @@ using System.Windows.Forms;
 
 namespace FormAppQuyt
 {
-    public partial class createQuiz : Form
+    public partial class CreateQuizForm : Form
     {
         private int currentIndex = 0;
         private int _maxQuestions = 10;
         private List<QuizQuestion> _questions;
         private string _imageBase64 = null;
 
-        public createQuiz()
+        public CreateQuizForm()
         {
             InitializeComponent();
 
@@ -181,7 +182,7 @@ namespace FormAppQuyt
 
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string resp = client.SendCreateQuiz(
                     Global.UserId,
                     quizBox.Text.Trim(),

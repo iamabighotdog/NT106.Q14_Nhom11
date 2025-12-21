@@ -1,12 +1,14 @@
-﻿using System;
+﻿using FormAppQuyt.Networking;
+using FormAppQuyt.Utils;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Windows.Forms;
 namespace FormAppQuyt
 {
-    public partial class players : Form
+    public partial class PlayersForm : Form
     {
-        public players()
+        public PlayersForm()
         {
             InitializeComponent();
         }
@@ -15,7 +17,7 @@ namespace FormAppQuyt
         {
             this.Close();
 
-            var mainForm = Application.OpenForms["Main"] as Main;
+            var mainForm = Application.OpenForms["Main"] as MainForm;
             if (mainForm != null)
             {
                 mainForm.Show();
@@ -37,24 +39,27 @@ namespace FormAppQuyt
 
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string resp = client.SendRoomGetState(code);
-                var data = JsonSerializer.Deserialize<Dictionary<string, object>>(resp);
 
-                if (data.ContainsKey("ok") && data["ok"].ToString().ToLower() == "true")
+                using (JsonDocument doc = JsonDocument.Parse(resp))
                 {
-                    int qId = 0;
-                    if (data.ContainsKey("quizId"))
-                        int.TryParse(data["quizId"].ToString(), out qId);
+                    JsonElement root = doc.RootElement;
 
-                    var playForm = new playClient(qId, code);
-                    playForm.StartPosition = FormStartPosition.CenterScreen;
-                    playForm.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Phòng không tồn tại hoặc đã đóng.");
+                    bool ok = JsonHelper.GetBool(root, "ok", false);
+                    if (ok)
+                    {
+                        int qId = JsonHelper.GetInt(root, "quizId", 0);
+
+                        var playForm = new PlayClientForm(qId, code);
+                        playForm.StartPosition = FormStartPosition.CenterScreen;
+                        playForm.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Phòng không tồn tại hoặc đã đóng.");
+                    }
                 }
             }
             catch (Exception ex)

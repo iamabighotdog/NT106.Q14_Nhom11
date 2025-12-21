@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormAppQuyt.Networking;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,10 +12,10 @@ using System.Windows.Forms;
 
 namespace FormAppQuyt
 {
-    public partial class host : Form
+    public partial class HostForm : Form
     {
         private List<QuizItem> quizList = new List<QuizItem>();
-        public host()
+        public HostForm()
         {
             InitializeComponent();
             LoadQuizList();
@@ -39,7 +40,7 @@ namespace FormAppQuyt
         {
             try
             {
-                tcpClient client = new tcpClient();
+                TcpRequestClient client = new TcpRequestClient();
                 string response = client.SendGetMyQuiz(Global.UserId);
 
                 var result = JsonSerializer.Deserialize<QuizListResponse>(response);
@@ -105,7 +106,7 @@ namespace FormAppQuyt
 
             // Open playHost form with selected quiz
             this.Hide();
-            playHost playForm = new playHost(selectedQuizId, quizName);
+            PlayHostForm playForm = new PlayHostForm(selectedQuizId, quizName);
             playForm.StartPosition = FormStartPosition.CenterScreen;
             playForm.ShowDialog();
             this.Close();
