@@ -1104,8 +1104,8 @@ internal class TcpServer
 
     private void SendOtpEmail(string toEmail, string otp)
     {
-        string fromEmail = "testchill26@gmail.com"; 
-        string appPassword = "lgdu asbj rjak cobp"; 
+        string fromEmail = "anhduycdg2601@gmail.com"; 
+        string appPassword = "ekyb kwve uvcw mfei"; 
 
         var msg = new MailMessage(fromEmail, toEmail)
         {
