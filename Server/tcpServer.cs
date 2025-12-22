@@ -203,7 +203,10 @@ internal class TcpServer
 
                     if (!string.IsNullOrEmpty(response))
                     {
-                        writer.WriteLine(response);
+                        lock (writer)
+                        {
+                            writer.WriteLine(response);
+                        }
                         Console.WriteLine("[SENT]: " + response); 
                     }
                 }
@@ -235,7 +238,8 @@ internal class TcpServer
                             BroadcastToRoom(rId, new
                             {
                                 action = "player_left",
-                                userId = currentUserId
+                                userId = currentUserId,
+                                playerCount = room.Players.Count
                             });
                         }
 
@@ -941,7 +945,7 @@ internal class TcpServer
                 currentQuestionIndex = roomInfo.CurrentQuestionIndex,
                 timeLeftSeconds = timeLeft,
                 durationSeconds = roomInfo.QuestionDurationSeconds,
-                playerCount = roomInfo.PlayerCount,
+                playerCount = roomInfo.Players.Count,
                 message = "Trạng thái phòng"
             });
         }
@@ -1097,40 +1101,61 @@ internal class TcpServer
 
     private static string GenOtp6()
     {
-        var random = new Random();
-        int v = random.Next(0, 1000000);
-        return v.ToString("D6"); 
-    }
-
-    private void SendOtpEmail(string toEmail, string otp)
-    {
-        string fromEmail = "anhduycdg2601@gmail.com"; 
-        string appPassword = "ekyb kwve uvcw mfei"; 
-
-        var msg = new MailMessage(fromEmail, toEmail)
+        using (var rng = RandomNumberGenerator.Create())
         {
-            Subject = "OTP đặt lại mật khẩu",
-            Body = $@"Mã OTP của bạn là: {otp}
-
-OTP có hiệu lực trong 1 phút.
-Nếu bạn không yêu cầu, hãy bỏ qua email này."
-        };
-
-        using (var smtp = new SmtpClient("smtp.gmail.com", 587))
-        {
-            smtp.EnableSsl = true;
-            smtp.Credentials = new System.Net.NetworkCredential(fromEmail, appPassword);
-            try
+            while (true)
             {
-                smtp.Send(msg); 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Lỗi gửi email: {ex.Message}");
+                byte[] b = new byte[4];
+                rng.GetBytes(b);
+                uint x = BitConverter.ToUInt32(b, 0);
+
+                const uint limit = uint.MaxValue - (uint.MaxValue % 1_000_000);
+                if (x < limit)
+                {
+                    int v = (int)(x % 1_000_000);
+                    return v.ToString("D6");
+                }
             }
         }
+    }
 
+    private bool TrySendOtpEmail(string toEmail, string otp, out string err)
+    {
+        err = "";
+        string fromEmail = "yourgmail@gmail.com";
+        string appPassword = "xxxx xxxx xxxx xxxx"; 
+        appPassword = (appPassword ?? "").Replace(" ", "").Trim();
 
+        try
+        {
+            using (var msg = new MailMessage())
+            {
+                msg.From = new MailAddress(fromEmail, "Quiz App");
+                msg.To.Add(toEmail);
+                msg.SubjectEncoding = Encoding.UTF8;
+                msg.BodyEncoding = Encoding.UTF8;
+                msg.Subject = "OTP đặt lại mật khẩu";
+                msg.Body = $"Mã OTP của bạn là: {otp}\n\nOTP có hiệu lực trong 2 phút.";
+                msg.IsBodyHtml = false;
+
+                using (var smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.EnableSsl = true;
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = new NetworkCredential(fromEmail, appPassword);
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtp.TargetName = "STARTTLS/smtp.gmail.com";
+
+                    smtp.Send(msg);
+                    return true;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            err = ex.ToString();
+            return false;
+        }
     }
 
     private string HandleForgotPasswordSendOtp(Dictionary<string, object> d)
@@ -1163,12 +1188,25 @@ Nếu bạn không yêu cầu, hãy bỏ qua email này."
                 };
             }
 
-            SendOtpEmail(email, otp);
+            if (!TrySendOtpEmail(email, otp, out string sendErr))
+            {
+                lock (otpLock)
+                {
+                    otpByKey.Remove(NormalizeKey(identifier));
+                }
+
+                Console.WriteLine("[OTP SEND FAIL] " + sendErr);
+                return JsonSerializer.Serialize(new
+                {
+                    ok = false,
+                    message = "Gửi OTP thất bại. Xem log server để biết lỗi SMTP."
+                });
+            }
 
             return JsonSerializer.Serialize(new
             {
                 ok = true,
-                message = "Đã gửi OTP về email. OTP có hiệu lực 1 phút."
+                message = "Đã gửi OTP về email. OTP có hiệu lực 2 phút."
             });
         }
         catch (Exception ex)

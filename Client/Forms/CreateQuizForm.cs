@@ -53,10 +53,13 @@ namespace FormAppQuyt
             }
             _imageBase64 = q.ImageBase64;
 
+            if (pic.Image != null) { pic.Image.Dispose(); pic.Image = null; }
+
             if (!string.IsNullOrEmpty(q.ImageBase64))
                 pic.Image = Base64ToImage(q.ImageBase64);
             else
                 pic.Image = null;
+
         }
 
         private void SaveCurrent()
@@ -91,10 +94,12 @@ namespace FormAppQuyt
         {
             byte[] bytes = Convert.FromBase64String(b64);
             using (var ms = new MemoryStream(bytes))
+            using (var img = Image.FromStream(ms))
             {
-                return Image.FromStream(ms);
+                return new Bitmap(img);
             }
         }
+
 
 
         private void next_Click(object sender, EventArgs e)
@@ -135,7 +140,20 @@ namespace FormAppQuyt
                     }
 
                     _imageBase64 = Convert.ToBase64String(bytes);
-                    pic.Image = Image.FromFile(ofd.FileName);
+                    Image img = null;
+                    try
+                    {
+                        img = Image.FromFile(ofd.FileName);
+                        pic.Image?.Dispose();
+                        pic.Image = new Bitmap(img);
+                    }
+                    finally
+                    {
+                        if (img != null)
+                        {
+                            img.Dispose();
+                        }
+                    }
                 }
             }
         }

@@ -17,11 +17,8 @@ namespace FormAppQuyt
         {
             this.Close();
 
-            var mainForm = Application.OpenForms["Main"] as MainForm;
-            if (mainForm != null)
-            {
-                mainForm.Show();
-            }
+            var main = Application.OpenForms["MainForm"];
+            if (main != null) main.Show();
         }
 
         private class JoinRoomResponse

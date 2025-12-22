@@ -326,5 +326,10 @@ namespace FormAppQuyt
             LeaderBoardForm leaderboardForm = new LeaderBoardForm(Global.LastPlayedRoomId);
             leaderboardForm.ShowDialog();
         }
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

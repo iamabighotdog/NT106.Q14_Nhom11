@@ -409,6 +409,7 @@ namespace FormAppQuyt
             this.exit.Size = new System.Drawing.Size(329, 45);
             this.exit.TabIndex = 5;
             this.exit.Text = "Thoát";
+            this.exit.Click += new System.EventHandler(this.exit_Click);
             // 
             // createQuiz
             // 

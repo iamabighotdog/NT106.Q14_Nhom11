@@ -255,15 +255,8 @@ namespace FormAppQuyt
                     switch (action)
                     {
                         case "player_left":
-                            if (players != null)
-                            {
-                                string currentText = players.Text.Trim();
-                                if (int.TryParse(currentText, out int count) && count > 0)
-                                {
-                                    count--;
-                                    players.Text = count.ToString();
-                                }
-                            }
+                            if (data.ContainsKey("playerCount"))
+                                players.Text = data["playerCount"].ToString();
                             break;
                         case "player_joined":
                             if (players != null)
@@ -299,11 +292,9 @@ namespace FormAppQuyt
                             {
                                 ShowScoreEffect(currentSelectedBtn, gained, correct);
                             }
-
+                   
                             this.Refresh();
                             Application.DoEvents();
-
-
                             break;
                     }
                 }
@@ -324,7 +315,6 @@ namespace FormAppQuyt
                 else
                     currentSelectedBtn.FillColor = Color.Red;
 
-                ShowScoreEffect(currentSelectedBtn, 1000, correct);
             }
 
             Guna.UI2.WinForms.Guna2Button[] buttons = { answerA, answerB, answerC, answerD };
@@ -376,7 +366,12 @@ namespace FormAppQuyt
                 try
                 {
                     byte[] bytes = Convert.FromBase64String(q.ImageBase64);
-                    using (var ms = new MemoryStream(bytes)) pic.Image = Image.FromStream(ms);
+                    using (var ms = new MemoryStream(bytes))
+                    using (var img = Image.FromStream(ms))
+                    {
+                        if (pic.Image != null) pic.Image.Dispose();
+                        pic.Image = new Bitmap(img);
+                    }
                     pic.Visible = true;
                 }
                 catch { pic.Visible = false; }

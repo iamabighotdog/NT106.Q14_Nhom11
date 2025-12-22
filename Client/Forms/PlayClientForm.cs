@@ -1,6 +1,8 @@
-﻿using FormAppQuyt.Networking;
+﻿using FormAppQuyt.Models;
+using FormAppQuyt.Networking;
 using FormAppQuyt.Utils;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -8,7 +10,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FormAppQuyt.Models;
 
 namespace FormAppQuyt
 {
@@ -206,15 +207,8 @@ namespace FormAppQuyt
                         switch (action)
                         {
                             case "player_left":
-                                if (players != null)
-                                {
-                                    string currentText = players.Text.Trim();
-                                    if (int.TryParse(currentText, out int count) && count > 0)
-                                    {
-                                        count--;
-                                        players.Text = count.ToString();
-                                    }
-                                }
+                                int pc = JsonHelper.GetInt(root, "playerCount", 0);
+                                players.Text = pc.ToString();
                                 break;
 
                             case "end_game":
@@ -337,7 +331,14 @@ namespace FormAppQuyt
                 try
                 {
                     byte[] bytes = Convert.FromBase64String(q.ImageBase64);
-                    using (var ms = new MemoryStream(bytes)) pic.Image = Image.FromStream(ms);
+                    using (var ms = new MemoryStream(bytes))
+                    using (var img = Image.FromStream(ms))
+                    {
+                        if (pic.Image != null) pic.Image.Dispose();
+                        pic.Image = new Bitmap(img);
+                    }
+
+
                     pic.Visible = true;
                 }
                 catch { pic.Visible = false; }

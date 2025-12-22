@@ -20,8 +20,6 @@ namespace FormAppQuyt
         public LeaderBoardForm(string roomId)
         {
             InitializeComponent();
-            _session = new TcpSessionClient();
-            _session.Connect();
             currentRoomId = roomId;
 
 
