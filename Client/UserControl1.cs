@@ -22,21 +22,21 @@ namespace FormAppQuyt
 
             if (correct)
             {
-                lblScore.Text = $"+{gainedScore} điểm";
-                lblScore.ForeColor = Color.Green;
+                lbl1.Text = $"+{gainedScore} điểm";
+                lbl1.ForeColor = Color.Green;
             }
             else
             {
-                lblScore.Text = "+0 điểm (Sai)";
-                lblScore.ForeColor = Color.Red;
+                lbl1.Text = "+0 điểm (Sai)";
+                lbl1.ForeColor = Color.Red;
             }
 
             if (_currentRank == 0 || _currentRank == newRank)
             {
-                lblRankValue.Text = "#" + newRank;
-                lblRankTitle.Text = "HẠNG CỦA BẠN";
-                lblRankTitle.ForeColor = Color.Gray;
-                lblRankValue.ForeColor = Color.Black;
+                lbl2.Text = "#" + newRank;
+                lbl3.Text = "HẠNG CỦA BẠN";
+                lbl3.ForeColor = Color.Gray;
+                lbl2.ForeColor = Color.Black;
             }
             else
             {
@@ -46,25 +46,25 @@ namespace FormAppQuyt
 
                 if (newRank < _currentRank) 
                 {
-                    lblRankTitle.Text = "▲";
-                    lblRankTitle.ForeColor = Color.Orange;
-                    lblRankValue.ForeColor = Color.Gold;
+                    lbl3.Text = "▲";
+                    lbl3.ForeColor = Color.Orange;
+                    lbl2.ForeColor = Color.Gold;
                 }
                 else 
                 {
-                    lblRankTitle.Text = "▼";
-                    lblRankTitle.ForeColor = Color.Gray;
-                    lblRankValue.ForeColor = Color.Gray;
+                    lbl3.Text = "▼";
+                    lbl3.ForeColor = Color.Gray;
+                    lbl2.ForeColor = Color.Gray;
                 }
 
                 int temp = start;
                 while (temp != end)
                 {
-                    lblRankValue.Text = "#" + temp;
+                    lbl2.Text = "#" + temp;
                     await Task.Delay(150); 
                     temp += step;
                 }
-                lblRankValue.Text = "#" + end;
+                lbl2.Text = "#" + end;
             }
 
             _currentRank = newRank;

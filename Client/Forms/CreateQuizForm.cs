@@ -295,6 +295,72 @@ namespace FormAppQuyt
         {
             this.Close();
         }
+
+        private void btnImportTxt_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Text Files (*.txt)|*.txt";
+                ofd.Title = "Chọn file danh sách câu hỏi";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string[] lines = File.ReadAllLines(ofd.FileName, Encoding.UTF8)
+                                             .Where(l => !string.IsNullOrWhiteSpace(l))
+                                             .ToArray();
+
+                        if (lines.Length == 0) return;
+
+                        if (!int.TryParse(lines[0], out int numQuestions))
+                        {
+                            MessageBox.Show("Dòng đầu tiên phải là số lượng câu hỏi!");
+                            return;
+                        }
+
+                        List<QuizQuestion> importedList = new List<QuizQuestion>();
+                        int currentLine = 1; 
+
+                        for (int i = 0; i < numQuestions; i++)
+                        {
+                            if (currentLine + 4 < lines.Length)
+                            {
+                                var q = new QuizQuestion
+                                {
+                                    NoiDung = lines[currentLine].Trim(),
+                                    DapAnDung = lines[currentLine + 1].Trim(),
+                                    Sai1 = lines[currentLine + 2].Trim(),
+                                    Sai2 = lines[currentLine + 3].Trim(),
+                                    Sai3 = lines[currentLine + 4].Trim(),
+                                    TimeLimit = 20, 
+                                    ImageBase64 = DefaultQuestionImageBase64 
+                                };
+                                importedList.Add(q);
+                                currentLine += 5;
+                            }
+                        }
+
+                        if (importedList.Count > 0)
+                        {
+                            _questions = importedList;
+                            _maxQuestions = importedList.Count;
+                            currentIndex = 0;
+
+                            questionCountBox.Text = _maxQuestions.ToString();
+                            LoadQuestionUI(); 
+                            UpdatePage(); 
+
+                            MessageBox.Show($"Đã nạp thành công {importedList.Count} câu hỏi!", "Thông báo");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi đọc file: " + ex.Message);
+                    }
+                }
+            }
+        }
     }
 
     public class QuizQuestion

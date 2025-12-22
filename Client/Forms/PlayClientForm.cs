@@ -35,7 +35,7 @@ namespace FormAppQuyt
 
             InitScoreLabels();
 
-            if (myRankPopup != null)
+  /*          if (myRankPopup != null)
             {
                 myRankPopup.BringToFront();
                 myRankPopup.Visible = false;
@@ -46,7 +46,7 @@ namespace FormAppQuyt
                         (guna2GradientPanel1.Height - myRankPopup.Height) / 2
                     );
                 }
-            }
+            }*/
 
             if (answerA != null) { answerA.Click -= AnswerButton_Click; answerA.Click += AnswerButton_Click; }
             if (answerB != null) { answerB.Click -= AnswerButton_Click; answerB.Click += AnswerButton_Click; }
@@ -230,7 +230,7 @@ namespace FormAppQuyt
 
                             case "next_question":
                                 ResetScoreLabels();
-                                if (myRankPopup != null) myRankPopup.Visible = false;
+                             //   if (myRankPopup != null) myRankPopup.Visible = false;
 
                                 int idx = JsonHelper.GetInt(root, "questionIndex", -1);
                                 int dur = JsonHelper.GetInt(root, "duration", 20);
@@ -260,11 +260,11 @@ namespace FormAppQuyt
 
                                 ShowScoreEffect(currentSelectedBtn, gained, correct);
 
-                                if (myRankPopup != null)
+                                /*if (myRankPopup != null)
                                 {
                                     await Task.Delay(500);
                                     await myRankPopup.ShowAnimation(rank, gained, correct);
-                                }
+                                }*/
                                 break;
 
                             case "player_joined":

@@ -55,6 +55,7 @@
             this.wrongBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
+            this.btnImportTxt = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.quizName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
@@ -66,6 +67,7 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.Controls.Add(this.btnImportTxt);
             this.guna2Panel1.Controls.Add(this.quizName);
             this.guna2Panel1.Controls.Add(this.back);
             this.guna2Panel1.Controls.Add(this.save);
@@ -168,9 +170,9 @@
             this.save.FillColor = System.Drawing.Color.Green;
             this.save.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.save.ForeColor = System.Drawing.Color.White;
-            this.save.Location = new System.Drawing.Point(1054, 603);
+            this.save.Location = new System.Drawing.Point(965, 603);
             this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(196, 60);
+            this.save.Size = new System.Drawing.Size(180, 60);
             this.save.TabIndex = 11;
             this.save.Text = "Lưu bộ câu hỏi và thoát";
             this.save.Click += new System.EventHandler(this.save_Click);
@@ -179,7 +181,7 @@
             // 
             this.num.BackColor = System.Drawing.Color.Transparent;
             this.num.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num.Location = new System.Drawing.Point(845, 558);
+            this.num.Location = new System.Drawing.Point(843, 553);
             this.num.Name = "num";
             this.num.Size = new System.Drawing.Size(14, 30);
             this.num.TabIndex = 10;
@@ -449,14 +451,30 @@
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
-            // createQuiz
+            // btnImportTxt
+            // 
+            this.btnImportTxt.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnImportTxt.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnImportTxt.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnImportTxt.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnImportTxt.FillColor = System.Drawing.Color.Green;
+            this.btnImportTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnImportTxt.ForeColor = System.Drawing.Color.White;
+            this.btnImportTxt.Location = new System.Drawing.Point(558, 603);
+            this.btnImportTxt.Name = "btnImportTxt";
+            this.btnImportTxt.Size = new System.Drawing.Size(180, 60);
+            this.btnImportTxt.TabIndex = 14;
+            this.btnImportTxt.Text = "Chọn file câu hỏi của bạn";
+            this.btnImportTxt.Click += new System.EventHandler(this.btnImportTxt_Click);
+            // 
+            // CreateQuizForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 675);
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "createQuiz";
+            this.Name = "CreateQuizForm";
             this.Text = "Form1";
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
@@ -499,5 +517,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblQuestionCount;
         private Guna.UI2.WinForms.Guna2HtmlLabel Time;
         private System.Windows.Forms.ComboBox timeBox;
+        private Guna.UI2.WinForms.Guna2Button btnImportTxt;
     }
 }
