@@ -32,6 +32,7 @@ internal class TcpServer
     private readonly object roomsLock = new object();
     private readonly object otpLock = new object();
 
+
     private class OtpRecord
     {
         public int UserId { get; set; }
@@ -61,6 +62,7 @@ internal class TcpServer
 
         public int PlayerCount { get; set; }
         public Dictionary<int, PlayerState> Players { get; set; } = new Dictionary<int, PlayerState>();
+        public Dictionary<int, int> SnapshotRanks { get; set; } = new Dictionary<int, int>();
     }
 
     private class PlayerState
@@ -81,7 +83,8 @@ internal class TcpServer
         public string Sai3 { get; set; }
         public string ImageBase64 { get; set; }
 
-        public int TimeLimit { get; set; } = 20; // Mặc định 20s
+        public int TimeLimit { get; set; } = 20; 
+
     }
 
     public class QuizPackage
@@ -345,6 +348,7 @@ internal class TcpServer
         if (action == "forgot_password_verify_otp") return HandleForgotPasswordVerifyOtp(data);
         if (action == "reset_password") return HandleResetPassword(data);
         if (action == "end_game") return HandleEndGame(data);
+        if (action == "time_out") return HandleTimeOut(data);
         return JsonSerializer.Serialize(new { ok = false, message = "Action không hợp lệ" });
     }
     private string HandleEndGame(Dictionary<string, object> d)
@@ -354,6 +358,29 @@ internal class TcpServer
 
         BroadcastToRoom(roomId, new { action = "end_game" });
         return JsonSerializer.Serialize(new { ok = true });
+    }
+    private string HandleTimeOut(Dictionary<string, object> d)
+    {
+        string roomId = d.TryGetValue("roomId", out var r) ? (r?.ToString() ?? "") : "";
+
+        if (string.IsNullOrWhiteSpace(roomId))
+            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
+
+        lock (roomsLock)
+        {
+            if (!rooms.TryGetValue(roomId, out var room)) return "";
+
+            var currentPlayers = room.Players.Values.OrderByDescending(p => p.Score).ToList();
+
+            foreach (var p in room.Players.Values)
+            {
+                p.LastAnsweredQuestionIndex = room.CurrentQuestionIndex;
+            }
+
+            SendFinalLeaderboard(room, roomId);
+
+            return JsonSerializer.Serialize(new { ok = true, message = "Đã xử lý timeout" });
+        }
     }
     private string HandleRegister(Dictionary<string, object> d)
     {
@@ -894,7 +921,7 @@ internal class TcpServer
     {
         string roomId = d.TryGetValue("roomId", out var r) ? (r?.ToString() ?? "") : "";
         string idxStr = d.TryGetValue("questionIndex", out var qi) ? (qi?.ToString() ?? "") : "";
-        string durStr = d.TryGetValue("durationSeconds", out var du) ? (du?.ToString() ?? "20") : "20"; // Lấy thời gian từ gói tin
+        string durStr = d.TryGetValue("durationSeconds", out var du) ? (du?.ToString() ?? "20") : "20";
 
         if (!int.TryParse(idxStr, out int qIndex)) return "";
         if (!int.TryParse(durStr, out int duration)) duration = 20;
@@ -908,6 +935,12 @@ internal class TcpServer
 
             info.QuestionStartTime = DateTime.UtcNow;
 
+            var currentSorted = info.Players.Values.OrderByDescending(p => p.Score).ToList();
+            info.SnapshotRanks.Clear();
+            for (int i = 0; i < currentSorted.Count; i++)
+            {
+                info.SnapshotRanks[currentSorted[i].UserId] = i + 1;
+            }
             BroadcastToRoom(roomId, new
             {
                 action = "next_question",
@@ -953,36 +986,26 @@ internal class TcpServer
 
     private string HandleSubmitAnswer(Dictionary<string, object> d)
     {
-        string roomId = d.TryGetValue("roomId", out var r) ? (r == null ? "" : r.ToString()) : "";
-        string userIdStr = d.TryGetValue("userId", out var u) ? (u == null ? "" : u.ToString()) : "";
-        string answer = d.TryGetValue("answer", out var a) ? (a == null ? "" : a.ToString()) : "";
+        string roomId = d.TryGetValue("roomId", out var r) ? (r?.ToString() ?? "") : "";
+        string userIdStr = d.TryGetValue("userId", out var u) ? (u?.ToString() ?? "") : "";
+        string answer = d.TryGetValue("answer", out var a) ? (a?.ToString() ?? "") : "";
 
-        if (string.IsNullOrWhiteSpace(roomId) || string.IsNullOrWhiteSpace(userIdStr))
-            return JsonSerializer.Serialize(new { ok = false, message = "Thiếu thông tin" });
-
-        if (!int.TryParse(userIdStr, out int userId))
-            return JsonSerializer.Serialize(new { ok = false, message = "UserId lỗi" });
+        if (string.IsNullOrWhiteSpace(roomId) || !int.TryParse(userIdStr, out int userId))
+            return JsonSerializer.Serialize(new { ok = false, message = "Lỗi" });
 
         lock (roomsLock)
         {
-            if (!rooms.TryGetValue(roomId, out var room))
-                return JsonSerializer.Serialize(new { ok = false, message = "Phòng không tồn tại" });
+            if (!rooms.TryGetValue(roomId, out var room)) return "";
+            if (!room.Players.TryGetValue(userId, out var player)) return "";
 
-            if (room.CurrentQuestionIndex < 0 || room.QuestionStartTime == null)
-                return JsonSerializer.Serialize(new { ok = false, message = "Chưa bắt đầu câu hỏi" });
+            var playersBefore = room.Players.Values.OrderByDescending(p => p.Score).ToList();
 
-            if (!room.Players.TryGetValue(userId, out var player))
-                return JsonSerializer.Serialize(new { ok = false, message = "User chưa join" });
-
-            if (player.LastAnsweredQuestionIndex == room.CurrentQuestionIndex)
-                return JsonSerializer.Serialize(new { ok = false, message = "Đã trả lời rồi" });
-
-            double elapsed = (DateTime.UtcNow - room.QuestionStartTime.Value).TotalSeconds;
-            int timeLeft = room.QuestionDurationSeconds - (int)elapsed;
+            double elapsed = (DateTime.UtcNow - (room.QuestionStartTime ?? DateTime.UtcNow)).TotalSeconds;
+            int timeLeft = room.QuestionDurationSeconds - (int)elapsed; 
             if (timeLeft < 0) timeLeft = 0;
 
             string correctAns = GetCorrectAnswerByIndex(room.QuizId, room.CurrentQuestionIndex);
-            bool correct = string.Equals((answer ?? "").Trim(), (correctAns ?? "").Trim(), StringComparison.OrdinalIgnoreCase);
+            bool correct = string.Equals((answer ?? "").Trim(), correctAns.Trim(), StringComparison.OrdinalIgnoreCase);
 
             int gained = 0;
             if (correct && timeLeft > 0)
@@ -992,59 +1015,84 @@ internal class TcpServer
                 gained = 500 + timeBonus;
                 player.Score += gained;
             }
-
             player.LastAnsweredQuestionIndex = room.CurrentQuestionIndex;
 
-            var sortedPlayers = room.Players.Values.OrderByDescending(p => p.Score).ToList();
-
-            int myRank = sortedPlayers.FindIndex(p => p.UserId == userId) + 1;
-
-            var neighbors = new List<object>();
-            int myIndex = myRank - 1;
-
-            if (myIndex > 0)
+            if (_activeClients.TryGetValue(userId, out var writer))
             {
-                var pAbove = sortedPlayers[myIndex - 1];
-                neighbors.Add(new { rank = myRank - 1, name = pAbove.Username, score = pAbove.Score, isMe = false });
-            }
-
-            neighbors.Add(new { rank = myRank, name = player.Username, score = player.Score, isMe = true });
-
-            if (myIndex < sortedPlayers.Count - 1)
-            {
-                var pBelow = sortedPlayers[myIndex + 1];
-                neighbors.Add(new { rank = myRank + 1, name = pBelow.Username, score = pBelow.Score, isMe = false });
-            }
-           
-
-            bool allDone = true;
-            foreach (var p in room.Players.Values)
-            {
-                if (p.LastAnsweredQuestionIndex != room.CurrentQuestionIndex)
+                var personalPayload = new
                 {
-                    allDone = false;
-                    break;
-                }
+                    ok = true,
+                    action = "submit_result",
+                    correct = correct,
+                    gained = gained,
+                    score = player.Score
+                };
+                try { lock (writer) writer.WriteLine(JsonSerializer.Serialize(personalPayload)); } catch { }
             }
 
+            bool allDone = room.Players.Values.All(p => p.LastAnsweredQuestionIndex == room.CurrentQuestionIndex);
             if (allDone)
             {
-                BroadcastToRoom(roomId, new { action = "all_answered" });
+                SendFinalLeaderboard(room, roomId );
             }
 
-            return JsonSerializer.Serialize(new
-            {
-                ok = true,
-                action = "submit_result",
-                correct = correct,
-                gained = gained,
-                score = player.Score,
-                rank = myRank,            
-                neighbors = neighbors      
-            });
+            return JsonSerializer.Serialize(new { ok = true, message = "Đã ghi nhận" });
         }
     }
 
+    private void SendFinalLeaderboard(RoomInfo room, string roomId)
+    {
+        var sortedPlayers = room.Players.Values.OrderByDescending(p => p.Score).ToList();
+
+        foreach (var p in room.Players.Values)
+        {
+            int myNewRank = sortedPlayers.FindIndex(sp => sp.UserId == p.UserId) + 1;
+            int myOldRank = myNewRank;
+            if (room.SnapshotRanks.ContainsKey(p.UserId))
+            {
+                myOldRank = room.SnapshotRanks[p.UserId];
+            }
+            int rankDiff = myOldRank - myNewRank;
+            var neighbors = new List<object>();
+            int count = sortedPlayers.Count;
+            int idx = myNewRank - 1; 
+
+            int start = idx - 1;
+
+            if (start < 0) start = 0;
+
+            if (start > count - 3) start = count - 3;
+            if (start < 0) start = 0; 
+
+            for (int i = start; i < start + 3; i++)
+            {
+                if (i >= 0 && i < count)
+                {
+                    var sp = sortedPlayers[i];
+                    neighbors.Add(new
+                    {
+                        rank = i + 1,
+                        name = sp.Username,
+                        score = sp.Score,
+                        isMe = (sp.UserId == p.UserId), 
+                        avatar = sp.AvatarBase64
+                    });
+                }
+            }
+            if (_activeClients.TryGetValue(p.UserId, out var writer))
+            {
+                var payload = new
+                {
+                    action = "all_answered",
+                    neighbors = neighbors,
+                    rankDiff = rankDiff,
+                    rank = myNewRank
+                };
+                try { lock (writer) writer.WriteLine(JsonSerializer.Serialize(payload)); } catch { }
+            }
+        }
+
+    }
     private string HandleRoomGetLeaderboard(Dictionary<string, object> d)
     {
         string roomId = d.TryGetValue("roomId", out var r) ? (r == null ? "" : r.ToString()) : "";

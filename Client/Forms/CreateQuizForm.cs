@@ -62,7 +62,6 @@ namespace FormAppQuyt
             }
             else
             {
-                // không có ảnh -> dùng mặc định
                 _imageBase64 = DefaultQuestionImageBase64;
                 pic.Image = Base64ToImage(_imageBase64);
             }
@@ -280,13 +279,11 @@ namespace FormAppQuyt
         {
             using (var ms = new MemoryStream())
             {
-                // chọn PNG/JPEG tùy bạn. PNG thường nặng hơn, JPEG nhẹ hơn.
                 img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 return Convert.ToBase64String(ms.ToArray());
             }
         }
 
-        // Ảnh mặc định lấy từ Resources
         private string DefaultQuestionImageBase64 =>
             ImageToBase64(FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612);
 

@@ -57,19 +57,17 @@ namespace FormAppQuyt
 
                     quizList = result.data;
 
-                    // Setup ListView
                     listView1.View = View.Details;
                     listView1.FullRowSelect = true;
                     listView1.GridLines = true;
                     listView1.Items.Clear();
 
-                    // Add items to ListView
                     foreach (var quiz in quizList)
                     {
                         ListViewItem item = new ListViewItem(quiz.name);
                         item.SubItems.Add(quiz.total.ToString() + " câu");
                         item.SubItems.Add(quiz.date);
-                        item.Tag = quiz.id; // Store quiz ID in Tag
+                        item.Tag = quiz.id; 
                         listView1.Items.Add(item);
                     }
                 }
@@ -104,7 +102,6 @@ namespace FormAppQuyt
             int selectedQuizId = (int)listView1.SelectedItems[0].Tag;
             string quizName = listView1.SelectedItems[0].Text;
 
-            // Open playHost form with selected quiz
             this.Hide();
             PlayHostForm playForm = new PlayHostForm(selectedQuizId, quizName);
             playForm.StartPosition = FormStartPosition.CenterScreen;

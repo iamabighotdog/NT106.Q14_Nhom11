@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.rankPopup1 = new FormAppQuyt.RankPopup();
             this.ProgressBar1 = new Guna.UI2.WinForms.Guna2ProgressBar();
             this.playBtn = new Guna.UI2.WinForms.Guna2Button();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -49,6 +50,7 @@
             // 
             // guna2GradientPanel1
             // 
+            this.guna2GradientPanel1.Controls.Add(this.rankPopup1);
             this.guna2GradientPanel1.Controls.Add(this.ProgressBar1);
             this.guna2GradientPanel1.Controls.Add(this.playBtn);
             this.guna2GradientPanel1.Controls.Add(this.players);
@@ -71,6 +73,14 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
+            // 
+            // rankPopup1
+            // 
+            this.rankPopup1.Location = new System.Drawing.Point(511, 0);
+            this.rankPopup1.Name = "rankPopup1";
+            this.rankPopup1.Size = new System.Drawing.Size(752, 672);
+            this.rankPopup1.TabIndex = 19;
+            this.rankPopup1.Visible = false;
             // 
             // ProgressBar1
             // 
@@ -165,9 +175,9 @@
             this.answerD.FillColor = System.Drawing.Color.Green;
             this.answerD.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.answerD.ForeColor = System.Drawing.Color.White;
-            this.answerD.Location = new System.Drawing.Point(99, 479);
+            this.answerD.Location = new System.Drawing.Point(99, 471);
             this.answerD.Name = "answerD";
-            this.answerD.Size = new System.Drawing.Size(322, 75);
+            this.answerD.Size = new System.Drawing.Size(322, 83);
             this.answerD.TabIndex = 9;
             this.answerD.Text = "D";
             this.answerD.Click += new System.EventHandler(this.AnswerButton_Click);
@@ -181,9 +191,9 @@
             this.answerC.FillColor = System.Drawing.Color.Green;
             this.answerC.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.answerC.ForeColor = System.Drawing.Color.White;
-            this.answerC.Location = new System.Drawing.Point(99, 381);
+            this.answerC.Location = new System.Drawing.Point(99, 351);
             this.answerC.Name = "answerC";
-            this.answerC.Size = new System.Drawing.Size(322, 75);
+            this.answerC.Size = new System.Drawing.Size(322, 83);
             this.answerC.TabIndex = 8;
             this.answerC.Text = "C";
             this.answerC.Click += new System.EventHandler(this.AnswerButton_Click);
@@ -197,9 +207,9 @@
             this.answerB.FillColor = System.Drawing.Color.Green;
             this.answerB.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.answerB.ForeColor = System.Drawing.Color.White;
-            this.answerB.Location = new System.Drawing.Point(99, 281);
+            this.answerB.Location = new System.Drawing.Point(99, 231);
             this.answerB.Name = "answerB";
-            this.answerB.Size = new System.Drawing.Size(322, 75);
+            this.answerB.Size = new System.Drawing.Size(322, 83);
             this.answerB.TabIndex = 7;
             this.answerB.Text = "B";
             this.answerB.Click += new System.EventHandler(this.AnswerButton_Click);
@@ -235,9 +245,9 @@
             this.answerA.FillColor = System.Drawing.Color.Green;
             this.answerA.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.answerA.ForeColor = System.Drawing.Color.White;
-            this.answerA.Location = new System.Drawing.Point(99, 184);
+            this.answerA.Location = new System.Drawing.Point(99, 111);
             this.answerA.Name = "answerA";
-            this.answerA.Size = new System.Drawing.Size(322, 75);
+            this.answerA.Size = new System.Drawing.Size(322, 83);
             this.answerA.TabIndex = 1;
             this.answerA.Text = "A";
             this.answerA.Click += new System.EventHandler(this.AnswerButton_Click);
@@ -253,14 +263,14 @@
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
             // 
-            // playHost
+            // PlayHostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 675);
             this.Controls.Add(this.guna2GradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "playHost";
+            this.Name = "PlayHostForm";
             this.Text = "Play";
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();
@@ -286,5 +296,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel players;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2ProgressBar ProgressBar1;
+        private RankPopup rankPopup1;
     }
 }

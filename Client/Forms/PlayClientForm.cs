@@ -35,19 +35,6 @@ namespace FormAppQuyt
 
             InitScoreLabels();
 
-  /*          if (myRankPopup != null)
-            {
-                myRankPopup.BringToFront();
-                myRankPopup.Visible = false;
-                if (guna2GradientPanel1 != null)
-                {
-                    myRankPopup.Location = new Point(
-                        (guna2GradientPanel1.Width - myRankPopup.Width) / 2,
-                        (guna2GradientPanel1.Height - myRankPopup.Height) / 2
-                    );
-                }
-            }*/
-
             if (answerA != null) { answerA.Click -= AnswerButton_Click; answerA.Click += AnswerButton_Click; }
             if (answerB != null) { answerB.Click -= AnswerButton_Click; answerB.Click += AnswerButton_Click; }
             if (answerC != null) { answerC.Click -= AnswerButton_Click; answerC.Click += AnswerButton_Click; }
@@ -220,17 +207,22 @@ namespace FormAppQuyt
 
                             case "all_answered":
                                 if (uiTimer != null) uiTimer.Stop();
-                                if (timeBar != null)
+                                int rankDiff = 0;
+                                if (root.TryGetProperty("rankDiff", out JsonElement rdEl)) rankDiff = rdEl.GetInt32();
+
+                                var neighborsJson = root.GetProperty("neighbors").GetRawText();
+                                var neighbors = JsonSerializer.Deserialize<List<NeighborInfo>>(neighborsJson);
+
+                                if (rankPopup1 != null)
                                 {
-                                    timeBar.ShowText = true;
-                                    timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
-                                    timeBar.Text = "Chuyển sang câu tiếp theo sau 3...2...1";
+                                    await Task.Delay(500);
+                                    await rankPopup1.ShowRankEffect(neighbors, rankDiff);
                                 }
+                                break;
                                 break;
 
                             case "next_question":
                                 ResetScoreLabels();
-                             //   if (myRankPopup != null) myRankPopup.Visible = false;
 
                                 int idx = JsonHelper.GetInt(root, "questionIndex", -1);
                                 int dur = JsonHelper.GetInt(root, "duration", 20);
@@ -252,19 +244,15 @@ namespace FormAppQuyt
                                 break;
 
                             case "submit_result":
-                                bool correct = JsonHelper.GetBool(root, "correct", false);
-                                int gained = JsonHelper.GetInt(root, "gained", 0);
-                                int rank = JsonHelper.GetInt(root, "rank", 0); 
-
-                                HighlightResult(correct);
-
-                                ShowScoreEffect(currentSelectedBtn, gained, correct);
-
-                                /*if (myRankPopup != null)
+                                bool correctResult = JsonHelper.GetBool(root, "correct", false);
+                                int gainedPoints = JsonHelper.GetInt(root, "gained", 0);
+                                HighlightResult(correctResult);
+                                if (currentSelectedBtn != null)
                                 {
-                                    await Task.Delay(500);
-                                    await myRankPopup.ShowAnimation(rank, gained, correct);
-                                }*/
+                                    ShowScoreEffect(currentSelectedBtn, gainedPoints, correctResult);
+                                }
+
+                           
                                 break;
 
                             case "player_joined":
@@ -282,7 +270,7 @@ namespace FormAppQuyt
         {
             Image defaultImg = FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
 
-            // mặc định trước cho chắc
+
             pic.Image = defaultImg;
             pic.Visible = true;
 
@@ -297,7 +285,7 @@ namespace FormAppQuyt
                         if (pic.Image != null && !ReferenceEquals(pic.Image, defaultImg))
                             pic.Image.Dispose();
 
-                        pic.Image = new Bitmap(img); // clone ảnh
+                        pic.Image = new Bitmap(img);
                     }
                 }
             }
@@ -318,7 +306,6 @@ namespace FormAppQuyt
             answerC.Visible = true;
             answerD.Visible = true;
 
-            // Hiện ảnh mặc định khi chờ
             SetQuestionImage_Client(null);
 
             if (timeBar != null) timeBar.Visible = true;
@@ -339,7 +326,6 @@ namespace FormAppQuyt
 
             var q = questions[currentQuestionIndex];
 
-            // Ảnh: giống Host
             SetQuestionImage_Client(q.ImageBase64);
 
             question.Text = $"Câu {currentQuestionIndex + 1}: {q.NoiDung}";
@@ -358,11 +344,9 @@ namespace FormAppQuyt
             answerA.FillColor = defaultColor; answerB.FillColor = defaultColor;
             answerC.FillColor = defaultColor; answerD.FillColor = defaultColor;
 
-            // MỞ KHÓA để click được
             isLocked = false;
             currentSelectedBtn = null;
 
-            // HIỆN + ENABLE buttons
             answerA.Visible = true; answerB.Visible = true;
             answerC.Visible = true; answerD.Visible = true;
 
@@ -483,6 +467,15 @@ namespace FormAppQuyt
         {
             uiTimer?.Stop();
             _session?.Dispose();
+
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm is MainForm) 
+                {
+                    frm.Show();
+                    break;
+                }
+            }
             base.OnFormClosing(e);
         }
     }

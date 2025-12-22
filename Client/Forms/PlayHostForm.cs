@@ -168,7 +168,12 @@ namespace FormAppQuyt
                 autoNextTimer.Stop();
                 if (!isTransitioning)
                 {
-                    PerformNextQuestion();
+                    isTransitioning = true;
+                    _session.Send(new
+                    {
+                        action = "time_out",
+                        roomId = roomId
+                    });
                 }
             }
         }
@@ -262,26 +267,51 @@ namespace FormAppQuyt
                             if (players != null)
                                 players.Text = data["playerCount"].ToString();
                             break;
+                        
                         case "all_answered":
-                            if (isTransitioning) return;
                             isTransitioning = true;
                             if (autoNextTimer != null) autoNextTimer.Stop();
 
-                            if (ProgressBar1 != null)
+                            try
                             {
-                                ProgressBar1.ShowText = true;
-                                ProgressBar1.Text = "Sang câu tiếp theo trong 3...2...1";
-                            }
-                            int indexBeforeWait = currentQuestionIndex;
-                            await Task.Delay(3000);
-                            if (indexBeforeWait != currentQuestionIndex)
-                            {
-                                isTransitioning = false;
-                                return;
-                            }
-                            PerformNextQuestion();
-                            break;
+                                using (JsonDocument doc = JsonDocument.Parse(json))
+                                {
+                                    var root = doc.RootElement;
 
+                                    if (root.TryGetProperty("neighbors", out JsonElement neighborsEl))
+                                    {
+                                        var neighborsJson = neighborsEl.GetRawText();
+                                        var neighborsList = JsonSerializer.Deserialize<List<NeighborInfo>>(neighborsJson);
+
+                                        int rankDiff = 0;
+                                        if (root.TryGetProperty("rankDiff", out JsonElement rd)) rankDiff = rd.GetInt32();
+
+                                        if (rankPopup1 != null)
+                                        {
+                                            this.Invoke((MethodInvoker)delegate {
+                                                rankPopup1.Visible = true;
+                                                rankPopup1.BringToFront();
+                                            });
+
+                                            await rankPopup1.ShowRankEffect(neighborsList, rankDiff);
+                                        }
+                                        else
+                                        {
+                                            await Task.Delay(3000);
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                await Task.Delay(3000);
+                            }
+
+                            if (currentQuestionIndex < questions.Count)
+                            {
+                                PerformNextQuestion();
+                            }
+                            break;
                         case "submit_result":
                             bool correct = bool.Parse(data["correct"].ToString());
                             int score = int.Parse(data["score"].ToString());

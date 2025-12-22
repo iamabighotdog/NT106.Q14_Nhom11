@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnImportTxt = new Guna.UI2.WinForms.Guna2Button();
             this.quizName = new Guna.UI2.WinForms.Guna2GroupBox();
             this.questionCountBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblQuestionCount = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -55,7 +56,6 @@
             this.wrongBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
-            this.btnImportTxt = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.quizName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
@@ -86,6 +86,22 @@
             this.guna2Panel1.Size = new System.Drawing.Size(1263, 674);
             this.guna2Panel1.TabIndex = 0;
             // 
+            // btnImportTxt
+            // 
+            this.btnImportTxt.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnImportTxt.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnImportTxt.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnImportTxt.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnImportTxt.FillColor = System.Drawing.Color.Green;
+            this.btnImportTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnImportTxt.ForeColor = System.Drawing.Color.White;
+            this.btnImportTxt.Location = new System.Drawing.Point(558, 603);
+            this.btnImportTxt.Name = "btnImportTxt";
+            this.btnImportTxt.Size = new System.Drawing.Size(180, 60);
+            this.btnImportTxt.TabIndex = 14;
+            this.btnImportTxt.Text = "Chọn file câu hỏi của bạn";
+            this.btnImportTxt.Click += new System.EventHandler(this.btnImportTxt_Click);
+            // 
             // quizName
             // 
             this.quizName.Controls.Add(this.questionCountBox);
@@ -93,7 +109,7 @@
             this.quizName.Controls.Add(this.quizBox);
             this.quizName.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.quizName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.quizName.Location = new System.Drawing.Point(23, 49);
+            this.quizName.Location = new System.Drawing.Point(27, 61);
             this.quizName.Name = "quizName";
             this.quizName.Size = new System.Drawing.Size(474, 118);
             this.quizName.TabIndex = 5;
@@ -265,7 +281,7 @@
             this.question.Controls.Add(this.quesBox);
             this.question.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.question.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.question.Location = new System.Drawing.Point(23, 173);
+            this.question.Location = new System.Drawing.Point(27, 185);
             this.question.Name = "question";
             this.question.Size = new System.Drawing.Size(474, 136);
             this.question.TabIndex = 5;
@@ -331,7 +347,7 @@
             this.correct.Controls.Add(this.correctBox);
             this.correct.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.correct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.correct.Location = new System.Drawing.Point(23, 315);
+            this.correct.Location = new System.Drawing.Point(27, 327);
             this.correct.Name = "correct";
             this.correct.Size = new System.Drawing.Size(474, 118);
             this.correct.TabIndex = 2;
@@ -365,7 +381,7 @@
             this.wrong.Controls.Add(this.wrongBox1);
             this.wrong.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.wrong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.wrong.Location = new System.Drawing.Point(23, 439);
+            this.wrong.Location = new System.Drawing.Point(27, 451);
             this.wrong.Name = "wrong";
             this.wrong.Size = new System.Drawing.Size(474, 184);
             this.wrong.TabIndex = 2;
@@ -450,22 +466,6 @@
             this.guna2BorderlessForm1.ContainerControl = this;
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
-            // 
-            // btnImportTxt
-            // 
-            this.btnImportTxt.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnImportTxt.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnImportTxt.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnImportTxt.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnImportTxt.FillColor = System.Drawing.Color.Green;
-            this.btnImportTxt.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnImportTxt.ForeColor = System.Drawing.Color.White;
-            this.btnImportTxt.Location = new System.Drawing.Point(558, 603);
-            this.btnImportTxt.Name = "btnImportTxt";
-            this.btnImportTxt.Size = new System.Drawing.Size(180, 60);
-            this.btnImportTxt.TabIndex = 14;
-            this.btnImportTxt.Text = "Chọn file câu hỏi của bạn";
-            this.btnImportTxt.Click += new System.EventHandler(this.btnImportTxt_Click);
             // 
             // CreateQuizForm
             // 
