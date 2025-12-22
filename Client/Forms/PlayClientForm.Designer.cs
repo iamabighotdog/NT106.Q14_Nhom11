@@ -36,7 +36,6 @@
             this.ID = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.back = new Guna.UI2.WinForms.Guna2Button();
-            this.next = new Guna.UI2.WinForms.Guna2Button();
             this.answerD = new Guna.UI2.WinForms.Guna2Button();
             this.answerC = new Guna.UI2.WinForms.Guna2Button();
             this.answerB = new Guna.UI2.WinForms.Guna2Button();
@@ -57,7 +56,6 @@
             this.guna2GradientPanel1.Controls.Add(this.ID);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2GradientPanel1.Controls.Add(this.back);
-            this.guna2GradientPanel1.Controls.Add(this.next);
             this.guna2GradientPanel1.Controls.Add(this.answerD);
             this.guna2GradientPanel1.Controls.Add(this.answerC);
             this.guna2GradientPanel1.Controls.Add(this.answerB);
@@ -120,7 +118,7 @@
             this.ID.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ID.Location = new System.Drawing.Point(85, 631);
             this.ID.Name = "ID";
-            this.ID.Size = new System.Drawing.Size(51, 25);
+            this.ID.Size = new System.Drawing.Size(45, 23);
             this.ID.TabIndex = 13;
             this.ID.Text = "xxxxxx";
             // 
@@ -130,7 +128,7 @@
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(12, 631);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(74, 25);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(67, 23);
             this.guna2HtmlLabel1.TabIndex = 12;
             this.guna2HtmlLabel1.Text = "Room ID: ";
             // 
@@ -149,21 +147,6 @@
             this.back.TabIndex = 11;
             this.back.Text = "Quay lại";
             this.back.Click += new System.EventHandler(this.back_Click);
-            // 
-            // next
-            // 
-            this.next.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.next.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.next.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.next.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.next.FillColor = System.Drawing.Color.Green;
-            this.next.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.next.ForeColor = System.Drawing.Color.White;
-            this.next.Location = new System.Drawing.Point(1037, 606);
-            this.next.Name = "next";
-            this.next.Size = new System.Drawing.Size(180, 45);
-            this.next.TabIndex = 10;
-            this.next.Text = "Tiếp theo";
             // 
             // answerD
             // 
@@ -228,7 +211,7 @@
             this.question.Font = new System.Drawing.Font("Segoe UI", 13.77391F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.question.Location = new System.Drawing.Point(12, 12);
             this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(95, 33);
+            this.question.Size = new System.Drawing.Size(90, 32);
             this.question.TabIndex = 5;
             this.question.Text = "Question";
             // 
@@ -284,7 +267,6 @@
         private Guna.UI2.WinForms.Guna2Button answerD;
         private Guna.UI2.WinForms.Guna2Button answerC;
         private Guna.UI2.WinForms.Guna2Button answerB;
-        private Guna.UI2.WinForms.Guna2Button next;
         private Guna.UI2.WinForms.Guna2Button back;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel ID;

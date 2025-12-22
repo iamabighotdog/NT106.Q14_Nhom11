@@ -53,12 +53,19 @@ namespace FormAppQuyt
             }
             _imageBase64 = q.ImageBase64;
 
-            if (pic.Image != null) { pic.Image.Dispose(); pic.Image = null; }
+            pic.Image?.Dispose();
+            pic.Image = null;
 
-            if (!string.IsNullOrEmpty(q.ImageBase64))
-                pic.Image = Base64ToImage(q.ImageBase64);
+            if (!string.IsNullOrWhiteSpace(_imageBase64))
+            {
+                pic.Image = Base64ToImage(_imageBase64);
+            }
             else
-                pic.Image = null;
+            {
+                // không có ảnh -> dùng mặc định
+                _imageBase64 = DefaultQuestionImageBase64;
+                pic.Image = Base64ToImage(_imageBase64);
+            }
 
         }
 
@@ -70,7 +77,7 @@ namespace FormAppQuyt
             q.Sai1 = wrongBox1.Text.Trim();
             q.Sai2 = wrongBox2.Text.Trim();
             q.Sai3 = wrongBox3.Text.Trim();
-            q.ImageBase64 = _imageBase64;
+            q.ImageBase64 = string.IsNullOrWhiteSpace(_imageBase64)? DefaultQuestionImageBase64 : _imageBase64;
 
             if (timeBox != null && timeBox.SelectedItem != null)
             {
@@ -268,6 +275,21 @@ namespace FormAppQuyt
             if (string.IsNullOrWhiteSpace(wrongBox3.Text)) return false;
             return true;
         }
+
+        private static string ImageToBase64(Image img)
+        {
+            using (var ms = new MemoryStream())
+            {
+                // chọn PNG/JPEG tùy bạn. PNG thường nặng hơn, JPEG nhẹ hơn.
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+        }
+
+        // Ảnh mặc định lấy từ Resources
+        private string DefaultQuestionImageBase64 =>
+            ImageToBase64(FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612);
+
 
         private void back_Click(object sender, EventArgs e)
         {

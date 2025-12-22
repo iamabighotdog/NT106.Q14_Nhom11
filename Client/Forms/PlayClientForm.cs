@@ -278,21 +278,55 @@ namespace FormAppQuyt
             }));
         }
 
+        private void SetQuestionImage_Client(string base64)
+        {
+            Image defaultImg = FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
+
+            // mặc định trước cho chắc
+            pic.Image = defaultImg;
+            pic.Visible = true;
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(base64))
+                {
+                    byte[] bytes = Convert.FromBase64String(base64);
+                    using (var ms = new MemoryStream(bytes))
+                    using (var img = Image.FromStream(ms))
+                    {
+                        if (pic.Image != null && !ReferenceEquals(pic.Image, defaultImg))
+                            pic.Image.Dispose();
+
+                        pic.Image = new Bitmap(img); // clone ảnh
+                    }
+                }
+            }
+            catch
+            {
+                pic.Image = defaultImg;
+            }
+
+            pic.BringToFront();
+        }
+
         private void SetWaitingMode()
         {
             if (question != null) question.Text = "Đang chờ chủ phòng bắt đầu...";
-            answerA.Visible = false;
-            answerB.Visible = false;
-            answerC.Visible = false;
-            answerD.Visible = false;
-            pic.Visible = false;
-            if (timeBar != null) timeBar.Visible = false;
-            if (next != null) next.Visible = false;
+
+            answerA.Visible = true;
+            answerB.Visible = true;
+            answerC.Visible = true;
+            answerD.Visible = true;
+
+            // Hiện ảnh mặc định khi chờ
+            SetQuestionImage_Client(null);
+
+            if (timeBar != null) timeBar.Visible = true;
         }
 
         private void DisplayQuestion()
         {
-            if (questions.Count == 0) return;
+            if (questions == null || questions.Count == 0) return;
 
             if (currentQuestionIndex < 0 || currentQuestionIndex >= questions.Count)
             {
@@ -305,11 +339,15 @@ namespace FormAppQuyt
 
             var q = questions[currentQuestionIndex];
 
+            // Ảnh: giống Host
+            SetQuestionImage_Client(q.ImageBase64);
+
             question.Text = $"Câu {currentQuestionIndex + 1}: {q.NoiDung}";
             this.Text = "Đang chơi...";
 
-            var answers = new List<string> { q.DapAnDung, q.DapAnSai1, q.DapAnSai2, q.DapAnSai3 };
-            answers = answers.OrderBy(_ => FormAppQuyt.Utils.RandomProvider.Shared.Next()).ToList();
+            var answers = new List<string> { q.DapAnDung, q.DapAnSai1, q.DapAnSai2, q.DapAnSai3 }
+                .OrderBy(_ => FormAppQuyt.Utils.RandomProvider.Shared.Next())
+                .ToList();
 
             answerA.Text = "A. " + answers[0];
             answerB.Text = "B. " + answers[1];
@@ -320,30 +358,16 @@ namespace FormAppQuyt
             answerA.FillColor = defaultColor; answerB.FillColor = defaultColor;
             answerC.FillColor = defaultColor; answerD.FillColor = defaultColor;
 
+            // MỞ KHÓA để click được
             isLocked = false;
             currentSelectedBtn = null;
 
+            // HIỆN + ENABLE buttons
             answerA.Visible = true; answerB.Visible = true;
             answerC.Visible = true; answerD.Visible = true;
 
-            if (!string.IsNullOrEmpty(q.ImageBase64))
-            {
-                try
-                {
-                    byte[] bytes = Convert.FromBase64String(q.ImageBase64);
-                    using (var ms = new MemoryStream(bytes))
-                    using (var img = Image.FromStream(ms))
-                    {
-                        if (pic.Image != null) pic.Image.Dispose();
-                        pic.Image = new Bitmap(img);
-                    }
-
-
-                    pic.Visible = true;
-                }
-                catch { pic.Visible = false; }
-            }
-            else pic.Visible = false;
+            answerA.Enabled = true; answerB.Enabled = true;
+            answerC.Enabled = true; answerD.Enabled = true;
         }
 
         private void HighlightResult(bool correct)
