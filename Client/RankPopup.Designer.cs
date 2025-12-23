@@ -123,50 +123,50 @@
             // lb5
             // 
             this.lb5.BackColor = System.Drawing.Color.Transparent;
-            this.lb5.Font = new System.Drawing.Font("Mistral", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb5.Font = new System.Drawing.Font("Poppins", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb5.Location = new System.Drawing.Point(219, 551);
             this.lb5.Name = "lb5";
-            this.lb5.Size = new System.Drawing.Size(165, 35);
+            this.lb5.Size = new System.Drawing.Size(248, 50);
             this.lb5.TabIndex = 10;
             this.lb5.Text = "guna2HtmlLabel3";
             // 
             // lb4
             // 
             this.lb4.BackColor = System.Drawing.Color.Transparent;
-            this.lb4.Font = new System.Drawing.Font("Mistral", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb4.Font = new System.Drawing.Font("Poppins", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb4.Location = new System.Drawing.Point(219, 421);
             this.lb4.Name = "lb4";
-            this.lb4.Size = new System.Drawing.Size(165, 35);
+            this.lb4.Size = new System.Drawing.Size(242, 50);
             this.lb4.TabIndex = 8;
             this.lb4.Text = "guna2HtmlLabel1";
             // 
             // lbl3
             // 
             this.lbl3.BackColor = System.Drawing.Color.Transparent;
-            this.lbl3.Font = new System.Drawing.Font("Mistral", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl3.Font = new System.Drawing.Font("Poppins", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl3.Location = new System.Drawing.Point(219, 272);
             this.lbl3.Name = "lbl3";
-            this.lbl3.Size = new System.Drawing.Size(82, 35);
+            this.lbl3.Size = new System.Drawing.Size(120, 50);
             this.lbl3.TabIndex = 2;
             this.lbl3.Text = "lblBelow";
             // 
             // lbl2
             // 
             this.lbl2.BackColor = System.Drawing.Color.Transparent;
-            this.lbl2.Font = new System.Drawing.Font("Mistral", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl2.Font = new System.Drawing.Font("Poppins", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl2.Location = new System.Drawing.Point(216, 144);
             this.lbl2.Name = "lbl2";
-            this.lbl2.Size = new System.Drawing.Size(53, 35);
+            this.lbl2.Size = new System.Drawing.Size(79, 50);
             this.lbl2.TabIndex = 1;
             this.lbl2.Text = "lblMe";
             // 
             // lbl1
             // 
             this.lbl1.BackColor = System.Drawing.Color.Transparent;
-            this.lbl1.Font = new System.Drawing.Font("Mistral", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl1.Font = new System.Drawing.Font("Poppins", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl1.Location = new System.Drawing.Point(216, 32);
             this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(79, 35);
+            this.lbl1.Size = new System.Drawing.Size(126, 50);
             this.lbl1.TabIndex = 0;
             this.lbl1.Text = "lblAbove";
             // 

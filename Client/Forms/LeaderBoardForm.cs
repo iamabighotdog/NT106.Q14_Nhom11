@@ -24,7 +24,7 @@ namespace FormAppQuyt
 
 
             refreshTimer = new Timer();
-            refreshTimer.Interval = 3000;
+            refreshTimer.Interval = 999999999;
             refreshTimer.Tick += RefreshTimer_Tick;
 
             _ = LoadLeaderboardAsync();
