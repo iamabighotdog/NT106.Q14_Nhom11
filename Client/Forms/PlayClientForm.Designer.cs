@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.rankPopup1 = new FormAppQuyt.RankPopup();
             this.timeBar = new Guna.UI2.WinForms.Guna2ProgressBar();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -43,6 +42,7 @@
             this.question = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.answerA = new Guna.UI2.WinForms.Guna2Button();
             this.close = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.rankPopup1 = new FormAppQuyt.RankPopup();
             this.guna2GradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.SuspendLayout();
@@ -70,14 +70,6 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
-            // 
-            // rankPopup1
-            // 
-            this.rankPopup1.Location = new System.Drawing.Point(511, 0);
-            this.rankPopup1.Name = "rankPopup1";
-            this.rankPopup1.Size = new System.Drawing.Size(752, 676);
-            this.rankPopup1.TabIndex = 17;
-            this.rankPopup1.Visible = false;
             // 
             // timeBar
             // 
@@ -240,6 +232,14 @@
             this.close.Name = "close";
             this.close.Size = new System.Drawing.Size(45, 29);
             this.close.TabIndex = 0;
+            // 
+            // rankPopup1
+            // 
+            this.rankPopup1.Location = new System.Drawing.Point(511, 0);
+            this.rankPopup1.Name = "rankPopup1";
+            this.rankPopup1.Size = new System.Drawing.Size(752, 645);
+            this.rankPopup1.TabIndex = 17;
+            this.rankPopup1.Visible = false;
             // 
             // PlayClientForm
             // 
