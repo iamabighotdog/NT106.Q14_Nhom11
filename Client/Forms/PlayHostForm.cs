@@ -229,7 +229,6 @@ namespace FormAppQuyt
                     _session.Send(new { action = "end_game", roomId = roomId });
                 }
                 autoNextTimer.Stop();
-                MessageBox.Show("Đã hết câu hỏi! Kết thúc game.");
                 Global.LastPlayedRoomId = roomId;
                 ShowLeaderboard();
                 Close();
