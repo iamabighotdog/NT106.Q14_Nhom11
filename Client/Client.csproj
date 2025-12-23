@@ -164,11 +164,11 @@
       <DependentUpon>ResetPasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Networking\TcpRequestClient.cs" />
-    <Compile Include="UserControl1.cs">
+    <Compile Include="RankPopup.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <Compile Include="RankPopup.Designer.cs">
+      <DependentUpon>RankPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\AvatarCache.cs" />
     <Compile Include="Utils\JsonHelper.cs" />
@@ -238,8 +238,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UserControl1.resx">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <EmbeddedResource Include="RankPopup.resx">
+      <DependentUpon>RankPopup.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="packages.config" />
