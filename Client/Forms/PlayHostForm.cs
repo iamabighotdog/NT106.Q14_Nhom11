@@ -230,6 +230,7 @@ namespace FormAppQuyt
                 }
                 autoNextTimer.Stop();
                 Global.LastPlayedRoomId = roomId;
+                this.Close();
                 ShowLeaderboard();
                 Close();
             }
@@ -466,7 +467,11 @@ namespace FormAppQuyt
         {
             autoNextTimer?.Stop();
             _session?.Dispose();
-            Close();
+            HostForm hostForm = new HostForm();
+            hostForm.StartPosition = FormStartPosition.CenterScreen;
+            hostForm.ShowDialog();
+            this.Close();
+
         }
 
         private void ShowLeaderboard()

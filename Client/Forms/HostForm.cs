@@ -88,6 +88,9 @@ namespace FormAppQuyt
         private void back_Click(object sender, EventArgs e)
         {
             this.Close();
+
+            var main = Application.OpenForms["MainForm"];
+            if (main != null) main.Show();
         }
 
         private void choose_Click(object sender, EventArgs e)

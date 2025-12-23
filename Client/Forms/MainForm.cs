@@ -271,7 +271,8 @@ namespace FormAppQuyt
 
                     HostForm hostForm = new HostForm();
                     hostForm.StartPosition = FormStartPosition.CenterScreen;
-                    hostForm.ShowDialog();
+                    hostForm.Show();
+                    this.Hide(); 
                 }
                 else
                 {

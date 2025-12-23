@@ -69,5 +69,12 @@ namespace FormAppQuyt
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            this.Close();   
+            var login = new LogInForm();
+            login.Show();
+        }
     }
 }
