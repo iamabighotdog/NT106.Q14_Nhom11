@@ -129,6 +129,7 @@
             // 
             // questionCountBox
             // 
+            this.questionCountBox.BackColor = System.Drawing.Color.Transparent;
             this.questionCountBox.BorderRadius = 6;
             this.questionCountBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.questionCountBox.DefaultText = "10";
@@ -154,6 +155,7 @@
             // 
             // quizBox
             // 
+            this.quizBox.BackColor = System.Drawing.Color.Transparent;
             this.quizBox.BorderRadius = 6;
             this.quizBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.quizBox.DefaultText = "";
@@ -360,6 +362,7 @@
             // 
             // quesBox
             // 
+            this.quesBox.BackColor = System.Drawing.Color.Transparent;
             this.quesBox.BorderRadius = 6;
             this.quesBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.quesBox.DefaultText = "";
@@ -390,6 +393,7 @@
             // 
             // correctBox
             // 
+            this.correctBox.BackColor = System.Drawing.Color.Transparent;
             this.correctBox.BorderRadius = 6;
             this.correctBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.correctBox.DefaultText = "";
@@ -421,6 +425,7 @@
             // 
             // wrongBox3
             // 
+            this.wrongBox3.BackColor = System.Drawing.Color.Transparent;
             this.wrongBox3.BorderRadius = 6;
             this.wrongBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.wrongBox3.DefaultText = "";
@@ -435,6 +440,7 @@
             // 
             // wrongBox2
             // 
+            this.wrongBox2.BackColor = System.Drawing.Color.Transparent;
             this.wrongBox2.BorderRadius = 6;
             this.wrongBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.wrongBox2.DefaultText = "";
@@ -449,6 +455,7 @@
             // 
             // wrongBox1
             // 
+            this.wrongBox1.BackColor = System.Drawing.Color.Transparent;
             this.wrongBox1.BorderRadius = 6;
             this.wrongBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.wrongBox1.DefaultText = "";
