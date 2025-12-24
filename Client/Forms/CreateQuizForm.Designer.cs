@@ -93,6 +93,7 @@
             // 
             // btnImportTxt
             // 
+            this.btnImportTxt.BackColor = System.Drawing.Color.Transparent;
             this.btnImportTxt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.btnImportTxt.BorderRadius = 8;
             this.btnImportTxt.BorderThickness = 2;
@@ -189,6 +190,7 @@
             // 
             // save
             // 
+            this.save.BackColor = System.Drawing.Color.Transparent;
             this.save.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.save.BorderRadius = 8;
             this.save.BorderThickness = 2;
@@ -219,6 +221,7 @@
             // 
             // next
             // 
+            this.next.BackColor = System.Drawing.Color.Transparent;
             this.next.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.next.BorderRadius = 8;
             this.next.BorderThickness = 2;
@@ -237,6 +240,7 @@
             // 
             // previous
             // 
+            this.previous.BackColor = System.Drawing.Color.Transparent;
             this.previous.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.previous.BorderRadius = 8;
             this.previous.BorderThickness = 2;
@@ -255,6 +259,7 @@
             // 
             // add
             // 
+            this.add.BackColor = System.Drawing.Color.Transparent;
             this.add.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.add.BorderRadius = 8;
             this.add.BorderThickness = 2;
@@ -273,6 +278,7 @@
             // 
             // delete
             // 
+            this.delete.BackColor = System.Drawing.Color.Transparent;
             this.delete.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.delete.BorderRadius = 8;
             this.delete.BorderThickness = 2;
@@ -343,6 +349,7 @@
             // 
             // addPic
             // 
+            this.addPic.BackColor = System.Drawing.Color.Transparent;
             this.addPic.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.addPic.BorderRadius = 6;
             this.addPic.BorderThickness = 2;
