@@ -51,7 +51,7 @@
             this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(1262, 675);
+            this.guna2Panel1.Size = new System.Drawing.Size(900, 500);
             this.guna2Panel1.TabIndex = 0;
             // 
             // guna2PictureBox1
@@ -59,7 +59,7 @@
             this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox1.Image = global::FormAppQuyt.Properties.Resources.ChatGPT_Image_Sep_29__2025__09_58_10_PM_removebg_preview;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(529, 39);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(349, 55);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(200, 200);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -75,7 +75,7 @@
             this.enterRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.enterRoom.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.enterRoom.ForeColor = System.Drawing.Color.White;
-            this.enterRoom.Location = new System.Drawing.Point(541, 384);
+            this.enterRoom.Location = new System.Drawing.Point(361, 400);
             this.enterRoom.Name = "enterRoom";
             this.enterRoom.Size = new System.Drawing.Size(180, 45);
             this.enterRoom.TabIndex = 17;
@@ -86,9 +86,9 @@
             // 
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(541, 232);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(361, 248);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(191, 39);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(187, 38);
             this.guna2HtmlLabel1.TabIndex = 16;
             this.guna2HtmlLabel1.Text = "Nhập ID phòng";
             // 
@@ -106,7 +106,7 @@
             this.roomID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.roomID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.roomID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.roomID.Location = new System.Drawing.Point(474, 308);
+            this.roomID.Location = new System.Drawing.Point(294, 324);
             this.roomID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.roomID.Name = "roomID";
             this.roomID.PlaceholderText = "";
@@ -136,19 +136,19 @@
             this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.Red;
             this.guna2ControlBox1.IconColor = System.Drawing.Color.Black;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(1217, 0);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(855, 0);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
             this.guna2ControlBox1.TabIndex = 0;
             // 
-            // players
+            // PlayersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 675);
+            this.ClientSize = new System.Drawing.Size(900, 500);
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "players";
+            this.Name = "PlayersForm";
             this.Text = "players";
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();

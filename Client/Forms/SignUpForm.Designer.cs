@@ -159,7 +159,7 @@
             this.CheckAgreeTerms.ForeColor = System.Drawing.SystemColors.ControlText;
             this.CheckAgreeTerms.Location = new System.Drawing.Point(25, 479);
             this.CheckAgreeTerms.Name = "CheckAgreeTerms";
-            this.CheckAgreeTerms.Size = new System.Drawing.Size(158, 17);
+            this.CheckAgreeTerms.Size = new System.Drawing.Size(155, 17);
             this.CheckAgreeTerms.TabIndex = 9;
             this.CheckAgreeTerms.Text = "I agree to the Terms of Use";
             this.CheckAgreeTerms.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -191,7 +191,7 @@
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(126, 553);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(168, 25);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(149, 23);
             this.guna2HtmlLabel1.TabIndex = 7;
             this.guna2HtmlLabel1.Text = "Bạn đã có tài khoản ?";
             // 
@@ -296,18 +296,18 @@
             this.SignUpLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.SignUpLabel.BackColor = System.Drawing.Color.Transparent;
             this.SignUpLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpLabel.Location = new System.Drawing.Point(86, 152);
+            this.SignUpLabel.Location = new System.Drawing.Point(150, 152);
             this.SignUpLabel.Name = "SignUpLabel";
-            this.SignUpLabel.Size = new System.Drawing.Size(291, 39);
+            this.SignUpLabel.Size = new System.Drawing.Size(101, 38);
             this.SignUpLabel.TabIndex = 1;
-            this.SignUpLabel.Text = "Đăng ký tài khoản Quýt";
+            this.SignUpLabel.Text = "Đăng ký";
             // 
             // Logo
             // 
             this.Logo.BackColor = System.Drawing.Color.Transparent;
             this.Logo.Image = global::FormAppQuyt.Properties.Resources.ChatGPT_Image_Sep_29__2025__09_58_10_PM_removebg_preview;
             this.Logo.ImageRotate = 0F;
-            this.Logo.Location = new System.Drawing.Point(125, 50);
+            this.Logo.Location = new System.Drawing.Point(125, 3);
             this.Logo.Name = "Logo";
             this.Logo.Size = new System.Drawing.Size(150, 150);
             this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

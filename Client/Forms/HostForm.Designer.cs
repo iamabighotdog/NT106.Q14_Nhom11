@@ -34,9 +34,9 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.Question = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contribute = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.back = new Guna.UI2.WinForms.Guna2Button();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.dateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +47,6 @@
             this.guna2Panel1.Controls.Add(this.listView1);
             this.guna2Panel1.Controls.Add(this.back);
             this.guna2Panel1.Controls.Add(this.guna2ControlBox1);
-            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
@@ -60,7 +59,7 @@
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 13.77391F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(564, 87);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(138, 33);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(134, 32);
             this.guna2HtmlLabel1.TabIndex = 17;
             this.guna2HtmlLabel1.Text = "Chọn câu hỏi";
             // 
@@ -99,8 +98,13 @@
             // 
             // contribute
             // 
-            this.contribute.Text = "Người tạo";
+            this.contribute.Text = "Tổng số câu";
             this.contribute.Width = 200;
+            // 
+            // dateColumn
+            // 
+            this.dateColumn.Text = "Ngày tạo";
+            this.dateColumn.Width = 180;
             // 
             // back
             // 
@@ -129,19 +133,14 @@
             this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
             this.guna2ControlBox1.TabIndex = 0;
             // 
-            // dateColumn
-            // 
-            this.dateColumn.Text = "Ngày tạo";
-            this.dateColumn.Width = 180;
-            // 
-            // host
+            // HostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 675);
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "host";
+            this.Name = "HostForm";
             this.Text = "pickQuestion";
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
