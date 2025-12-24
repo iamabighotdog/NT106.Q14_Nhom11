@@ -65,7 +65,7 @@
             this.GradientPanel.Controls.Add(this.guna2Panel1);
             this.GradientPanel.Controls.Add(this.Close);
             this.GradientPanel.Controls.Add(this.guna2GradientPanel1);
-            this.GradientPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(191)))), ((int)(((byte)(120)))));
+            this.GradientPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(120)))), ((int)(((byte)(60)))));
             this.GradientPanel.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(191)))), ((int)(((byte)(120)))));
             this.GradientPanel.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             this.GradientPanel.Location = new System.Drawing.Point(0, 0);
@@ -111,11 +111,11 @@
             this.changeavatar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.changeavatar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.changeavatar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.changeavatar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(80)))));
+            this.changeavatar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.changeavatar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.changeavatar.ForeColor = System.Drawing.Color.White;
             this.changeavatar.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(180)))), ((int)(((byte)(100)))));
-            this.changeavatar.Location = new System.Drawing.Point(227, 66);
+            this.changeavatar.Location = new System.Drawing.Point(180, 115);
             this.changeavatar.Name = "changeavatar";
             this.changeavatar.Size = new System.Drawing.Size(200, 45);
             this.changeavatar.TabIndex = 14;
@@ -350,7 +350,7 @@
             this.changeInfo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.changeInfo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.changeInfo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.changeInfo.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.changeInfo.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.changeInfo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.changeInfo.ForeColor = System.Drawing.Color.White;
             this.changeInfo.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(80)))));
@@ -369,6 +369,7 @@
             this.pic_Avatar.ImageRotate = 0F;
             this.pic_Avatar.Location = new System.Drawing.Point(40, 16);
             this.pic_Avatar.Name = "pic_Avatar";
+            this.pic_Avatar.ShadowDecoration.Depth = 0;
             this.pic_Avatar.ShadowDecoration.Enabled = true;
             this.pic_Avatar.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.pic_Avatar.Size = new System.Drawing.Size(149, 144);
@@ -445,9 +446,9 @@
             this.myQuiz.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.myQuiz.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.myQuiz.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.myQuiz.FillColor = System.Drawing.Color.White;
+            this.myQuiz.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(60)))));
             this.myQuiz.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.myQuiz.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.myQuiz.ForeColor = System.Drawing.Color.White;
             this.myQuiz.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(245)))), ((int)(((byte)(235)))));
             this.myQuiz.Location = new System.Drawing.Point(20, 420);
             this.myQuiz.Name = "myQuiz";
@@ -465,9 +466,9 @@
             this.exit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.exit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.exit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.exit.FillColor = System.Drawing.Color.White;
+            this.exit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(60)))));
             this.exit.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.exit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.exit.ForeColor = System.Drawing.Color.White;
             this.exit.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(245)))), ((int)(((byte)(235)))));
             this.exit.Location = new System.Drawing.Point(20, 540);
             this.exit.Name = "exit";
@@ -505,9 +506,9 @@
             this.leaderboard.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.leaderboard.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.leaderboard.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.leaderboard.FillColor = System.Drawing.Color.White;
+            this.leaderboard.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(115)))), ((int)(((byte)(60)))));
             this.leaderboard.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.leaderboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.leaderboard.ForeColor = System.Drawing.Color.White;
             this.leaderboard.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(245)))), ((int)(((byte)(235)))));
             this.leaderboard.Location = new System.Drawing.Point(20, 300);
             this.leaderboard.Name = "leaderboard";
@@ -544,7 +545,7 @@
             this.guna2PictureBox1.ImageRotate = 0F;
             this.guna2PictureBox1.Location = new System.Drawing.Point(50, 30);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(200, 180);
+            this.guna2PictureBox1.Size = new System.Drawing.Size(208, 204);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.guna2PictureBox1.TabIndex = 1;
             this.guna2PictureBox1.TabStop = false;

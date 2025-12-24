@@ -11,7 +11,7 @@ namespace FormAppQuyt.Networking
 {
     public class TcpSessionClient : IDisposable
     {
-        private readonly string serverIp = "160.30.113.189";
+        private readonly string serverIp = "127.0.0.1";
         private readonly int serverPort = 3636;
 
         private TcpClient _client;

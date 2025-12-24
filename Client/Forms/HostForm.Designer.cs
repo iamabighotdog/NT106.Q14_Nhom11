@@ -42,12 +42,14 @@
             // 
             // guna2Panel1
             // 
+            this.guna2Panel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.guna2Panel1.BorderThickness = 2;
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2Panel1.Controls.Add(this.choose);
             this.guna2Panel1.Controls.Add(this.listView1);
             this.guna2Panel1.Controls.Add(this.back);
             this.guna2Panel1.Controls.Add(this.guna2ControlBox1);
-            this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(180)))), ((int)(((byte)(100)))));
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1262, 675);
@@ -57,7 +59,7 @@
             // 
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(508, 70);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(246, 47);
@@ -67,12 +69,14 @@
             // choose
             // 
             this.choose.BackColor = System.Drawing.Color.Transparent;
+            this.choose.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.choose.BorderRadius = 10;
+            this.choose.BorderThickness = 2;
             this.choose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.choose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.choose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.choose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.choose.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.choose.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.choose.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.choose.ForeColor = System.Drawing.Color.White;
             this.choose.Location = new System.Drawing.Point(520, 595);
@@ -85,7 +89,6 @@
             // listView1
             // 
             this.listView1.BackColor = System.Drawing.Color.White;
-            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Question,
             this.contribute,
@@ -120,7 +123,9 @@
             // back
             // 
             this.back.BackColor = System.Drawing.Color.Transparent;
+            this.back.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.back.BorderRadius = 8;
+            this.back.BorderThickness = 2;
             this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));

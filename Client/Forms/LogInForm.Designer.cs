@@ -158,7 +158,7 @@
             this.LogInButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.LogInButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.LogInButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.LogInButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.LogInButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.LogInButton.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogInButton.ForeColor = System.Drawing.Color.White;
             this.LogInButton.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(80)))));
@@ -231,7 +231,7 @@
             this.LogInLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LogInLabel.BackColor = System.Drawing.Color.Transparent;
             this.LogInLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogInLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.LogInLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.LogInLabel.Location = new System.Drawing.Point(118, 190);
             this.LogInLabel.Name = "LogInLabel";
             this.LogInLabel.Size = new System.Drawing.Size(172, 47);

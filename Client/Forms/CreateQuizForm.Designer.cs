@@ -66,7 +66,9 @@
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(191)))), ((int)(((byte)(120)))));
+            this.guna2Panel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.guna2Panel1.BorderThickness = 2;
             this.guna2Panel1.Controls.Add(this.btnImportTxt);
             this.guna2Panel1.Controls.Add(this.quizName);
             this.guna2Panel1.Controls.Add(this.back);
@@ -91,7 +93,9 @@
             // 
             // btnImportTxt
             // 
+            this.btnImportTxt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.btnImportTxt.BorderRadius = 8;
+            this.btnImportTxt.BorderThickness = 2;
             this.btnImportTxt.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnImportTxt.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnImportTxt.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -99,16 +103,18 @@
             this.btnImportTxt.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.btnImportTxt.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnImportTxt.ForeColor = System.Drawing.Color.White;
-            this.btnImportTxt.Location = new System.Drawing.Point(604, 605);
+            this.btnImportTxt.Location = new System.Drawing.Point(615, 605);
             this.btnImportTxt.Name = "btnImportTxt";
-            this.btnImportTxt.Size = new System.Drawing.Size(220, 45);
+            this.btnImportTxt.Size = new System.Drawing.Size(200, 45);
             this.btnImportTxt.TabIndex = 14;
-            this.btnImportTxt.Text = "Chọn file câu hỏi của bạn";
+            this.btnImportTxt.Text = "Chọn file câu hỏi";
             this.btnImportTxt.Click += new System.EventHandler(this.btnImportTxt_Click);
             // 
             // quizName
             // 
-            this.quizName.BorderRadius = 12;
+            this.quizName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.quizName.BorderRadius = 8;
+            this.quizName.BorderThickness = 2;
             this.quizName.Controls.Add(this.questionCountBox);
             this.quizName.Controls.Add(this.lblQuestionCount);
             this.quizName.Controls.Add(this.quizBox);
@@ -162,7 +168,9 @@
             // 
             // back
             // 
+            this.back.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.back.BorderRadius = 8;
+            this.back.BorderThickness = 2;
             this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -179,7 +187,9 @@
             // 
             // save
             // 
+            this.save.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.save.BorderRadius = 8;
+            this.save.BorderThickness = 2;
             this.save.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.save.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.save.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -187,11 +197,11 @@
             this.save.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.save.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.save.ForeColor = System.Drawing.Color.White;
-            this.save.Location = new System.Drawing.Point(1011, 605);
+            this.save.Location = new System.Drawing.Point(1025, 605);
             this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(227, 45);
+            this.save.Size = new System.Drawing.Size(200, 45);
             this.save.TabIndex = 11;
-            this.save.Text = "Lưu bộ câu hỏi và thoát";
+            this.save.Text = "Lưu bộ câu hỏi";
             this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // num
@@ -207,7 +217,9 @@
             // 
             // next
             // 
+            this.next.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.next.BorderRadius = 8;
+            this.next.BorderThickness = 2;
             this.next.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.next.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.next.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -223,7 +235,9 @@
             // 
             // previous
             // 
+            this.previous.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.previous.BorderRadius = 8;
+            this.previous.BorderThickness = 2;
             this.previous.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.previous.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.previous.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -239,7 +253,9 @@
             // 
             // add
             // 
+            this.add.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.add.BorderRadius = 8;
+            this.add.BorderThickness = 2;
             this.add.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.add.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -255,7 +271,9 @@
             // 
             // delete
             // 
+            this.delete.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.delete.BorderRadius = 8;
+            this.delete.BorderThickness = 2;
             this.delete.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.delete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.delete.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -285,7 +303,9 @@
             // 
             // question
             // 
-            this.question.BorderRadius = 12;
+            this.question.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.question.BorderRadius = 8;
+            this.question.BorderThickness = 2;
             this.question.Controls.Add(this.Time);
             this.question.Controls.Add(this.timeBox);
             this.question.Controls.Add(this.addPic);
@@ -321,7 +341,9 @@
             // 
             // addPic
             // 
+            this.addPic.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.addPic.BorderRadius = 6;
+            this.addPic.BorderThickness = 2;
             this.addPic.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.addPic.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.addPic.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -353,7 +375,9 @@
             // 
             // correct
             // 
-            this.correct.BorderRadius = 12;
+            this.correct.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.correct.BorderRadius = 8;
+            this.correct.BorderThickness = 2;
             this.correct.Controls.Add(this.correctBox);
             this.correct.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.correct.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
@@ -380,7 +404,9 @@
             // 
             // wrong
             // 
-            this.wrong.BorderRadius = 12;
+            this.wrong.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.wrong.BorderRadius = 8;
+            this.wrong.BorderThickness = 2;
             this.wrong.Controls.Add(this.wrongBox3);
             this.wrong.Controls.Add(this.wrongBox2);
             this.wrong.Controls.Add(this.wrongBox1);

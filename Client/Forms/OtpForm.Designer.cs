@@ -37,12 +37,16 @@
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.guna2Panel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.guna2Panel1.BorderThickness = 2;
+            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel3);
             this.guna2Panel1.Controls.Add(this.back);
             this.guna2Panel1.Controls.Add(this.email);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel2);
@@ -51,17 +55,18 @@
             this.guna2Panel1.Controls.Add(this.guna2TextBox1);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2Panel1.Controls.Add(this.guna2ControlBox1);
-            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(180)))), ((int)(((byte)(100)))));
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(722, 426);
+            this.guna2Panel1.Size = new System.Drawing.Size(568, 451);
             this.guna2Panel1.TabIndex = 0;
             // 
             // back
             // 
             this.back.BackColor = System.Drawing.Color.Transparent;
+            this.back.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.back.BorderRadius = 8;
+            this.back.BorderThickness = 2;
             this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -91,7 +96,7 @@
             this.email.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.email.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.email.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
-            this.email.Location = new System.Drawing.Point(191, 118);
+            this.email.Location = new System.Drawing.Point(114, 166);
             this.email.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.email.Name = "email";
             this.email.PlaceholderText = "example@email.com";
@@ -104,7 +109,7 @@
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(311, 82);
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(234, 130);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
             this.guna2HtmlLabel2.Size = new System.Drawing.Size(100, 27);
             this.guna2HtmlLabel2.TabIndex = 4;
@@ -113,7 +118,9 @@
             // sendOTP
             // 
             this.sendOTP.BackColor = System.Drawing.Color.Transparent;
+            this.sendOTP.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.sendOTP.BorderRadius = 8;
+            this.sendOTP.BorderThickness = 2;
             this.sendOTP.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.sendOTP.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.sendOTP.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -121,7 +128,7 @@
             this.sendOTP.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.sendOTP.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.sendOTP.ForeColor = System.Drawing.SystemColors.Window;
-            this.sendOTP.Location = new System.Drawing.Point(276, 167);
+            this.sendOTP.Location = new System.Drawing.Point(199, 217);
             this.sendOTP.Name = "sendOTP";
             this.sendOTP.Size = new System.Drawing.Size(170, 42);
             this.sendOTP.TabIndex = 3;
@@ -130,15 +137,17 @@
             // check
             // 
             this.check.BackColor = System.Drawing.Color.Transparent;
+            this.check.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.check.BorderRadius = 10;
+            this.check.BorderThickness = 2;
             this.check.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.check.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.check.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.check.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.check.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(87)))), ((int)(((byte)(34)))));
+            this.check.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.check.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.check.ForeColor = System.Drawing.Color.White;
-            this.check.Location = new System.Drawing.Point(275, 304);
+            this.check.Location = new System.Drawing.Point(198, 354);
             this.check.Name = "check";
             this.check.Size = new System.Drawing.Size(170, 41);
             this.check.TabIndex = 1;
@@ -159,7 +168,7 @@
             this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.guna2TextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
-            this.guna2TextBox1.Location = new System.Drawing.Point(191, 254);
+            this.guna2TextBox1.Location = new System.Drawing.Point(114, 304);
             this.guna2TextBox1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.guna2TextBox1.MaxLength = 6;
             this.guna2TextBox1.Name = "guna2TextBox1";
@@ -174,7 +183,7 @@
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(316, 218);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(239, 268);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(90, 27);
             this.guna2HtmlLabel1.TabIndex = 1;
@@ -188,16 +197,27 @@
             this.guna2ControlBox1.FillColor = System.Drawing.Color.Transparent;
             this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
             this.guna2ControlBox1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.guna2ControlBox1.Location = new System.Drawing.Point(677, 0);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(523, 0);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(45, 35);
             this.guna2ControlBox1.TabIndex = 0;
+            // 
+            // guna2HtmlLabel3
+            // 
+            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(143, 74);
+            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(294, 47);
+            this.guna2HtmlLabel3.TabIndex = 16;
+            this.guna2HtmlLabel3.Text = "KIỂM TRA MÃ OTP";
             // 
             // OtpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 426);
+            this.ClientSize = new System.Drawing.Size(564, 452);
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "OtpForm";
@@ -219,5 +239,6 @@
         private Guna.UI2.WinForms.Guna2TextBox email;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2Button back;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
     }
 }

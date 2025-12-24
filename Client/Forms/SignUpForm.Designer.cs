@@ -202,12 +202,14 @@
             // 
             // SignUpButton
             // 
+            this.SignUpButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.SignUpButton.BorderRadius = 10;
+            this.SignUpButton.BorderThickness = 2;
             this.SignUpButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.SignUpButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.SignUpButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.SignUpButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.SignUpButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.SignUpButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.SignUpButton.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.SignUpButton.ForeColor = System.Drawing.Color.White;
             this.SignUpButton.Location = new System.Drawing.Point(80, 483);
@@ -301,7 +303,7 @@
             this.SignUpLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.SignUpLabel.BackColor = System.Drawing.Color.Transparent;
             this.SignUpLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.SignUpLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SignUpLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.SignUpLabel.Location = new System.Drawing.Point(141, 131);
             this.SignUpLabel.Name = "SignUpLabel";
             this.SignUpLabel.Size = new System.Drawing.Size(119, 43);

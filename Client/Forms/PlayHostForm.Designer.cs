@@ -65,10 +65,11 @@
             // 
             // rankPopup1
             // 
+            this.rankPopup1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rankPopup1.Location = new System.Drawing.Point(511, 0);
             this.rankPopup1.Name = "rankPopup1";
-            this.rankPopup1.Size = new System.Drawing.Size(752, 672);
-            this.rankPopup1.TabIndex = 19;
+            this.rankPopup1.Size = new System.Drawing.Size(752, 675);
+            this.rankPopup1.TabIndex = 17;
             this.rankPopup1.Visible = false;
             // 
             // ProgressBar1
@@ -78,7 +79,7 @@
             this.ProgressBar1.BorderRadius = 12;
             this.ProgressBar1.BorderThickness = 2;
             this.ProgressBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(100)))), ((int)(((byte)(60)))));
-            this.ProgressBar1.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.ProgressBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.ProgressBar1.ForeColor = System.Drawing.Color.White;
             this.ProgressBar1.Location = new System.Drawing.Point(511, 560);
             this.ProgressBar1.Name = "ProgressBar1";
@@ -100,7 +101,7 @@
             this.playBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.playBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.playBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.playBtn.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold);
+            this.playBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.playBtn.ForeColor = System.Drawing.Color.White;
             this.playBtn.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
             this.playBtn.Location = new System.Drawing.Point(895, 602);
@@ -117,44 +118,44 @@
             // players
             // 
             this.players.BackColor = System.Drawing.Color.Transparent;
-            this.players.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
+            this.players.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.players.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(100)))));
             this.players.Location = new System.Drawing.Point(239, 631);
             this.players.Name = "players";
-            this.players.Size = new System.Drawing.Size(14, 32);
+            this.players.Size = new System.Drawing.Size(13, 22);
             this.players.TabIndex = 15;
             this.players.Text = "0";
             // 
             // guna2HtmlLabel2
             // 
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Poppins", 10F);
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.guna2HtmlLabel2.Location = new System.Drawing.Point(170, 631);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(68, 32);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(64, 22);
             this.guna2HtmlLabel2.TabIndex = 14;
             this.guna2HtmlLabel2.Text = "Players: ";
             // 
             // ID
             // 
             this.ID.BackColor = System.Drawing.Color.Transparent;
-            this.ID.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
+            this.ID.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.ID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(100)))));
             this.ID.Location = new System.Drawing.Point(95, 631);
             this.ID.Name = "ID";
-            this.ID.Size = new System.Drawing.Size(63, 32);
+            this.ID.Size = new System.Drawing.Size(57, 22);
             this.ID.TabIndex = 13;
             this.ID.Text = "xxxxxx";
             // 
             // guna2HtmlLabel1
             // 
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Poppins", 10F);
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(12, 631);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(78, 32);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(74, 22);
             this.guna2HtmlLabel1.TabIndex = 12;
             this.guna2HtmlLabel1.Text = "Room ID: ";
             // 
@@ -167,7 +168,7 @@
             this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.back.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
-            this.back.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold);
+            this.back.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.back.ForeColor = System.Drawing.Color.White;
             this.back.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(33)))), ((int)(((byte)(49)))));
             this.back.Location = new System.Drawing.Point(511, 602);
@@ -190,7 +191,7 @@
             this.answerD.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.answerD.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.answerD.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.answerD.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
+            this.answerD.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.answerD.ForeColor = System.Drawing.Color.White;
             this.answerD.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
             this.answerD.Location = new System.Drawing.Point(30, 471);
@@ -212,7 +213,7 @@
             this.answerC.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.answerC.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.answerC.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.answerC.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
+            this.answerC.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.answerC.ForeColor = System.Drawing.Color.White;
             this.answerC.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
             this.answerC.Location = new System.Drawing.Point(30, 351);
@@ -234,7 +235,7 @@
             this.answerB.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.answerB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.answerB.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.answerB.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
+            this.answerB.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.answerB.ForeColor = System.Drawing.Color.White;
             this.answerB.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
             this.answerB.Location = new System.Drawing.Point(30, 231);
@@ -268,11 +269,11 @@
             // question
             // 
             this.question.BackColor = System.Drawing.Color.Transparent;
-            this.question.Font = new System.Drawing.Font("Poppins", 18F, System.Drawing.FontStyle.Bold);
+            this.question.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
             this.question.ForeColor = System.Drawing.Color.White;
             this.question.Location = new System.Drawing.Point(12, 12);
             this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(142, 55);
+            this.question.Size = new System.Drawing.Size(130, 38);
             this.question.TabIndex = 5;
             this.question.Text = "Question";
             // 
@@ -285,7 +286,7 @@
             this.answerA.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.answerA.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.answerA.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.answerA.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
+            this.answerA.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.answerA.ForeColor = System.Drawing.Color.White;
             this.answerA.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
             this.answerA.Location = new System.Drawing.Point(30, 111);

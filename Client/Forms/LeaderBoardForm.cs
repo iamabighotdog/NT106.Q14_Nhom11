@@ -156,6 +156,8 @@ namespace FormAppQuyt
         private void back_Click_1(object sender, EventArgs e)
         {
             this.Close();
+            var main = Application.OpenForms["MainForm"];
+            if (main != null) main.Show();
         }
     }
 }

@@ -47,11 +47,10 @@
             this.guna2Panel1.Controls.Add(this.roomID);
             this.guna2Panel1.Controls.Add(this.back);
             this.guna2Panel1.Controls.Add(this.guna2ControlBox1);
-            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(180)))), ((int)(((byte)(100)))));
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(571, 500);
+            this.guna2Panel1.Size = new System.Drawing.Size(516, 401);
             this.guna2Panel1.TabIndex = 0;
             // 
             // guna2PictureBox1
@@ -59,7 +58,7 @@
             this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox1.Image = global::FormAppQuyt.Properties.Resources.ChatGPT_Image_Sep_29__2025__09_58_10_PM_removebg_preview;
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(184, 75);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(151, 30);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(200, 200);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -70,15 +69,17 @@
             // enterRoom
             // 
             this.enterRoom.BackColor = System.Drawing.Color.Transparent;
+            this.enterRoom.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.enterRoom.BorderRadius = 10;
+            this.enterRoom.BorderThickness = 2;
             this.enterRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.enterRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.enterRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.enterRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.enterRoom.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.enterRoom.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.enterRoom.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.enterRoom.ForeColor = System.Drawing.Color.White;
-            this.enterRoom.Location = new System.Drawing.Point(160, 338);
+            this.enterRoom.Location = new System.Drawing.Point(133, 279);
             this.enterRoom.Name = "enterRoom";
             this.enterRoom.Size = new System.Drawing.Size(250, 50);
             this.enterRoom.TabIndex = 17;
@@ -90,7 +91,7 @@
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(200, 238);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(173, 179);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(167, 33);
             this.guna2HtmlLabel1.TabIndex = 16;
@@ -111,7 +112,7 @@
             this.roomID.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.roomID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.roomID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
-            this.roomID.Location = new System.Drawing.Point(105, 278);
+            this.roomID.Location = new System.Drawing.Point(78, 219);
             this.roomID.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.roomID.Name = "roomID";
             this.roomID.PlaceholderText = "123456";
@@ -123,7 +124,9 @@
             // back
             // 
             this.back.BackColor = System.Drawing.Color.Transparent;
+            this.back.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
             this.back.BorderRadius = 8;
+            this.back.BorderThickness = 2;
             this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -146,7 +149,7 @@
             this.guna2ControlBox1.FillColor = System.Drawing.Color.Transparent;
             this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
             this.guna2ControlBox1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.guna2ControlBox1.Location = new System.Drawing.Point(526, 0);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(471, 0);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(45, 35);
             this.guna2ControlBox1.TabIndex = 0;
@@ -155,7 +158,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 500);
+            this.ClientSize = new System.Drawing.Size(518, 398);
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PlayersForm";
