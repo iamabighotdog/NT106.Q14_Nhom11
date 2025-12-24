@@ -56,68 +56,81 @@
             // guna2HtmlLabel1
             // 
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 13.77391F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(564, 87);
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(508, 70);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(134, 32);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(246, 47);
             this.guna2HtmlLabel1.TabIndex = 17;
-            this.guna2HtmlLabel1.Text = "Chọn câu hỏi";
+            this.guna2HtmlLabel1.Text = "CHỌN CÂU HỎI";
             // 
             // choose
             // 
+            this.choose.BackColor = System.Drawing.Color.Transparent;
+            this.choose.BorderRadius = 10;
             this.choose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.choose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.choose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.choose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.choose.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.choose.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.choose.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.choose.ForeColor = System.Drawing.Color.White;
-            this.choose.Location = new System.Drawing.Point(541, 556);
+            this.choose.Location = new System.Drawing.Point(520, 595);
             this.choose.Name = "choose";
-            this.choose.Size = new System.Drawing.Size(180, 45);
+            this.choose.Size = new System.Drawing.Size(220, 50);
             this.choose.TabIndex = 15;
             this.choose.Text = "Chọn";
             this.choose.Click += new System.EventHandler(this.choose_Click);
             // 
             // listView1
             // 
+            this.listView1.BackColor = System.Drawing.Color.White;
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Question,
             this.contribute,
             this.dateColumn});
+            this.listView1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(261, 125);
+            this.listView1.Location = new System.Drawing.Point(201, 140);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(741, 425);
+            this.listView1.Size = new System.Drawing.Size(860, 435);
             this.listView1.TabIndex = 14;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
             // 
             // Question
             // 
             this.Question.Text = "Bộ câu hỏi";
-            this.Question.Width = 200;
+            this.Question.Width = 300;
             // 
             // contribute
             // 
             this.contribute.Text = "Tổng số câu";
-            this.contribute.Width = 200;
+            this.contribute.Width = 250;
             // 
             // dateColumn
             // 
             this.dateColumn.Text = "Ngày tạo";
-            this.dateColumn.Width = 180;
+            this.dateColumn.Width = 300;
             // 
             // back
             // 
+            this.back.BackColor = System.Drawing.Color.Transparent;
+            this.back.BorderRadius = 8;
             this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.back.FillColor = System.Drawing.Color.Green;
-            this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.back.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.back.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.back.ForeColor = System.Drawing.Color.White;
-            this.back.Location = new System.Drawing.Point(0, 0);
+            this.back.Location = new System.Drawing.Point(30, 30);
             this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(121, 41);
+            this.back.Size = new System.Drawing.Size(130, 42);
             this.back.TabIndex = 13;
             this.back.Text = "Quay lại";
             this.back.Click += new System.EventHandler(this.back_Click);
@@ -125,12 +138,14 @@
             // guna2ControlBox1
             // 
             this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.Red;
-            this.guna2ControlBox1.IconColor = System.Drawing.Color.Black;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(1217, 0);
+            this.guna2ControlBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ControlBox1.BorderRadius = 8;
+            this.guna2ControlBox1.FillColor = System.Drawing.Color.Transparent;
+            this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
+            this.guna2ControlBox1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.guna2ControlBox1.Location = new System.Drawing.Point(1200, 20);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
-            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
+            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 35);
             this.guna2ControlBox1.TabIndex = 0;
             // 
             // HostForm

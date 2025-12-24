@@ -2,15 +2,8 @@
 {
     partial class PlayClientForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,13 +15,10 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.rankPopup1 = new FormAppQuyt.RankPopup();
             this.timeBar = new Guna.UI2.WinForms.Guna2ProgressBar();
             this.players = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -42,7 +32,6 @@
             this.question = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.answerA = new Guna.UI2.WinForms.Guna2Button();
             this.close = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.rankPopup1 = new FormAppQuyt.RankPopup();
             this.guna2GradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.SuspendLayout();
@@ -71,127 +60,177 @@
             this.guna2GradientPanel1.Size = new System.Drawing.Size(1263, 675);
             this.guna2GradientPanel1.TabIndex = 0;
             // 
+            // rankPopup1
+            // 
+            this.rankPopup1.Location = new System.Drawing.Point(511, 0);
+            this.rankPopup1.Name = "rankPopup1";
+            this.rankPopup1.Size = new System.Drawing.Size(752, 645);
+            this.rankPopup1.TabIndex = 17;
+            this.rankPopup1.Visible = false;
+            // 
             // timeBar
             // 
-            this.timeBar.Font = new System.Drawing.Font("Palatino Linotype", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeBar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.timeBar.BackColor = System.Drawing.Color.Transparent;
+            this.timeBar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(60)))));
+            this.timeBar.BorderRadius = 12;
+            this.timeBar.BorderThickness = 2;
+            this.timeBar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(100)))), ((int)(((byte)(60)))));
+            this.timeBar.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.timeBar.ForeColor = System.Drawing.Color.White;
             this.timeBar.Location = new System.Drawing.Point(511, 561);
             this.timeBar.Name = "timeBar";
-            this.timeBar.ProgressColor = System.Drawing.Color.Lime;
-            this.timeBar.ProgressColor2 = System.Drawing.Color.Green;
+            this.timeBar.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.timeBar.ProgressColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
             this.timeBar.ShowText = true;
-            this.timeBar.Size = new System.Drawing.Size(706, 25);
+            this.timeBar.Size = new System.Drawing.Size(706, 35);
             this.timeBar.TabIndex = 16;
             this.timeBar.Text = "1000";
             this.timeBar.TextMode = Guna.UI2.WinForms.Enums.ProgressBarTextMode.Custom;
-            this.timeBar.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.timeBar.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             // 
             // players
             // 
             this.players.BackColor = System.Drawing.Color.Transparent;
-            this.players.Location = new System.Drawing.Point(239, 636);
+            this.players.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
+            this.players.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(100)))));
+            this.players.Location = new System.Drawing.Point(239, 631);
             this.players.Name = "players";
-            this.players.Size = new System.Drawing.Size(10, 18);
+            this.players.Size = new System.Drawing.Size(14, 32);
             this.players.TabIndex = 15;
             this.players.Text = "0";
             // 
             // guna2HtmlLabel2
             // 
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(181, 636);
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Poppins", 10F);
+            this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(170, 631);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(52, 18);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(68, 32);
             this.guna2HtmlLabel2.TabIndex = 14;
             this.guna2HtmlLabel2.Text = "Players: ";
             // 
             // ID
             // 
             this.ID.BackColor = System.Drawing.Color.Transparent;
-            this.ID.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ID.Location = new System.Drawing.Point(85, 631);
+            this.ID.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
+            this.ID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(100)))));
+            this.ID.Location = new System.Drawing.Point(95, 631);
             this.ID.Name = "ID";
-            this.ID.Size = new System.Drawing.Size(51, 25);
+            this.ID.Size = new System.Drawing.Size(63, 32);
             this.ID.TabIndex = 13;
             this.ID.Text = "xxxxxx";
             // 
             // guna2HtmlLabel1
             // 
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Poppins", 10F);
+            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(12, 631);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(74, 25);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(78, 32);
             this.guna2HtmlLabel1.TabIndex = 12;
             this.guna2HtmlLabel1.Text = "Room ID: ";
             // 
             // back
             // 
+            this.back.BackColor = System.Drawing.Color.Transparent;
+            this.back.BorderRadius = 15;
             this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.back.FillColor = System.Drawing.Color.Green;
-            this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.back.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.back.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold);
             this.back.ForeColor = System.Drawing.Color.White;
-            this.back.Location = new System.Drawing.Point(714, 600);
+            this.back.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(33)))), ((int)(((byte)(49)))));
+            this.back.Location = new System.Drawing.Point(714, 602);
             this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(322, 75);
+            this.back.ShadowDecoration.BorderRadius = 15;
+            this.back.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(30)))), ((int)(((byte)(40)))));
+            this.back.ShadowDecoration.Depth = 15;
+            this.back.ShadowDecoration.Enabled = true;
+            this.back.Size = new System.Drawing.Size(322, 65);
             this.back.TabIndex = 11;
             this.back.Text = "Quay lại";
             this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // answerD
             // 
+            this.answerD.BackColor = System.Drawing.Color.Transparent;
+            this.answerD.BorderRadius = 15;
             this.answerD.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.answerD.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.answerD.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.answerD.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.answerD.FillColor = System.Drawing.Color.Green;
-            this.answerD.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.answerD.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.answerD.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
             this.answerD.ForeColor = System.Drawing.Color.White;
-            this.answerD.Location = new System.Drawing.Point(99, 471);
+            this.answerD.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
+            this.answerD.Location = new System.Drawing.Point(30, 471);
             this.answerD.Name = "answerD";
-            this.answerD.Size = new System.Drawing.Size(322, 83);
+            this.answerD.ShadowDecoration.BorderRadius = 15;
+            this.answerD.ShadowDecoration.Depth = 10;
+            this.answerD.ShadowDecoration.Enabled = true;
+            this.answerD.Size = new System.Drawing.Size(460, 83);
             this.answerD.TabIndex = 9;
             this.answerD.Text = "D";
             // 
             // answerC
             // 
+            this.answerC.BackColor = System.Drawing.Color.Transparent;
+            this.answerC.BorderRadius = 15;
             this.answerC.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.answerC.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.answerC.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.answerC.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.answerC.FillColor = System.Drawing.Color.Green;
-            this.answerC.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.answerC.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.answerC.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
             this.answerC.ForeColor = System.Drawing.Color.White;
-            this.answerC.Location = new System.Drawing.Point(99, 351);
+            this.answerC.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
+            this.answerC.Location = new System.Drawing.Point(30, 351);
             this.answerC.Name = "answerC";
-            this.answerC.Size = new System.Drawing.Size(322, 83);
+            this.answerC.ShadowDecoration.BorderRadius = 15;
+            this.answerC.ShadowDecoration.Depth = 10;
+            this.answerC.ShadowDecoration.Enabled = true;
+            this.answerC.Size = new System.Drawing.Size(460, 83);
             this.answerC.TabIndex = 8;
             this.answerC.Text = "C";
             // 
             // answerB
             // 
+            this.answerB.BackColor = System.Drawing.Color.Transparent;
+            this.answerB.BorderRadius = 15;
             this.answerB.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.answerB.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.answerB.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.answerB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.answerB.FillColor = System.Drawing.Color.Green;
-            this.answerB.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.answerB.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.answerB.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
             this.answerB.ForeColor = System.Drawing.Color.White;
-            this.answerB.Location = new System.Drawing.Point(99, 231);
+            this.answerB.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
+            this.answerB.Location = new System.Drawing.Point(30, 231);
             this.answerB.Name = "answerB";
-            this.answerB.Size = new System.Drawing.Size(322, 83);
+            this.answerB.ShadowDecoration.BorderRadius = 15;
+            this.answerB.ShadowDecoration.Depth = 10;
+            this.answerB.ShadowDecoration.Enabled = true;
+            this.answerB.Size = new System.Drawing.Size(460, 83);
             this.answerB.TabIndex = 7;
             this.answerB.Text = "B";
             // 
             // pic
             // 
             this.pic.BackColor = System.Drawing.Color.Transparent;
+            this.pic.BorderRadius = 20;
+            this.pic.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(100)))), ((int)(((byte)(60)))));
             this.pic.Image = global::FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
             this.pic.ImageRotate = 0F;
             this.pic.Location = new System.Drawing.Point(511, 111);
             this.pic.Name = "pic";
+            this.pic.ShadowDecoration.BorderRadius = 20;
+            this.pic.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pic.ShadowDecoration.Depth = 20;
+            this.pic.ShadowDecoration.Enabled = true;
             this.pic.Size = new System.Drawing.Size(706, 443);
             this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic.TabIndex = 6;
@@ -200,46 +239,47 @@
             // question
             // 
             this.question.BackColor = System.Drawing.Color.Transparent;
-            this.question.Font = new System.Drawing.Font("Segoe UI", 13.77391F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.question.Font = new System.Drawing.Font("Poppins", 18F, System.Drawing.FontStyle.Bold);
+            this.question.ForeColor = System.Drawing.Color.White;
             this.question.Location = new System.Drawing.Point(12, 12);
             this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(95, 33);
+            this.question.Size = new System.Drawing.Size(142, 55);
             this.question.TabIndex = 5;
             this.question.Text = "Question";
             // 
             // answerA
             // 
+            this.answerA.BackColor = System.Drawing.Color.Transparent;
+            this.answerA.BorderRadius = 15;
             this.answerA.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.answerA.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.answerA.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.answerA.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.answerA.FillColor = System.Drawing.Color.Green;
-            this.answerA.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.answerA.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.answerA.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
             this.answerA.ForeColor = System.Drawing.Color.White;
-            this.answerA.Location = new System.Drawing.Point(99, 111);
+            this.answerA.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
+            this.answerA.Location = new System.Drawing.Point(30, 111);
             this.answerA.Name = "answerA";
-            this.answerA.Size = new System.Drawing.Size(322, 83);
+            this.answerA.ShadowDecoration.BorderRadius = 15;
+            this.answerA.ShadowDecoration.Depth = 10;
+            this.answerA.ShadowDecoration.Enabled = true;
+            this.answerA.Size = new System.Drawing.Size(460, 83);
             this.answerA.TabIndex = 1;
             this.answerA.Text = "A";
             // 
             // close
             // 
             this.close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.close.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.close.HoverState.FillColor = System.Drawing.Color.Red;
-            this.close.IconColor = System.Drawing.Color.Black;
-            this.close.Location = new System.Drawing.Point(1218, 0);
+            this.close.BackColor = System.Drawing.Color.Transparent;
+            this.close.BorderRadius = 8;
+            this.close.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(100)))), ((int)(((byte)(60)))));
+            this.close.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.close.IconColor = System.Drawing.Color.White;
+            this.close.Location = new System.Drawing.Point(1210, 8);
             this.close.Name = "close";
-            this.close.Size = new System.Drawing.Size(45, 29);
+            this.close.Size = new System.Drawing.Size(45, 35);
             this.close.TabIndex = 0;
-            // 
-            // rankPopup1
-            // 
-            this.rankPopup1.Location = new System.Drawing.Point(511, 0);
-            this.rankPopup1.Name = "rankPopup1";
-            this.rankPopup1.Size = new System.Drawing.Size(752, 645);
-            this.rankPopup1.TabIndex = 17;
-            this.rankPopup1.Visible = false;
             // 
             // PlayClientForm
             // 
@@ -275,5 +315,4 @@
         private Guna.UI2.WinForms.Guna2ProgressBar timeBar;
         private RankPopup rankPopup1;
     }
-
 }

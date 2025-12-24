@@ -50,10 +50,10 @@
             GradientBackground1.Anchor = System.Windows.Forms.AnchorStyles.None;
             GradientBackground1.Controls.Add(this.Close);
             GradientBackground1.Controls.Add(this.Panel1);
-            GradientBackground1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            GradientBackground1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            GradientBackground1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(120)))), ((int)(((byte)(60)))));
+            GradientBackground1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(180)))), ((int)(((byte)(100)))));
             GradientBackground1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            GradientBackground1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            GradientBackground1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.BackwardDiagonal;
             GradientBackground1.Location = new System.Drawing.Point(0, 0);
             GradientBackground1.Name = "GradientBackground1";
             GradientBackground1.ShadowDecoration.Depth = 25;
@@ -63,20 +63,23 @@
             // Close
             // 
             this.Close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Close.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.Close.HoverState.FillColor = System.Drawing.Color.Red;
-            this.Close.IconColor = System.Drawing.Color.Black;
-            this.Close.Location = new System.Drawing.Point(979, 0);
+            this.Close.BackColor = System.Drawing.Color.Transparent;
+            this.Close.BorderRadius = 5;
+            this.Close.FillColor = System.Drawing.Color.Transparent;
+            this.Close.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.Close.IconColor = System.Drawing.Color.White;
+            this.Close.Location = new System.Drawing.Point(969, 10);
             this.Close.Name = "Close";
-            this.Close.PressedColor = System.Drawing.Color.Red;
-            this.Close.Size = new System.Drawing.Size(45, 30);
+            this.Close.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.Close.Size = new System.Drawing.Size(45, 35);
             this.Close.TabIndex = 5;
             this.Close.Click += new System.EventHandler(this.Close_Click);
             // 
             // Panel1
             // 
             this.Panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.Panel1.BackColor = System.Drawing.Color.Transparent;
+            this.Panel1.BorderRadius = 18;
             this.Panel1.Controls.Add(this.ToSignUp);
             this.Panel1.Controls.Add(this.HaveAccountLabel);
             this.Panel1.Controls.Add(this.ForgotPassword);
@@ -85,38 +88,46 @@
             this.Panel1.Controls.Add(this.EmailBox);
             this.Panel1.Controls.Add(this.LogInLabel);
             this.Panel1.Controls.Add(this.Logo);
+            this.Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(238)))), ((int)(((byte)(169)))));
             this.Panel1.Location = new System.Drawing.Point(312, 60);
             this.Panel1.Name = "Panel1";
-            this.Panel1.ShadowDecoration.BorderRadius = 1;
+            this.Panel1.ShadowDecoration.BorderRadius = 20;
+            this.Panel1.ShadowDecoration.Depth = 20;
             this.Panel1.ShadowDecoration.Enabled = true;
+            this.Panel1.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.Panel1.Size = new System.Drawing.Size(400, 600);
             this.Panel1.TabIndex = 0;
             // 
             // ToSignUp
             // 
             this.ToSignUp.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ToSignUp.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.ToSignUp.BorderRadius = 8;
+            this.ToSignUp.BorderThickness = 2;
             this.ToSignUp.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.ToSignUp.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.ToSignUp.DisabledState.FillColor = System.Drawing.Color.DarkGray;
             this.ToSignUp.DisabledState.ForeColor = System.Drawing.Color.Black;
-            this.ToSignUp.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ToSignUp.FillColor = System.Drawing.Color.White;
             this.ToSignUp.FocusedColor = System.Drawing.Color.Transparent;
-            this.ToSignUp.Font = new System.Drawing.Font("Segoe UI", 10.01739F);
-            this.ToSignUp.ForeColor = System.Drawing.Color.Black;
-            this.ToSignUp.Location = new System.Drawing.Point(110, 502);
+            this.ToSignUp.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.ToSignUp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.ToSignUp.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.ToSignUp.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(240)))), ((int)(((byte)(230)))));
+            this.ToSignUp.Location = new System.Drawing.Point(110, 510);
             this.ToSignUp.Name = "ToSignUp";
             this.ToSignUp.Size = new System.Drawing.Size(180, 45);
             this.ToSignUp.TabIndex = 7;
-            this.ToSignUp.Text = "Đăng ký ngay";
-            this.ToSignUp.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            this.ToSignUp.Text = "Đăng ký ngay";
             this.ToSignUp.Click += new System.EventHandler(this.ToSignUp_Click);
             // 
             // HaveAccountLabel
             // 
             this.HaveAccountLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.HaveAccountLabel.BackColor = System.Drawing.Color.Transparent;
-            this.HaveAccountLabel.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HaveAccountLabel.Location = new System.Drawing.Point(120, 471);
+            this.HaveAccountLabel.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HaveAccountLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.HaveAccountLabel.Location = new System.Drawing.Point(120, 480);
             this.HaveAccountLabel.Name = "HaveAccountLabel";
             this.HaveAccountLabel.Size = new System.Drawing.Size(161, 23);
             this.HaveAccountLabel.TabIndex = 6;
@@ -126,10 +137,11 @@
             // 
             this.ForgotPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ForgotPassword.BackColor = System.Drawing.Color.Transparent;
-            this.ForgotPassword.Font = new System.Drawing.Font("Segoe UI", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ForgotPassword.Location = new System.Drawing.Point(254, 374);
+            this.ForgotPassword.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForgotPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.ForgotPassword.Location = new System.Drawing.Point(254, 370);
             this.ForgotPassword.Name = "ForgotPassword";
-            this.ForgotPassword.Size = new System.Drawing.Size(121, 23);
+            this.ForgotPassword.Size = new System.Drawing.Size(114, 22);
             this.ForgotPassword.TabIndex = 5;
             this.ForgotPassword.Text = "Quên mật khẩu ?";
             this.ForgotPassword.Click += new System.EventHandler(this.ForgotPassword_Click);
@@ -139,14 +151,18 @@
             // LogInButton
             // 
             this.LogInButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LogInButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.LogInButton.BorderRadius = 10;
+            this.LogInButton.BorderThickness = 2;
             this.LogInButton.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.LogInButton.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.LogInButton.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.LogInButton.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.LogInButton.FillColor = System.Drawing.Color.Green;
-            this.LogInButton.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogInButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.LogInButton.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogInButton.ForeColor = System.Drawing.Color.White;
-            this.LogInButton.Location = new System.Drawing.Point(110, 420);
+            this.LogInButton.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(80)))));
+            this.LogInButton.Location = new System.Drawing.Point(110, 415);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(180, 45);
             this.LogInButton.TabIndex = 4;
@@ -155,66 +171,70 @@
             // 
             // PasswordBox
             // 
-            this.PasswordBox.BorderThickness = 3;
+            this.PasswordBox.Animated = true;
+            this.PasswordBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.PasswordBox.BorderRadius = 8;
+            this.PasswordBox.BorderThickness = 2;
             this.PasswordBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.PasswordBox.DefaultText = "";
             this.PasswordBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.PasswordBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.PasswordBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.PasswordBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.PasswordBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.PasswordBox.FocusedState.BorderColor = System.Drawing.Color.Green;
-            this.PasswordBox.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.PasswordBox.Font = new System.Drawing.Font("Segoe UI", 8.765218F);
-            this.PasswordBox.ForeColor = System.Drawing.Color.Gray;
-            this.PasswordBox.HoverState.BorderColor = System.Drawing.Color.Green;
-            this.PasswordBox.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.PasswordBox.Location = new System.Drawing.Point(25, 332);
+            this.PasswordBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.PasswordBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.PasswordBox.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.PasswordBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.PasswordBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.PasswordBox.IconLeftOffset = new System.Drawing.Point(10, 0);
+            this.PasswordBox.Location = new System.Drawing.Point(25, 320);
             this.PasswordBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.PasswordBox.Name = "PasswordBox";
-            this.PasswordBox.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.PasswordBox.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.PasswordBox.PlaceholderText = "Mật khẩu";
             this.PasswordBox.SelectedText = "";
-            this.PasswordBox.Size = new System.Drawing.Size(350, 35);
-            this.PasswordBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
+            this.PasswordBox.Size = new System.Drawing.Size(350, 45);
             this.PasswordBox.TabIndex = 3;
+            this.PasswordBox.TextOffset = new System.Drawing.Point(5, 0);
             this.PasswordBox.UseSystemPasswordChar = true;
             // 
             // EmailBox
             // 
-            this.EmailBox.BorderThickness = 3;
+            this.EmailBox.Animated = true;
+            this.EmailBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.EmailBox.BorderRadius = 8;
+            this.EmailBox.BorderThickness = 2;
             this.EmailBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.EmailBox.DefaultText = "";
             this.EmailBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.EmailBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.EmailBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.EmailBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.EmailBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.EmailBox.FocusedState.BorderColor = System.Drawing.Color.Green;
-            this.EmailBox.FocusedState.PlaceholderForeColor = System.Drawing.Color.Green;
-            this.EmailBox.Font = new System.Drawing.Font("Segoe UI", 8.765218F);
-            this.EmailBox.ForeColor = System.Drawing.Color.Gray;
-            this.EmailBox.HoverState.BorderColor = System.Drawing.Color.Green;
-            this.EmailBox.HoverState.PlaceholderForeColor = System.Drawing.Color.Green;
+            this.EmailBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.EmailBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.EmailBox.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.EmailBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.EmailBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(140)))), ((int)(((byte)(50)))));
+            this.EmailBox.IconLeftOffset = new System.Drawing.Point(10, 0);
             this.EmailBox.Location = new System.Drawing.Point(25, 255);
             this.EmailBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.EmailBox.Name = "EmailBox";
-            this.EmailBox.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.EmailBox.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.EmailBox.PlaceholderText = "Email/Số điện thoại/Username";
             this.EmailBox.SelectedText = "";
-            this.EmailBox.Size = new System.Drawing.Size(350, 35);
-            this.EmailBox.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
+            this.EmailBox.Size = new System.Drawing.Size(350, 45);
             this.EmailBox.TabIndex = 2;
+            this.EmailBox.TextOffset = new System.Drawing.Point(5, 0);
             // 
             // LogInLabel
             // 
             this.LogInLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.LogInLabel.BackColor = System.Drawing.Color.Transparent;
-            this.LogInLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16.27826F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogInLabel.ForeColor = System.Drawing.Color.Black;
-            this.LogInLabel.Location = new System.Drawing.Point(133, 183);
+            this.LogInLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogInLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.LogInLabel.Location = new System.Drawing.Point(118, 190);
             this.LogInLabel.Name = "LogInLabel";
-            this.LogInLabel.Size = new System.Drawing.Size(134, 38);
+            this.LogInLabel.Size = new System.Drawing.Size(172, 47);
             this.LogInLabel.TabIndex = 1;
             this.LogInLabel.Text = "Đăng nhập ";
             // 
@@ -224,7 +244,7 @@
             this.Logo.FillColor = System.Drawing.Color.Transparent;
             this.Logo.Image = global::FormAppQuyt.Properties.Resources.ChatGPT_Image_Sep_29__2025__09_58_10_PM_removebg_preview;
             this.Logo.ImageRotate = 0F;
-            this.Logo.Location = new System.Drawing.Point(125, 50);
+            this.Logo.Location = new System.Drawing.Point(125, 30);
             this.Logo.Name = "Logo";
             this.Logo.Size = new System.Drawing.Size(150, 150);
             this.Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -240,6 +260,7 @@
             this.Controls.Add(GradientBackground1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LogInForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             GradientBackground1.ResumeLayout(false);
             this.Panel1.ResumeLayout(false);
