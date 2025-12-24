@@ -47,10 +47,11 @@
             this.guna2Panel1.Controls.Add(this.roomID);
             this.guna2Panel1.Controls.Add(this.back);
             this.guna2Panel1.Controls.Add(this.guna2ControlBox1);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(180)))), ((int)(((byte)(100)))));
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(516, 401);
+            this.guna2Panel1.Size = new System.Drawing.Size(518, 398);
             this.guna2Panel1.TabIndex = 0;
             // 
             // guna2PictureBox1
@@ -149,7 +150,7 @@
             this.guna2ControlBox1.FillColor = System.Drawing.Color.Transparent;
             this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
             this.guna2ControlBox1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.guna2ControlBox1.Location = new System.Drawing.Point(471, 0);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(473, 0);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(45, 35);
             this.guna2ControlBox1.TabIndex = 0;
