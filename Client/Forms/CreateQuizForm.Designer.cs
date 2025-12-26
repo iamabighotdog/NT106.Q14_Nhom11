@@ -332,7 +332,7 @@
             this.Time.BackColor = System.Drawing.Color.Transparent;
             this.Time.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Time.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.Time.Location = new System.Drawing.Point(15, 100);
+            this.Time.Location = new System.Drawing.Point(15, 113);
             this.Time.Name = "Time";
             this.Time.Size = new System.Drawing.Size(65, 22);
             this.Time.TabIndex = 6;
@@ -342,7 +342,7 @@
             // 
             this.timeBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.timeBox.FormattingEnabled = true;
-            this.timeBox.Location = new System.Drawing.Point(110, 97);
+            this.timeBox.Location = new System.Drawing.Point(120, 107);
             this.timeBox.Name = "timeBox";
             this.timeBox.Size = new System.Drawing.Size(140, 28);
             this.timeBox.TabIndex = 1;
@@ -360,9 +360,9 @@
             this.addPic.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.addPic.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.addPic.ForeColor = System.Drawing.Color.White;
-            this.addPic.Location = new System.Drawing.Point(305, 95);
+            this.addPic.Location = new System.Drawing.Point(305, 107);
             this.addPic.Name = "addPic";
-            this.addPic.Size = new System.Drawing.Size(200, 32);
+            this.addPic.Size = new System.Drawing.Size(200, 28);
             this.addPic.TabIndex = 5;
             this.addPic.Text = "Thêm ảnh";
             this.addPic.Click += new System.EventHandler(this.addPic_Click);
@@ -379,8 +379,9 @@
             this.quesBox.Multiline = true;
             this.quesBox.Name = "quesBox";
             this.quesBox.PlaceholderText = "";
+            this.quesBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.quesBox.SelectedText = "";
-            this.quesBox.Size = new System.Drawing.Size(490, 36);
+            this.quesBox.Size = new System.Drawing.Size(490, 49);
             this.quesBox.TabIndex = 4;
             // 
             // correct
