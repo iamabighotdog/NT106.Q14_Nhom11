@@ -1,6 +1,6 @@
 ﻿namespace FormAppQuyt
 {
-    partial class createQuiz
+    partial class CreateQuizForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnImportTxt = new Guna.UI2.WinForms.Guna2Button();
             this.quizName = new Guna.UI2.WinForms.Guna2GroupBox();
             this.questionCountBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblQuestionCount = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -43,6 +44,8 @@
             this.delete = new Guna.UI2.WinForms.Guna2Button();
             this.pic = new Guna.UI2.WinForms.Guna2PictureBox();
             this.question = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.Time = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.timeBox = new System.Windows.Forms.ComboBox();
             this.addPic = new Guna.UI2.WinForms.Guna2Button();
             this.quesBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.correct = new Guna.UI2.WinForms.Guna2GroupBox();
@@ -63,7 +66,10 @@
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(191)))), ((int)(((byte)(120)))));
+            this.guna2Panel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.guna2Panel1.BorderThickness = 2;
+            this.guna2Panel1.Controls.Add(this.btnImportTxt);
             this.guna2Panel1.Controls.Add(this.quizName);
             this.guna2Panel1.Controls.Add(this.back);
             this.guna2Panel1.Controls.Add(this.save);
@@ -79,42 +85,70 @@
             this.guna2Panel1.Controls.Add(this.guna2ControlBox1);
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.ShadowDecoration.BorderRadius = 0;
+            this.guna2Panel1.ShadowDecoration.Depth = 5;
+            this.guna2Panel1.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(0);
             this.guna2Panel1.Size = new System.Drawing.Size(1263, 674);
             this.guna2Panel1.TabIndex = 0;
             // 
+            // btnImportTxt
+            // 
+            this.btnImportTxt.BackColor = System.Drawing.Color.Transparent;
+            this.btnImportTxt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.btnImportTxt.BorderRadius = 8;
+            this.btnImportTxt.BorderThickness = 2;
+            this.btnImportTxt.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnImportTxt.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnImportTxt.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnImportTxt.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnImportTxt.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.btnImportTxt.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnImportTxt.ForeColor = System.Drawing.Color.White;
+            this.btnImportTxt.Location = new System.Drawing.Point(615, 605);
+            this.btnImportTxt.Name = "btnImportTxt";
+            this.btnImportTxt.Size = new System.Drawing.Size(200, 45);
+            this.btnImportTxt.TabIndex = 14;
+            this.btnImportTxt.Text = "Chọn file câu hỏi";
+            this.btnImportTxt.Click += new System.EventHandler(this.btnImportTxt_Click);
+            // 
             // quizName
             // 
+            this.quizName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.quizName.BorderRadius = 8;
+            this.quizName.BorderThickness = 2;
             this.quizName.Controls.Add(this.questionCountBox);
             this.quizName.Controls.Add(this.lblQuestionCount);
             this.quizName.Controls.Add(this.quizBox);
-            this.quizName.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.quizName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.quizName.Location = new System.Drawing.Point(23, 49);
+            this.quizName.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.quizName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.quizName.ForeColor = System.Drawing.Color.White;
+            this.quizName.Location = new System.Drawing.Point(40, 60);
             this.quizName.Name = "quizName";
-            this.quizName.Size = new System.Drawing.Size(474, 118);
+            this.quizName.Size = new System.Drawing.Size(520, 130);
             this.quizName.TabIndex = 5;
             this.quizName.Text = "Tên bộ câu hỏi";
             // 
             // questionCountBox
             // 
-            this.questionCountBox.AutoRoundedCorners = true;
-            this.questionCountBox.BackColor = System.Drawing.Color.White;
+            this.questionCountBox.BackColor = System.Drawing.Color.Transparent;
+            this.questionCountBox.BorderRadius = 6;
             this.questionCountBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.questionCountBox.DefaultText = "10";
             this.questionCountBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.questionCountBox.Location = new System.Drawing.Point(110, 86);
+            this.questionCountBox.Location = new System.Drawing.Point(120, 85);
             this.questionCountBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.questionCountBox.Name = "questionCountBox";
             this.questionCountBox.PlaceholderText = "";
             this.questionCountBox.SelectedText = "";
-            this.questionCountBox.Size = new System.Drawing.Size(100, 28);
+            this.questionCountBox.Size = new System.Drawing.Size(100, 32);
             this.questionCountBox.TabIndex = 6;
             // 
             // lblQuestionCount
             // 
             this.lblQuestionCount.BackColor = System.Drawing.Color.Transparent;
             this.lblQuestionCount.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblQuestionCount.Location = new System.Drawing.Point(4, 90);
+            this.lblQuestionCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblQuestionCount.Location = new System.Drawing.Point(15, 90);
             this.lblQuestionCount.Name = "lblQuestionCount";
             this.lblQuestionCount.Size = new System.Drawing.Size(75, 22);
             this.lblQuestionCount.TabIndex = 5;
@@ -122,301 +156,336 @@
             // 
             // quizBox
             // 
-            this.quizBox.AutoRoundedCorners = true;
-            this.quizBox.BackColor = System.Drawing.Color.White;
+            this.quizBox.BackColor = System.Drawing.Color.Transparent;
+            this.quizBox.BorderRadius = 6;
             this.quizBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.quizBox.DefaultText = "";
-            this.quizBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.quizBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.quizBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.quizBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.quizBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.quizBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.quizBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.quizBox.Location = new System.Drawing.Point(4, 58);
+            this.quizBox.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.quizBox.Location = new System.Drawing.Point(15, 50);
             this.quizBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.quizBox.Name = "quizBox";
             this.quizBox.PlaceholderText = "";
             this.quizBox.SelectedText = "";
-            this.quizBox.Size = new System.Drawing.Size(466, 28);
+            this.quizBox.Size = new System.Drawing.Size(490, 32);
             this.quizBox.TabIndex = 4;
             // 
             // back
             // 
+            this.back.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.back.BorderRadius = 8;
+            this.back.BorderThickness = 2;
             this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.back.FillColor = System.Drawing.Color.Green;
-            this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.back.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.back.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.back.ForeColor = System.Drawing.Color.White;
-            this.back.Location = new System.Drawing.Point(0, 0);
+            this.back.Location = new System.Drawing.Point(40, 15);
             this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(121, 41);
+            this.back.Size = new System.Drawing.Size(130, 38);
             this.back.TabIndex = 12;
             this.back.Text = "Quay lại";
+            this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // save
             // 
+            this.save.BackColor = System.Drawing.Color.Transparent;
+            this.save.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.save.BorderRadius = 8;
+            this.save.BorderThickness = 2;
             this.save.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.save.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.save.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.save.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.save.FillColor = System.Drawing.Color.Green;
-            this.save.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.save.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.save.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.save.ForeColor = System.Drawing.Color.White;
-            this.save.Location = new System.Drawing.Point(1070, 603);
+            this.save.Location = new System.Drawing.Point(1025, 605);
             this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(180, 60);
+            this.save.Size = new System.Drawing.Size(200, 45);
             this.save.TabIndex = 11;
-            this.save.Text = "Lưu bộ câu hỏi và thoát";
+            this.save.Text = "Lưu bộ câu hỏi";
             this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // num
             // 
             this.num.BackColor = System.Drawing.Color.Transparent;
-            this.num.Font = new System.Drawing.Font("Segoe UI", 11.89565F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num.Location = new System.Drawing.Point(845, 558);
+            this.num.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.num.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.num.Location = new System.Drawing.Point(908, 555);
             this.num.Name = "num";
-            this.num.Size = new System.Drawing.Size(14, 30);
+            this.num.Size = new System.Drawing.Size(16, 33);
             this.num.TabIndex = 10;
             this.num.Text = "1";
             // 
             // next
             // 
+            this.next.BackColor = System.Drawing.Color.Transparent;
+            this.next.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.next.BorderRadius = 8;
+            this.next.BorderThickness = 2;
             this.next.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.next.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.next.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.next.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.next.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.next.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.next.ForeColor = System.Drawing.Color.White;
-            this.next.Location = new System.Drawing.Point(965, 553);
+            this.next.Location = new System.Drawing.Point(1025, 555);
             this.next.Name = "next";
-            this.next.Size = new System.Drawing.Size(180, 32);
+            this.next.Size = new System.Drawing.Size(200, 40);
             this.next.TabIndex = 9;
             this.next.Text = "Câu kế tiếp";
             this.next.Click += new System.EventHandler(this.next_Click);
             // 
             // previous
             // 
+            this.previous.BackColor = System.Drawing.Color.Transparent;
+            this.previous.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.previous.BorderRadius = 8;
+            this.previous.BorderThickness = 2;
             this.previous.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.previous.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.previous.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.previous.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.previous.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.previous.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.previous.ForeColor = System.Drawing.Color.White;
-            this.previous.Location = new System.Drawing.Point(558, 553);
+            this.previous.Location = new System.Drawing.Point(615, 555);
             this.previous.Name = "previous";
-            this.previous.Size = new System.Drawing.Size(180, 32);
+            this.previous.Size = new System.Drawing.Size(200, 40);
             this.previous.TabIndex = 8;
             this.previous.Text = "Câu trước";
             this.previous.Click += new System.EventHandler(this.previous_Click);
             // 
             // add
             // 
+            this.add.BackColor = System.Drawing.Color.Transparent;
+            this.add.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.add.BorderRadius = 8;
+            this.add.BorderThickness = 2;
             this.add.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.add.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.add.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.add.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.add.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.add.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.add.ForeColor = System.Drawing.Color.White;
-            this.add.Location = new System.Drawing.Point(965, 495);
+            this.add.Location = new System.Drawing.Point(1025, 505);
             this.add.Name = "add";
-            this.add.Size = new System.Drawing.Size(180, 32);
+            this.add.Size = new System.Drawing.Size(200, 40);
             this.add.TabIndex = 7;
             this.add.Text = "Lưu";
             this.add.Click += new System.EventHandler(this.add_Click);
             // 
             // delete
             // 
+            this.delete.BackColor = System.Drawing.Color.Transparent;
+            this.delete.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.delete.BorderRadius = 8;
+            this.delete.BorderThickness = 2;
             this.delete.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.delete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.delete.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.delete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.delete.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.delete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.delete.ForeColor = System.Drawing.Color.White;
-            this.delete.Location = new System.Drawing.Point(558, 495);
+            this.delete.Location = new System.Drawing.Point(615, 505);
             this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(180, 32);
+            this.delete.Size = new System.Drawing.Size(200, 40);
             this.delete.TabIndex = 6;
             this.delete.Text = "Xóa câu hỏi";
             // 
             // pic
             // 
+            this.pic.BackColor = System.Drawing.Color.Transparent;
             this.pic.Image = global::FormAppQuyt.Properties.Resources.istockphoto_1386740242_612x612;
             this.pic.ImageRotate = 0F;
-            this.pic.Location = new System.Drawing.Point(558, 61);
+            this.pic.Location = new System.Drawing.Point(615, 60);
             this.pic.Name = "pic";
-            this.pic.Size = new System.Drawing.Size(587, 405);
+            this.pic.ShadowDecoration.BorderRadius = 0;
+            this.pic.ShadowDecoration.Enabled = true;
+            this.pic.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(0, 0, 8, 8);
+            this.pic.Size = new System.Drawing.Size(610, 430);
             this.pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic.TabIndex = 6;
             this.pic.TabStop = false;
             // 
             // question
             // 
+            this.question.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.question.BorderRadius = 8;
+            this.question.BorderThickness = 2;
+            this.question.Controls.Add(this.Time);
+            this.question.Controls.Add(this.timeBox);
             this.question.Controls.Add(this.addPic);
             this.question.Controls.Add(this.quesBox);
-            this.question.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.question.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.question.Location = new System.Drawing.Point(23, 173);
+            this.question.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.question.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.question.ForeColor = System.Drawing.Color.White;
+            this.question.Location = new System.Drawing.Point(40, 205);
             this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(474, 136);
+            this.question.Size = new System.Drawing.Size(520, 145);
             this.question.TabIndex = 5;
             this.question.Text = "Câu hỏi";
             // 
+            // Time
+            // 
+            this.Time.BackColor = System.Drawing.Color.Transparent;
+            this.Time.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Time.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Time.Location = new System.Drawing.Point(15, 100);
+            this.Time.Name = "Time";
+            this.Time.Size = new System.Drawing.Size(65, 22);
+            this.Time.TabIndex = 6;
+            this.Time.Text = "Thời gian";
+            // 
+            // timeBox
+            // 
+            this.timeBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.timeBox.FormattingEnabled = true;
+            this.timeBox.Location = new System.Drawing.Point(110, 97);
+            this.timeBox.Name = "timeBox";
+            this.timeBox.Size = new System.Drawing.Size(140, 28);
+            this.timeBox.TabIndex = 1;
+            // 
             // addPic
             // 
+            this.addPic.BackColor = System.Drawing.Color.Transparent;
+            this.addPic.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.addPic.BorderRadius = 6;
+            this.addPic.BorderThickness = 2;
             this.addPic.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.addPic.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.addPic.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.addPic.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.addPic.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.addPic.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.addPic.ForeColor = System.Drawing.Color.White;
-            this.addPic.Location = new System.Drawing.Point(290, 94);
+            this.addPic.Location = new System.Drawing.Point(305, 95);
             this.addPic.Name = "addPic";
-            this.addPic.Size = new System.Drawing.Size(180, 32);
+            this.addPic.Size = new System.Drawing.Size(200, 32);
             this.addPic.TabIndex = 5;
             this.addPic.Text = "Thêm ảnh";
             this.addPic.Click += new System.EventHandler(this.addPic_Click);
             // 
             // quesBox
             // 
-            this.quesBox.AutoRoundedCorners = true;
-            this.quesBox.BackColor = System.Drawing.Color.White;
+            this.quesBox.BackColor = System.Drawing.Color.Transparent;
+            this.quesBox.BorderRadius = 6;
             this.quesBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.quesBox.DefaultText = "";
-            this.quesBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.quesBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.quesBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.quesBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.quesBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.quesBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.quesBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.quesBox.Location = new System.Drawing.Point(4, 58);
+            this.quesBox.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.quesBox.Location = new System.Drawing.Point(15, 50);
             this.quesBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.quesBox.Multiline = true;
             this.quesBox.Name = "quesBox";
             this.quesBox.PlaceholderText = "";
             this.quesBox.SelectedText = "";
-            this.quesBox.Size = new System.Drawing.Size(466, 28);
+            this.quesBox.Size = new System.Drawing.Size(490, 36);
             this.quesBox.TabIndex = 4;
             // 
             // correct
             // 
+            this.correct.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.correct.BorderRadius = 8;
+            this.correct.BorderThickness = 2;
             this.correct.Controls.Add(this.correctBox);
-            this.correct.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.correct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.correct.Location = new System.Drawing.Point(23, 315);
+            this.correct.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.correct.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.correct.ForeColor = System.Drawing.Color.White;
+            this.correct.Location = new System.Drawing.Point(40, 365);
             this.correct.Name = "correct";
-            this.correct.Size = new System.Drawing.Size(474, 118);
+            this.correct.Size = new System.Drawing.Size(520, 100);
             this.correct.TabIndex = 2;
             this.correct.Text = "Câu trả lời đúng";
             // 
             // correctBox
             // 
-            this.correctBox.AutoRoundedCorners = true;
-            this.correctBox.BackColor = System.Drawing.Color.White;
+            this.correctBox.BackColor = System.Drawing.Color.Transparent;
+            this.correctBox.BorderRadius = 6;
             this.correctBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.correctBox.DefaultText = "";
-            this.correctBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.correctBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.correctBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.correctBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.correctBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.correctBox.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.correctBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.correctBox.Location = new System.Drawing.Point(4, 58);
+            this.correctBox.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.correctBox.Location = new System.Drawing.Point(15, 52);
             this.correctBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.correctBox.Name = "correctBox";
             this.correctBox.PlaceholderText = "";
             this.correctBox.SelectedText = "";
-            this.correctBox.Size = new System.Drawing.Size(466, 28);
+            this.correctBox.Size = new System.Drawing.Size(490, 32);
             this.correctBox.TabIndex = 4;
             // 
             // wrong
             // 
+            this.wrong.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(64)))), ((int)(((byte)(25)))));
+            this.wrong.BorderRadius = 8;
+            this.wrong.BorderThickness = 2;
             this.wrong.Controls.Add(this.wrongBox3);
             this.wrong.Controls.Add(this.wrongBox2);
             this.wrong.Controls.Add(this.wrongBox1);
-            this.wrong.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.wrong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.wrong.Location = new System.Drawing.Point(23, 439);
+            this.wrong.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.wrong.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.wrong.ForeColor = System.Drawing.Color.White;
+            this.wrong.Location = new System.Drawing.Point(40, 480);
             this.wrong.Name = "wrong";
-            this.wrong.Size = new System.Drawing.Size(474, 184);
+            this.wrong.Size = new System.Drawing.Size(520, 170);
             this.wrong.TabIndex = 2;
             this.wrong.Text = "Câu trả lời sai";
             // 
             // wrongBox3
             // 
-            this.wrongBox3.AutoRoundedCorners = true;
-            this.wrongBox3.BackColor = System.Drawing.Color.White;
+            this.wrongBox3.BackColor = System.Drawing.Color.Transparent;
+            this.wrongBox3.BorderRadius = 6;
             this.wrongBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.wrongBox3.DefaultText = "";
-            this.wrongBox3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.wrongBox3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.wrongBox3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.wrongBox3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.wrongBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.wrongBox3.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.wrongBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.wrongBox3.Location = new System.Drawing.Point(4, 132);
+            this.wrongBox3.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.wrongBox3.Location = new System.Drawing.Point(15, 125);
             this.wrongBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.wrongBox3.Name = "wrongBox3";
             this.wrongBox3.PlaceholderText = "";
             this.wrongBox3.SelectedText = "";
-            this.wrongBox3.Size = new System.Drawing.Size(466, 28);
+            this.wrongBox3.Size = new System.Drawing.Size(490, 32);
             this.wrongBox3.TabIndex = 7;
             // 
             // wrongBox2
             // 
-            this.wrongBox2.AutoRoundedCorners = true;
-            this.wrongBox2.BackColor = System.Drawing.Color.White;
+            this.wrongBox2.BackColor = System.Drawing.Color.Transparent;
+            this.wrongBox2.BorderRadius = 6;
             this.wrongBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.wrongBox2.DefaultText = "";
-            this.wrongBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.wrongBox2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.wrongBox2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.wrongBox2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.wrongBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.wrongBox2.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.wrongBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.wrongBox2.Location = new System.Drawing.Point(4, 94);
+            this.wrongBox2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.wrongBox2.Location = new System.Drawing.Point(15, 86);
             this.wrongBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.wrongBox2.Name = "wrongBox2";
             this.wrongBox2.PlaceholderText = "";
             this.wrongBox2.SelectedText = "";
-            this.wrongBox2.Size = new System.Drawing.Size(466, 28);
+            this.wrongBox2.Size = new System.Drawing.Size(490, 32);
             this.wrongBox2.TabIndex = 6;
             // 
             // wrongBox1
             // 
-            this.wrongBox1.AutoRoundedCorners = true;
-            this.wrongBox1.BackColor = System.Drawing.Color.White;
+            this.wrongBox1.BackColor = System.Drawing.Color.Transparent;
+            this.wrongBox1.BorderRadius = 6;
             this.wrongBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.wrongBox1.DefaultText = "";
-            this.wrongBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.wrongBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.wrongBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.wrongBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.wrongBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.wrongBox1.Font = new System.Drawing.Font("Segoe UI", 11.89565F);
-            this.wrongBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.wrongBox1.Location = new System.Drawing.Point(4, 56);
+            this.wrongBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.wrongBox1.Location = new System.Drawing.Point(15, 47);
             this.wrongBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.wrongBox1.Name = "wrongBox1";
             this.wrongBox1.PlaceholderText = "";
             this.wrongBox1.SelectedText = "";
-            this.wrongBox1.Size = new System.Drawing.Size(466, 28);
+            this.wrongBox1.Size = new System.Drawing.Size(490, 32);
             this.wrongBox1.TabIndex = 5;
             // 
             // guna2ControlBox1
             // 
             this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.Red;
-            this.guna2ControlBox1.IconColor = System.Drawing.Color.Black;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(1218, 0);
+            this.guna2ControlBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ControlBox1.BorderRadius = 8;
+            this.guna2ControlBox1.FillColor = System.Drawing.Color.Transparent;
+            this.guna2ControlBox1.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
+            this.guna2ControlBox1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.guna2ControlBox1.Location = new System.Drawing.Point(1210, 10);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
-            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
+            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 35);
             this.guna2ControlBox1.TabIndex = 0;
             // 
             // guna2BorderlessForm1
@@ -425,14 +494,14 @@
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
-            // createQuiz
+            // CreateQuizForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 675);
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "createQuiz";
+            this.Name = "CreateQuizForm";
             this.Text = "Form1";
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
@@ -440,6 +509,7 @@
             this.quizName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).EndInit();
             this.question.ResumeLayout(false);
+            this.question.PerformLayout();
             this.correct.ResumeLayout(false);
             this.wrong.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -472,5 +542,8 @@
         private Guna.UI2.WinForms.Guna2TextBox quizBox;
         private Guna.UI2.WinForms.Guna2TextBox questionCountBox;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblQuestionCount;
+        private Guna.UI2.WinForms.Guna2HtmlLabel Time;
+        private System.Windows.Forms.ComboBox timeBox;
+        private Guna.UI2.WinForms.Guna2Button btnImportTxt;
     }
 }
